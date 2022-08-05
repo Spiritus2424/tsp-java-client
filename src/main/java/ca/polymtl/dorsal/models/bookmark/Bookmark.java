@@ -1,14 +1,16 @@
+package ca.polymtl.dorsal.models.bookmark;
+
 import java.math.BigInteger;
 
 public class Bookmark {
-    private String UUID;
+    private String uUID;
     private String name;
     private BigInteger startTime;
     private BigInteger endTime;
     private String type;
 
     public Bookmark(String uUID, String name, BigInteger startTime, BigInteger endTime, String type) {
-        UUID = uUID;
+        this.uUID = uUID;
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -16,11 +18,11 @@ public class Bookmark {
     }
 
     public String getUUID() {
-        return UUID;
+        return uUID;
     }
 
     public void setUUID(String uUID) {
-        UUID = uUID;
+        this.uUID = uUID;
     }
 
     public String getName() {
