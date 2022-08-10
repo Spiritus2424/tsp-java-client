@@ -3,7 +3,7 @@ package ca.polymtl.dorsal.models.trace;
 import java.math.BigInteger;
 
 public class Trace {
-    private String UUID;
+    private String uuid;
     private String name;
     private BigInteger start;
     private BigInteger end;
