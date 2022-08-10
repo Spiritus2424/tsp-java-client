@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import ca.polymtl.dorsal.models.trace.Trace;
 
 public class Experiment {
-    private String uUID;
+    private String uuid;
     private String name;
     private BigInteger start;
     private BigInteger end;
@@ -14,9 +14,9 @@ public class Experiment {
     private String indexingStatus;
     private ArrayList<Trace> traces;
 
-    public Experiment(String uUID, String name, BigInteger start, BigInteger end, int nbEvents, String indexingStatus,
+    public Experiment(String uuid, String name, BigInteger start, BigInteger end, int nbEvents, String indexingStatus,
             ArrayList<Trace> traces) {
-        this.uUID = uUID;
+        this.uuid = uuid;
         this.name = name;
         this.start = start;
         this.end = end;
@@ -25,12 +25,12 @@ public class Experiment {
         this.traces = traces;
     }
 
-    public String getUUID() {
-        return uUID;
+    public String getuuid() {
+        return uuid;
     }
 
-    public void setUUID(String uUID) {
-        this.uUID = uUID;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
