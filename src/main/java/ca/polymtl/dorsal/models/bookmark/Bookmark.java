@@ -3,26 +3,26 @@ package ca.polymtl.dorsal.models.bookmark;
 import java.math.BigInteger;
 
 public class Bookmark {
-    private String uUID;
+    private String uuid;
     private String name;
     private BigInteger startTime;
     private BigInteger endTime;
     private String type;
 
-    public Bookmark(String uUID, String name, BigInteger startTime, BigInteger endTime, String type) {
-        this.uUID = uUID;
+    public Bookmark(String uuid, String name, BigInteger startTime, BigInteger endTime, String type) {
+        this.uuid = uuid;
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.type = type;
     }
 
-    public String getUUID() {
-        return uUID;
+    public String getuuid() {
+        return uuid;
     }
 
-    public void setUUID(String uUID) {
-        this.uUID = uUID;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
