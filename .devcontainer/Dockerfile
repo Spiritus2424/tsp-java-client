@@ -4,5 +4,5 @@
 ARG VARIANT="11"
 FROM mcr.microsoft.com/vscode/devcontainers/java:0-${VARIANT}
 
-ARG MAVEN_VERSION=""
-RUN su vscode -c "umask 0002 && . /usr/local/sdkman/bin/sdkman-init.sh && sdk install maven \"${MAVEN_VERSION}\""
+ARG GRADLE_VERSION=""
+RUN su vscode -c "umask 0002 && . /usr/local/sdkman/bin/sdkman-init.sh && sdk install gradle \"${GRADLE_VERSION}\""
