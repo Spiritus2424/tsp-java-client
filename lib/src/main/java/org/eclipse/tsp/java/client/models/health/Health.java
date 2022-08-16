@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.health;
+package org.eclipse.tsp.java.client.models.health;
 
 public class Health {
     private HealthStatus status;

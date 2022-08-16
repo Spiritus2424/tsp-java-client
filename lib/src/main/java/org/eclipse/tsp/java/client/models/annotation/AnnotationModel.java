@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.annotation;
+package org.eclipse.tsp.java.client.models.annotation;
 
 import java.util.Map;
 

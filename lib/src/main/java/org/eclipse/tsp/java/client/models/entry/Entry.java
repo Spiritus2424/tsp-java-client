@@ -1,9 +1,9 @@
-package ca.polymtl.dorsal.models.entry;
+package org.eclipse.tsp.java.client.models.entry;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-import ca.polymtl.dorsal.models.style.OutputElementStyle;
+import org.eclipse.tsp.java.client.models.style.OutputElementStyle;
 
 public class Entry {
     private int id;

@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.table;
+package org.eclipse.tsp.java.client.models.table;
 
 public class Cell {
     private String content;

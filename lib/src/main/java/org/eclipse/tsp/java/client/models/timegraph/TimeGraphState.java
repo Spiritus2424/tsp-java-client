@@ -1,8 +1,8 @@
-package ca.polymtl.dorsal.models.timegraph;
+package org.eclipse.tsp.java.client.models.timegraph;
 
 import java.math.BigInteger;
 
-import ca.polymtl.dorsal.models.style.OutputElementStyle;
+import org.eclipse.tsp.java.client.models.style.OutputElementStyle;
 
 public class TimeGraphState {
     private BigInteger start;

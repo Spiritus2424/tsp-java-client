@@ -1,9 +1,9 @@
-package ca.polymtl.dorsal.models.xy;
+package org.eclipse.tsp.java.client.models.xy;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import ca.polymtl.dorsal.models.style.OutputElementStyle;
+import org.eclipse.tsp.java.client.models.style.OutputElementStyle;
 
 public class XYSerie {
     private String serieName;

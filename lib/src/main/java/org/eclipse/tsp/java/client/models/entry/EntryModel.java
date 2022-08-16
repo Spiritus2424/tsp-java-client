@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.entry;
+package org.eclipse.tsp.java.client.models.entry;
 
 import java.util.ArrayList;
 

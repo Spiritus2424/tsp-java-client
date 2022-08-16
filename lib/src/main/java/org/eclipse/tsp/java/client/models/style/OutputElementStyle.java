@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.style;
+package org.eclipse.tsp.java.client.models.style;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.trace;
+package org.eclipse.tsp.java.client.models.trace;
 
 import java.math.BigInteger;
 

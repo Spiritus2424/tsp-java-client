@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.entry;
+package org.eclipse.tsp.java.client.models.entry;
 
 public class EntryHeader {
     private String name;

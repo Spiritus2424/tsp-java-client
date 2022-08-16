@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.xy;
+package org.eclipse.tsp.java.client.models.xy;
 
 public class XYAxis {
     private String label;

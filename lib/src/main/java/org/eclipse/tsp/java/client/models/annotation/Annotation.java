@@ -1,8 +1,8 @@
-package ca.polymtl.dorsal.models.annotation;
+package org.eclipse.tsp.java.client.models.annotation;
 
 import java.math.BigInteger;
 
-import ca.polymtl.dorsal.models.style.OutputElementStyle;
+import org.eclipse.tsp.java.client.models.style.OutputElementStyle;
 
 /**
  * Annotation

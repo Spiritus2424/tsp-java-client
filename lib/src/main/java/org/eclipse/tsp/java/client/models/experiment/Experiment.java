@@ -1,9 +1,9 @@
-package ca.polymtl.dorsal.models.experiment;
+package org.eclipse.tsp.java.client.models.experiment;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import ca.polymtl.dorsal.models.trace.Trace;
+import org.eclipse.tsp.java.client.models.trace.Trace;
 
 public class Experiment {
     private String uuid;

@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.outputdescriptor;
+package org.eclipse.tsp.java.client.models.outputdescriptor;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.timegraph;
+package org.eclipse.tsp.java.client.models.timegraph;
 
 import java.util.ArrayList;
 

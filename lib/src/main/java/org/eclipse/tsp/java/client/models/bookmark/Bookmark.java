@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.bookmark;
+package org.eclipse.tsp.java.client.models.bookmark;
 
 import java.math.BigInteger;
 

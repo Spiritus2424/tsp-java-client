@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.response;
+package org.eclipse.tsp.java.client.models.response;
 
 public enum ResponseStatus {
     RUNNING,

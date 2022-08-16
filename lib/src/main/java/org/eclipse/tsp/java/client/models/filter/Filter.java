@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.filter;
+package org.eclipse.tsp.java.client.models.filter;
 
 import java.math.BigInteger;
 

@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.query;
+package org.eclipse.tsp.java.client.models.query;
 
 import java.math.BigInteger;
 

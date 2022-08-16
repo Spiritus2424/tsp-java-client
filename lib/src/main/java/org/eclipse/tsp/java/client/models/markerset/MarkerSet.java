@@ -1,4 +1,4 @@
-package ca.polymtl.dorsal.models.markerset;
+package org.eclipse.tsp.java.client.models.markerset;
 
 public class MarkerSet {
     private String name;
