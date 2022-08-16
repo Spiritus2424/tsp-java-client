@@ -1,11 +1,5 @@
-# Ignore Gradle build ouput directory
-build
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Avoid ignoring Gradle Wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-# Cache of project
+# Ignore Gradle project-specific cache directory
 .gradle
+
+# Ignore Gradle build output directory
+build
