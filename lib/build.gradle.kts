@@ -6,9 +6,21 @@
  * User Manual available at https://docs.gradle.org/7.5.1/userguide/building_java_projects.html
  */
 
+group = "org.eclipse"
+version = "0.1.0"
+
 plugins {
     // Apply the java-library plugin for API and implementation separation.
-    `java-library`
+    id("java-library")
+
+    // Apply the maven-publish plugin for API and implementation separation. 
+    id("maven-publish")
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
 }
 
 repositories {
@@ -30,4 +42,25 @@ dependencies {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+tasks.jar {
+    archiveBaseName.set("tsp-java-client")
+    manifest {
+        attributes(mapOf(
+            "Implementation-Title" to project.name, 
+            "Implementation-Version" to project.name))
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("tsp-java-client") {
+            groupId = project.group.toString()
+            artifactId = project.name
+            version = project.version.toString()
+
+            from(components["java"])
+        }
+    }
 }
