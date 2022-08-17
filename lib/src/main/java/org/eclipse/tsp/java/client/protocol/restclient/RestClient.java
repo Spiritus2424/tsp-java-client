@@ -32,15 +32,18 @@ public class RestClient {
                         response.getStatusInfo().getReasonPhrase());
     }
 
-    public static <T> TspClientResponse<T> post(String url, Optional<Entity<Object>> body) {
-        Response response = ClientBuilder.newClient().target(url).request(MediaType.APPLICATION_JSON).post(body.get());
+    public static <T> TspClientResponse<T> post(String url, Optional<Object> body) {
+        final Entity<Object> entity = Entity.entity(body.get(), MediaType.APPLICATION_JSON);
+        Response response = ClientBuilder.newClient().target(url).request(MediaType.APPLICATION_JSON).post(entity);
+
         checkResponseStatusCode(response.getStatusInfo().toEnum());
         return new TspClientResponse<T>(response.getStatusInfo().toEnum(),
                 response.getStatusInfo().getReasonPhrase());
     }
 
-    public static <T> TspClientResponse<T> put(String url, Optional<Entity<Object>> body) {
-        Response response = ClientBuilder.newClient().target(url).request(MediaType.APPLICATION_JSON).put(body.get());
+    public static <T> TspClientResponse<T> put(String url, Optional<Object> body) {
+        final Entity<Object> entity = Entity.entity(body.get(), MediaType.APPLICATION_JSON);
+        Response response = ClientBuilder.newClient().target(url).request(MediaType.APPLICATION_JSON).put(entity);
         checkResponseStatusCode(response.getStatusInfo().toEnum());
         return new TspClientResponse<T>(response.getStatusInfo().toEnum(),
                 response.getStatusInfo().getReasonPhrase());
