@@ -37,6 +37,10 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:31.0.1-jre")
+    
+    
+    implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
+    
 }
 
 tasks.named<Test>("test") {
@@ -44,7 +48,7 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-tasks.jar {
+tasks.named<Jar>("jar") {
     archiveBaseName.set("tsp-java-client")
     manifest {
         attributes(mapOf(
