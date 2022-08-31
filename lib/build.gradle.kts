@@ -42,15 +42,19 @@ dependencies {
     
     
     implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
+    implementation("org.glassfish.jersey.core:jersey-client:3.1.0-M3")
+    implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.0-M3")
+    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.0-M3")
+
     
 }
 
-tasks.named<Test>("test") {
+tasks.test {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
 
-tasks.named<Jar>("jar") {
+tasks.jar {
     archiveBaseName.set("tsp-java-client")
     manifest {
         attributes(mapOf(
