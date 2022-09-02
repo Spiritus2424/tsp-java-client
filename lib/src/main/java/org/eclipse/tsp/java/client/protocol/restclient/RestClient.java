@@ -11,7 +11,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 public class RestClient {
-    private static ConnectionStatus connectionStatus;
+    private static ConnectionStatus connectionStatus = new ConnectionStatus();
 
     @SuppressWarnings("unchecked")
     public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters)
@@ -33,16 +33,17 @@ public class RestClient {
     }
 
     public static <T> TspClientResponse<T> post(String url, Optional<Object> body) {
-        final Entity<Object> entity = Entity.entity(body.get(), MediaType.APPLICATION_JSON);
-        Response response = ClientBuilder.newClient().target(url).request(MediaType.APPLICATION_JSON).post(entity);
+        final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
+        Response response = ClientBuilder.newClient().target(url).request(MediaType.APPLICATION_JSON)
+                .post(entity);
 
         checkResponseStatusCode(response.getStatusInfo().toEnum());
         return new TspClientResponse<T>(response.getStatusInfo().toEnum(),
                 response.getStatusInfo().getReasonPhrase());
     }
 
-    public static <T> TspClientResponse<T> put(String url, Optional<Object> body) {
-        final Entity<Object> entity = Entity.entity(body.get(), MediaType.APPLICATION_JSON);
+    public static <T> TspClientResponse<T> put(String url, Object body) {
+        final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
         Response response = ClientBuilder.newClient().target(url).request(MediaType.APPLICATION_JSON).put(entity);
         checkResponseStatusCode(response.getStatusInfo().toEnum());
         return new TspClientResponse<T>(response.getStatusInfo().toEnum(),

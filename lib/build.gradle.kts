@@ -31,6 +31,8 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    // WireMock
+    testImplementation("com.github.tomakehurst:wiremock-jre8:2.33.2")
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
@@ -40,15 +42,19 @@ dependencies {
     
     
     implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
+    implementation("org.glassfish.jersey.core:jersey-client:3.1.0-M3")
+    implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.0-M3")
+    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.0-M3")
+
     
 }
 
-tasks.named<Test>("test") {
+tasks.test {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
 
-tasks.named<Jar>("jar") {
+tasks.jar {
     archiveBaseName.set("tsp-java-client")
     manifest {
         attributes(mapOf(
