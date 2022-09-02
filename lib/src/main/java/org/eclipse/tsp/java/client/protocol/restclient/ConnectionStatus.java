@@ -24,8 +24,8 @@ public class ConnectionStatus {
     }
 
     public void setStatus(boolean status) {
-        this.status = status;
         this.support.firePropertyChange("status", this.status, status);
+        this.status = status;
     }
 
 }
