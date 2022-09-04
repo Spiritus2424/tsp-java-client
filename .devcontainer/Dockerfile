@@ -5,4 +5,11 @@ ARG VARIANT="11"
 FROM mcr.microsoft.com/vscode/devcontainers/java:0-${VARIANT}
 
 ARG GRADLE_VERSION=""
+
 RUN su vscode -c "umask 0002 && . /usr/local/sdkman/bin/sdkman-init.sh && sdk install gradle \"${GRADLE_VERSION}\""
+
+ENV GRADLE_USER_HOME=/home/vscode/.gradle
+
+RUN mkdir -p $GRADLE_USER_HOME && \
+    chown -R vscode:vscode $GRADLE_USER_HOME
+
