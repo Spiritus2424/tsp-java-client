@@ -11,10 +11,11 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 public class RestClient {
+
     private static ConnectionStatus connectionStatus = new ConnectionStatus();
 
-    @SuppressWarnings("unchecked")
-    public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters)
+    public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
+            Class<? extends T> clazz)
             throws ClassCastException {
         WebTarget webTarget = ClientBuilder.newClient().target(url);
         if (queryParameters.isPresent()) {
@@ -27,7 +28,7 @@ public class RestClient {
         checkResponseStatusCode(response.getStatusInfo().toEnum());
         return (response.hasEntity())
                 ? new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-                        response.getStatusInfo().getReasonPhrase(), (T) response.getEntity())
+                        response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz))
                 : new TspClientResponse<T>(response.getStatusInfo().toEnum(),
                         response.getStatusInfo().getReasonPhrase());
     }

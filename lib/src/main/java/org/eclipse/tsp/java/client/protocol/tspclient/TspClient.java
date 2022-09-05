@@ -11,7 +11,7 @@ import org.eclipse.tsp.java.client.models.annotation.AnnotationModel;
 import org.eclipse.tsp.java.client.models.entry.Entry;
 import org.eclipse.tsp.java.client.models.entry.EntryModel;
 import org.eclipse.tsp.java.client.models.experiment.Experiment;
-import org.eclipse.tsp.java.client.models.health.HealthStatus;
+import org.eclipse.tsp.java.client.models.health.Health;
 import org.eclipse.tsp.java.client.models.markerset.MarkerSet;
 import org.eclipse.tsp.java.client.models.outputdescriptor.OutputDescriptor;
 import org.eclipse.tsp.java.client.models.query.Query;
@@ -35,11 +35,11 @@ public class TspClient {
 
     public TspClientResponse<Trace[]> getTraces(Optional<Map<String, String>> queryParameters) {
 
-        return RestClient.get(String.format("%s/traces", this.baseUrl), queryParameters);
+        return RestClient.get(String.format("%s/traces", this.baseUrl), queryParameters, Trace[].class);
     }
 
     public TspClientResponse<Trace> getTrace(String traceUuid) {
-        return RestClient.get(String.format("%s/traces/%s", this.baseUrl, traceUuid), Optional.empty());
+        return RestClient.get(String.format("%s/traces/%s", this.baseUrl, traceUuid), Optional.empty(), Trace.class);
     }
 
     public TspClientResponse<Trace> openTrace(Query query) {
@@ -61,11 +61,12 @@ public class TspClient {
     }
 
     public TspClientResponse<Experiment[]> getExperiments(Optional<Map<String, String>> queryParameters) {
-        return RestClient.get(String.format("%s/experiments", this.baseUrl), queryParameters);
+        return RestClient.get(String.format("%s/experiments", this.baseUrl), queryParameters, Experiment[].class);
     }
 
     public TspClientResponse<Experiment> getExperiment(String experimentUuid) {
-        return RestClient.get(String.format("%s/experiments/%s", this.baseUrl, experimentUuid), Optional.empty());
+        return RestClient.get(String.format("%s/experiments/%s", this.baseUrl, experimentUuid), Optional.empty(),
+                Experiment.class);
     }
 
     public TspClientResponse<Experiment> createExperiment(Query query) {
@@ -83,7 +84,7 @@ public class TspClient {
     public TspClientResponse<OutputDescriptor[]> experimentOutPuts(String experimentUuid,
             Optional<Map<String, String>> queryParameters) {
         return RestClient.get(String.format("%s/experiments/%s/outputs", this.baseUrl, experimentUuid),
-                queryParameters);
+                queryParameters, OutputDescriptor[].class);
     }
 
     public TspClientResponse<GenericResponse<EntryModel<Entry>>> getXYTree(String experimentUuid, String outputId,
@@ -113,7 +114,7 @@ public class TspClient {
 
         return RestClient.get(
                 String.format("%s/experiments/%s/outputs/XY/%s/tooltip", this.baseUrl, experimentUuid, outputId),
-                Optional.of(queryParameters));
+                Optional.of(queryParameters), GenericResponse.class);
     }
 
     public TspClientResponse<GenericResponse<EntryModel<TimeGraphEntry>>> getTimeGraphTree(String experimentUuid,
@@ -143,7 +144,7 @@ public class TspClient {
     public TspClientResponse<GenericResponse<MarkerSet[]>> getMarkerSets(String experimentUuid) {
         return RestClient.get(
                 String.format("%s/experiments/%s/outputs/markerSets", this.baseUrl, experimentUuid),
-                Optional.empty());
+                Optional.empty(), GenericResponse.class);
     }
 
     public TspClientResponse<GenericResponse<AnnotationCategoriesModel>> getAnnotationsCategories(
@@ -156,7 +157,7 @@ public class TspClient {
 
         return RestClient.get(
                 String.format("%s/experiments/%s/outputs/%s/annotations", this.baseUrl, experimentUuid, outputId),
-                markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty());
+                markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(), GenericResponse.class);
     }
 
     public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(String experimentUuid, String outputId,
@@ -198,7 +199,8 @@ public class TspClient {
                 Optional.of(query));
     }
 
-    public TspClientResponse<HealthStatus> checkHealth() {
-        return RestClient.get(String.format("%s/health", this.baseUrl), Optional.empty());
+    public TspClientResponse<Health> checkHealth() {
+        return RestClient.get(String.format("%s/health", this.baseUrl), Optional.empty(), Health.class);
     }
+
 }
