@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.eclipse.tsp.java.client.models.trace.Trace;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Experiment {
     private String uuid;
     private String name;
@@ -13,6 +15,9 @@ public class Experiment {
     private int nbEvents;
     private String indexingStatus;
     private ArrayList<Trace> traces;
+
+    public Experiment() {
+    }
 
     public Experiment(String uuid, String name, BigInteger start, BigInteger end, int nbEvents, String indexingStatus,
             ArrayList<Trace> traces) {
@@ -25,6 +30,7 @@ public class Experiment {
         this.traces = traces;
     }
 
+    @JsonProperty("UUID")
     public String getUuid() {
         return uuid;
     }
