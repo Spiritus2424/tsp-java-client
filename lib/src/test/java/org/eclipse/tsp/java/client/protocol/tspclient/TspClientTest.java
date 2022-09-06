@@ -38,7 +38,7 @@ public class TspClientTest {
         stubFor(get("/health").willReturn(aResponse()
                 .withStatus(200)
                 .withHeader("Content-Type", "application/json")
-                .withBodyFile(String.format("%s/get-check-health-0.json", FIXTURE_PATH))));
+                .withBodyFile(String.format("%s/fetch-check-health-0.json", FIXTURE_PATH))));
 
         TspClientResponse<Health> response = tspClient.checkHealth();
         assertTrue(response.isOk());
