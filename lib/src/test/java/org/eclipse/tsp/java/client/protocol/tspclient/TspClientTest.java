@@ -6,7 +6,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -41,8 +40,8 @@ public class TspClientTest {
                 .withBodyFile(String.format("%s/fetch-check-health-0.json", FIXTURE_PATH))));
 
         TspClientResponse<Health> response = tspClient.checkHealth();
-        assertTrue(response.isOk());
-        assertEquals(HealthStatus.UP, response.getResponseModel().getStatus());
+
+        assertEquals(response.getResponseModel().getStatus(), HealthStatus.UP);
 
     }
 
@@ -56,11 +55,11 @@ public class TspClientTest {
 
         Query query = new Query(parameters);
         TspClientResponse<Experiment> response = tspClient.createExperiment(query);
-        assertTrue(response.isOk());
-        assertEquals(response.getResponseModel().getName(), "kernel");
-        assertEquals(response.getResponseModel().getUuid(), "22222222-2222-2222-2222-222222222222");
-        assertEquals(response.getResponseModel().getStart(), new BigInteger("1234567890123456789"));
-        assertEquals(response.getResponseModel().getIndexingStatus(), "COMPLETED");
+
+        assertEquals("kernel", response.getResponseModel().getName());
+        assertEquals("22222222-2222-2222-2222-222222222222", response.getResponseModel().getUuid());
+        assertEquals(new BigInteger("1234567890123456789"), response.getResponseModel().getStart());
+        assertEquals("COMPLETED", response.getResponseModel().getIndexingStatus());
     }
 
     @Test
@@ -71,10 +70,10 @@ public class TspClientTest {
                 .withBodyFile(String.format("%s/delete-experiment-0.json", FIXTURE_PATH))));
 
         TspClientResponse<Experiment> response = tspClient.deleteExperiment(uuid);
-        assertTrue(response.isOk());
-        assertEquals(response.getResponseModel().getName(), "kernel");
-        assertEquals(response.getResponseModel().getUuid(), uuid);
-        assertEquals(response.getResponseModel().getIndexingStatus(), "CLOSED");
+
+        assertEquals("kernel", response.getResponseModel().getName());
+        assertEquals(uuid, response.getResponseModel().getUuid());
+        assertEquals("CLOSED", response.getResponseModel().getIndexingStatus());
     }
 
     @Test
@@ -85,10 +84,10 @@ public class TspClientTest {
                 .withBodyFile(String.format("%s/delete-trace-0.json", FIXTURE_PATH))));
 
         TspClientResponse<Trace> response = tspClient.deleteTrace(uuid, Optional.empty(), Optional.empty());
-        assertTrue(response.isOk());
-        assertEquals(response.getResponseModel().getName(), "kernel");
-        assertEquals(response.getResponseModel().getUuid(), uuid);
-        assertEquals(response.getResponseModel().getIndexingStatus(), "CLOSED");
+
+        assertEquals("kernel", response.getResponseModel().getName());
+        assertEquals(uuid, response.getResponseModel().getUuid());
+        assertEquals("CLOSED", response.getResponseModel().getIndexingStatus());
     }
 
     @Test
@@ -100,9 +99,9 @@ public class TspClientTest {
                 .withBodyFile(String.format("%s/fetch-experiment-outputs-0.json", FIXTURE_PATH))));
 
         TspClientResponse<OutputDescriptor[]> response = tspClient.experimentOutPuts(uuid, Optional.empty());
-        assertTrue(response.isOk());
-        assertEquals(response.getResponseModel().length, 4);
-        assertEquals(response.getResponseModel()[0].getClass(), OutputDescriptor.class);
+
+        assertEquals(4, response.getResponseModel().length);
+        assertEquals(OutputDescriptor.class, response.getResponseModel()[0].getClass());
     }
 
     @Test
@@ -116,11 +115,10 @@ public class TspClientTest {
 
         TspClientResponse<GenericResponse<AnnotationCategoriesModel>> response = tspClient
                 .getAnnotationsCategories(experimentUuid, outputId, Optional.empty());
-        assertTrue(response.isOk());
-        assertEquals(response.getResponseModel().getStatus(), ResponseStatus.COMPLETED);
-        assertEquals(response.getResponseModel().getModel().getAnnotationCategories().length, 1);
-        assertEquals(response.getResponseModel().getModel().getClass(),
-                AnnotationCategoriesModel.class);
+
+        assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
+        assertEquals(1, response.getResponseModel().getModel().getAnnotationCategories().length);
+        assertEquals(AnnotationCategoriesModel.class, response.getResponseModel().getModel().getClass());
     }
 
 }
