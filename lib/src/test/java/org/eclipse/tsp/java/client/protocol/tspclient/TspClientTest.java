@@ -13,10 +13,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.eclipse.tsp.java.client.models.annotation.AnnotationCategoriesModel;
 import org.eclipse.tsp.java.client.models.experiment.Experiment;
 import org.eclipse.tsp.java.client.models.health.Health;
 import org.eclipse.tsp.java.client.models.health.HealthStatus;
+import org.eclipse.tsp.java.client.models.outputdescriptor.OutputDescriptor;
 import org.eclipse.tsp.java.client.models.query.Query;
+import org.eclipse.tsp.java.client.models.response.GenericResponse;
+import org.eclipse.tsp.java.client.models.response.ResponseStatus;
 import org.eclipse.tsp.java.client.models.trace.Trace;
 import org.eclipse.tsp.java.client.protocol.restclient.TspClientResponse;
 import org.junit.jupiter.api.Test;
@@ -34,7 +38,7 @@ public class TspClientTest {
         stubFor(get("/health").willReturn(aResponse()
                 .withStatus(200)
                 .withHeader("Content-Type", "application/json")
-                .withBodyFile(String.format("%s/check-health-0.json", FIXTURE_PATH))));
+                .withBodyFile(String.format("%s/get-check-health-0.json", FIXTURE_PATH))));
 
         TspClientResponse<Health> response = tspClient.checkHealth();
         assertTrue(response.isOk());
@@ -85,6 +89,38 @@ public class TspClientTest {
         assertEquals(response.getResponseModel().getName(), "kernel");
         assertEquals(response.getResponseModel().getUuid(), uuid);
         assertEquals(response.getResponseModel().getIndexingStatus(), "CLOSED");
+    }
+
+    @Test
+    public void getExperimentOutputs() {
+        final String uuid = "11111111-1111-1111-1111-111111111111";
+        final String targetUrl = String.format("/experiments/%s/outputs", uuid);
+        stubFor(get(targetUrl).willReturn(aResponse()
+                .withHeader("Content-Type", "application/json")
+                .withBodyFile(String.format("%s/fetch-experiment-outputs-0.json", FIXTURE_PATH))));
+
+        TspClientResponse<OutputDescriptor[]> response = tspClient.experimentOutPuts(uuid, Optional.empty());
+        assertTrue(response.isOk());
+        assertEquals(response.getResponseModel().length, 4);
+        assertEquals(response.getResponseModel()[0].getClass(), OutputDescriptor.class);
+    }
+
+    @Test
+    public void getAnnotationCategories() {
+        final String experimentUuid = "11111111-1111-1111-1111-111111111111";
+        final String outputId = "11111111-1111-1111-1111-111111111111";
+        final String targetUrl = String.format("/experiments/%s/outputs/%s/annotations", experimentUuid, outputId);
+        stubFor(get(targetUrl).willReturn(aResponse()
+                .withHeader("Content-Type", "application/json")
+                .withBodyFile(String.format("%s/fetch-annotation-categories-0.json", FIXTURE_PATH))));
+
+        TspClientResponse<GenericResponse<AnnotationCategoriesModel>> response = tspClient
+                .getAnnotationsCategories(experimentUuid, outputId, Optional.empty());
+        assertTrue(response.isOk());
+        assertEquals(response.getResponseModel().getStatus(), ResponseStatus.COMPLETED);
+        assertEquals(response.getResponseModel().getModel().getAnnotationCategories().length, 1);
+        assertEquals(response.getResponseModel().getModel().getClass(),
+                AnnotationCategoriesModel.class);
     }
 
 }
