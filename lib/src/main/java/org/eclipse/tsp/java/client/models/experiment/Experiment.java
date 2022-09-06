@@ -25,7 +25,7 @@ public class Experiment {
         this.traces = traces;
     }
 
-    public String getuuid() {
+    public String getUuid() {
         return uuid;
     }
 
