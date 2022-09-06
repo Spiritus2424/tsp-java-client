@@ -11,11 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.eclipse.tsp.java.client.models.experiment.Experiment;
 import org.eclipse.tsp.java.client.models.health.Health;
 import org.eclipse.tsp.java.client.models.health.HealthStatus;
 import org.eclipse.tsp.java.client.models.query.Query;
+import org.eclipse.tsp.java.client.models.trace.Trace;
 import org.eclipse.tsp.java.client.protocol.restclient.TspClientResponse;
 import org.junit.jupiter.api.Test;
 
@@ -59,7 +61,7 @@ public class TspClientTest {
 
     @Test
     public void deleteExperiment() {
-        final String uuid = "1234567890123456789";
+        final String uuid = "22222222-2222-2222-2222-222222222222";
         stubFor(delete("/experiments/".concat(uuid)).willReturn(aResponse()
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile(String.format("%s/delete-experiment-0.json", FIXTURE_PATH))));
@@ -67,7 +69,22 @@ public class TspClientTest {
         TspClientResponse<Experiment> response = tspClient.deleteExperiment(uuid);
         assertTrue(response.isOk());
         assertEquals(response.getResponseModel().getName(), "kernel");
-        assertEquals(response.getResponseModel().getUuid(), "22222222-2222-2222-2222-222222222222");
+        assertEquals(response.getResponseModel().getUuid(), uuid);
         assertEquals(response.getResponseModel().getIndexingStatus(), "CLOSED");
     }
+
+    @Test
+    public void deleteTrace() {
+        final String uuid = "11111111-1111-1111-1111-111111111111";
+        stubFor(delete("/traces/".concat(uuid)).willReturn(aResponse()
+                .withHeader("Content-Type", "application/json")
+                .withBodyFile(String.format("%s/delete-trace-0.json", FIXTURE_PATH))));
+
+        TspClientResponse<Trace> response = tspClient.deleteTrace(uuid, Optional.empty(), Optional.empty());
+        assertTrue(response.isOk());
+        assertEquals(response.getResponseModel().getName(), "kernel");
+        assertEquals(response.getResponseModel().getUuid(), uuid);
+        assertEquals(response.getResponseModel().getIndexingStatus(), "CLOSED");
+    }
+
 }
