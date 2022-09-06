@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.eclipse.tsp.java.client.models.annotation.Annotation;
 import org.eclipse.tsp.java.client.models.annotation.AnnotationCategoriesModel;
+import org.eclipse.tsp.java.client.models.annotation.AnnotationModel;
 import org.eclipse.tsp.java.client.models.experiment.Experiment;
 import org.eclipse.tsp.java.client.models.health.Health;
 import org.eclipse.tsp.java.client.models.health.HealthStatus;
@@ -119,6 +121,31 @@ public class TspClientTest {
         assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
         assertEquals(1, response.getResponseModel().getModel().getAnnotationCategories().length);
         assertEquals(AnnotationCategoriesModel.class, response.getResponseModel().getModel().getClass());
+    }
+
+    @Test
+    public void fetchAnnotationModel() {
+        final String experimentUuid = "11111111-1111-1111-1111-111111111111";
+        final String outputId = "11111111-1111-1111-1111-111111111111";
+        final String targetUrl = String.format("/experiments/%s/outputs/%s/annotations", experimentUuid, outputId);
+        stubFor(post(targetUrl).willReturn(aResponse()
+                .withHeader("Content-Type", "application/json")
+                .withBodyFile(String.format("%s/fetch-annotation-categories-0.json", FIXTURE_PATH))));
+
+        Map<String, Object> parameters = new HashMap<>();
+        Query query = new Query(parameters);
+        TspClientResponse<GenericResponse<AnnotationModel>> response = tspClient
+                .getAnnotations(experimentUuid, outputId, query);
+
+        assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
+        assertEquals(Annotation.class,
+                response.getResponseModel().getModel().getAnnotations().get("Annotation category").getClass());
+        assertEquals(new BigInteger("1111111111111111111"),
+                response.getResponseModel().getModel().getAnnotations().get("Annotation category").getTime());
+        // assertEquals(response.getResponseModel().getModel().getAnnotationCategories().length,
+        // 1);
+        // assertEquals(response.getResponseModel().getModel().getClass(),
+        // AnnotationCategoriesModel.class);
     }
 
 }

@@ -1,6 +1,6 @@
 package org.eclipse.tsp.java.client.models.response;
 
-import org.eclipse.tsp.java.client.models.annotation.AnnotationCategoriesModel;
+import org.eclipse.tsp.java.client.models.annotation.AnnotationModel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -23,7 +23,8 @@ public class GenericResponse<T> {
 
     @JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION)
     @JsonSubTypes({
-            @JsonSubTypes.Type(AnnotationCategoriesModel.class)
+            @JsonSubTypes.Type(AnnotationModel.class),
+    // @JsonSubTypes.Type(AnnotationCategoriesModel.class),
     })
     public T getModel() {
         return model;
