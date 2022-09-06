@@ -5,6 +5,9 @@ import java.util.Map;
 public class AnnotationModel {
     private Map<String, Annotation> annotations;
 
+    public AnnotationModel() {
+    }
+
     public AnnotationModel(Map<String, Annotation> annotations) {
         this.annotations = annotations;
     }

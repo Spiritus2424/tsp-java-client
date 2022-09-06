@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class AnnotationCategoriesModel {
     private ArrayList<String> annotationCategories;
 
+    public AnnotationCategoriesModel() {
+    }
+
     public AnnotationCategoriesModel(ArrayList<String> annotationCategories) {
         this.annotationCategories = annotationCategories;
     }
