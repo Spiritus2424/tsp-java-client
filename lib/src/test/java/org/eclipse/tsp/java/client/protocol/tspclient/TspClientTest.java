@@ -34,7 +34,7 @@ public class TspClientTest {
     private TspClient tspClient = new TspClient("http://localhost:8080");
 
     @Test
-    public void checkHealth() {
+    public void fetchCheckHealth() {
         stubFor(get("/health").willReturn(aResponse()
                 .withStatus(200)
                 .withHeader("Content-Type", "application/json")
@@ -92,7 +92,7 @@ public class TspClientTest {
     }
 
     @Test
-    public void getExperimentOutputs() {
+    public void fetchExperimentOutputs() {
         final String uuid = "11111111-1111-1111-1111-111111111111";
         final String targetUrl = String.format("/experiments/%s/outputs", uuid);
         stubFor(get(targetUrl).willReturn(aResponse()
@@ -106,7 +106,7 @@ public class TspClientTest {
     }
 
     @Test
-    public void getAnnotationCategories() {
+    public void fetchAnnotationCategories() {
         final String experimentUuid = "11111111-1111-1111-1111-111111111111";
         final String outputId = "11111111-1111-1111-1111-111111111111";
         final String targetUrl = String.format("/experiments/%s/outputs/%s/annotations", experimentUuid, outputId);
