@@ -32,7 +32,8 @@ public class RestClientTest {
     @Test
     public void postMethod() {
         stubFor(post("/my/resource").willReturn(ok()));
-        TspClientResponse<String> result = RestClient.post("http://localhost:8080/my/resource", Optional.empty());
+        TspClientResponse<String> result = RestClient.post("http://localhost:8080/my/resource", Optional.empty(),
+                String.class);
         assertTrue(result.isOk());
 
     }
@@ -48,7 +49,8 @@ public class RestClientTest {
     @Test
     public void deleteMethod() {
         stubFor(delete("/my/resource").willReturn(ok()));
-        TspClientResponse<String> result = RestClient.delete("http://localhost:8080/my/resource", Optional.empty());
+        TspClientResponse<String> result = RestClient.delete("http://localhost:8080/my/resource", Optional.empty(),
+                String.class);
         assertTrue(result.isOk());
     }
 
