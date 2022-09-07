@@ -6,6 +6,9 @@ public class OutputElementStyle {
     private String parentKey;
     private Map<String, Object> values;
 
+    public OutputElementStyle() {
+    }
+
     public OutputElementStyle(String parentKey, Map<String, Object> values) {
         this.parentKey = parentKey;
         this.values = values;
