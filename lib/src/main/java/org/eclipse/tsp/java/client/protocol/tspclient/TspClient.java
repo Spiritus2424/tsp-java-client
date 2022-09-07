@@ -26,6 +26,11 @@ import org.eclipse.tsp.java.client.models.xy.XYModel;
 import org.eclipse.tsp.java.client.protocol.restclient.RestClient;
 import org.eclipse.tsp.java.client.protocol.restclient.TspClientResponse;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class TspClient {
     private String baseUrl;
 
@@ -150,23 +155,42 @@ public class TspClient {
     }
 
     public TspClientResponse<GenericResponse<AnnotationCategoriesModel>> getAnnotationsCategories(
-            String experimentUuid, String outputId, Optional<String> markerSetId) {
+            String experimentUuid, String outputId, Optional<String> markerSetId)
+            throws JsonProcessingException, JsonMappingException {
         Map<String, String> queryParameters = null;
         if (markerSetId.isPresent()) {
             queryParameters = new HashMap<String, String>();
             queryParameters.put("markserId", markerSetId.get());
         }
 
-        return RestClient.get(
+        final TspClientResponse<String> tspClientResponse = RestClient.get(
                 String.format("%s/experiments/%s/outputs/%s/annotations", this.baseUrl, experimentUuid, outputId),
-                markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(), GenericResponse.class);
+                markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(), String.class);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        GenericResponse<AnnotationCategoriesModel> annotationCategoriesModel = objectMapper.readValue(
+                tspClientResponse.getResponseModel(),
+                new TypeReference<GenericResponse<AnnotationCategoriesModel>>() {
+                });
+
+        return new TspClientResponse<GenericResponse<AnnotationCategoriesModel>>(tspClientResponse.getStatusCode(),
+                tspClientResponse.getStatusMessage(), annotationCategoriesModel);
     }
 
     public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(String experimentUuid, String outputId,
-            Query query) {
-        return RestClient.post(
+            Query query) throws JsonProcessingException, JsonMappingException {
+
+        final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/%s/annotations", this.baseUrl, experimentUuid, outputId),
-                Optional.of(query), GenericResponse.class);
+                Optional.of(query), String.class);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        GenericResponse<AnnotationModel> annotationModel = objectMapper.readValue(tspClientResponse.getResponseModel(),
+                new TypeReference<GenericResponse<AnnotationModel>>() {
+                });
+
+        return new TspClientResponse<GenericResponse<AnnotationModel>>(tspClientResponse.getStatusCode(),
+                tspClientResponse.getStatusMessage(), annotationModel);
     }
 
     public TspClientResponse<GenericResponse<Map<String, String>>> getTimeGraphTooltip(String experimentUuid,
