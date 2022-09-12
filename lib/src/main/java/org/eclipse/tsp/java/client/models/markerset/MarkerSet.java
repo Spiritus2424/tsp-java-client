@@ -4,6 +4,9 @@ public class MarkerSet {
     private String name;
     private String id;
 
+    public MarkerSet() {
+    }
+
     public MarkerSet(String name, String id) {
         this.name = name;
         this.id = id;
