@@ -4,6 +4,9 @@ public class EntryHeader {
     private String name;
     private String tooltip;
 
+    public EntryHeader() {
+    }
+
     public EntryHeader(String name, String tooltip) {
         this.name = name;
         this.tooltip = tooltip;
