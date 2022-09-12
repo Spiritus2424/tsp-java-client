@@ -4,6 +4,9 @@ public class Cell {
     private String content;
     private int tags;
 
+    public Cell() {
+    }
+
     public Cell(String content) {
         this.content = content;
     }

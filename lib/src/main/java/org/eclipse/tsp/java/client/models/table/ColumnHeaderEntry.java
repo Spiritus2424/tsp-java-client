@@ -6,6 +6,9 @@ public class ColumnHeaderEntry {
     private String description;
     private String type;
 
+    public ColumnHeaderEntry() {
+    }
+
     public ColumnHeaderEntry(int id, String name, String description, String type) {
         this.id = id;
         this.name = name;
