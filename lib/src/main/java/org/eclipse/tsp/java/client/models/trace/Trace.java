@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Trace {
+    @JsonProperty("UUID")
     private String uuid;
     private String name;
     private BigInteger start;
@@ -27,7 +28,6 @@ public class Trace {
         this.indexingStatus = indexingStatus;
     }
 
-    @JsonProperty("UUID")
     public String getUuid() {
         return uuid;
     }
