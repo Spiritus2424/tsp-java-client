@@ -1,26 +1,26 @@
 package org.eclipse.tsp.java.client.models.experiment;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 import org.eclipse.tsp.java.client.models.trace.Trace;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Experiment {
+    @JsonProperty("UUID")
     private String uuid;
     private String name;
     private BigInteger start;
     private BigInteger end;
     private int nbEvents;
     private String indexingStatus;
-    private ArrayList<Trace> traces;
+    private Trace[] traces;
 
     public Experiment() {
     }
 
     public Experiment(String uuid, String name, BigInteger start, BigInteger end, int nbEvents, String indexingStatus,
-            ArrayList<Trace> traces) {
+            Trace[] traces) {
         this.uuid = uuid;
         this.name = name;
         this.start = start;
@@ -30,7 +30,6 @@ public class Experiment {
         this.traces = traces;
     }
 
-    @JsonProperty("UUID")
     public String getUuid() {
         return uuid;
     }
@@ -79,11 +78,11 @@ public class Experiment {
         this.indexingStatus = indexingStatus;
     }
 
-    public ArrayList<Trace> getTraces() {
+    public Trace[] getTraces() {
         return traces;
     }
 
-    public void setTraces(ArrayList<Trace> traces) {
+    public void setTraces(Trace[] traces) {
         this.traces = traces;
     }
 }
