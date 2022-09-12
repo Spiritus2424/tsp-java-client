@@ -1,12 +1,13 @@
 package org.eclipse.tsp.java.client.models.timegraph;
 
-import java.util.ArrayList;
-
 public class TimeGraphRow {
     private int entryId;
-    private ArrayList<TimeGraphState> states;
+    private TimeGraphState[] states;
 
-    public TimeGraphRow(int entryId, ArrayList<TimeGraphState> states) {
+    public TimeGraphRow() {
+    }
+
+    public TimeGraphRow(int entryId, TimeGraphState[] states) {
         this.entryId = entryId;
         this.states = states;
     }
@@ -19,11 +20,11 @@ public class TimeGraphRow {
         this.entryId = entryId;
     }
 
-    public ArrayList<TimeGraphState> getStates() {
+    public TimeGraphState[] getStates() {
         return states;
     }
 
-    public void setStates(ArrayList<TimeGraphState> states) {
+    public void setStates(TimeGraphState[] states) {
         this.states = states;
     }
 }
