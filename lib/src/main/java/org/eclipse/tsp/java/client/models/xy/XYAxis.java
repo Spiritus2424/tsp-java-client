@@ -5,6 +5,9 @@ public class XYAxis {
     private String unit;
     private String dataType;
 
+    public XYAxis() {
+    }
+
     public XYAxis(String label, String unit, String dataType) {
         this.label = label;
         this.unit = unit;

@@ -11,6 +11,9 @@ public class TimeGraphState {
     private int tags;
     private OutputElementStyle style;
 
+    public TimeGraphState() {
+    }
+
     public TimeGraphState(BigInteger start, BigInteger end) {
         this.start = start;
         this.end = end;

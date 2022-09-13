@@ -3,6 +3,9 @@ package org.eclipse.tsp.java.client.models.health;
 public class Health {
     private HealthStatus status;
 
+    public Health() {
+    }
+
     public Health(HealthStatus status) {
         this.status = status;
     }

@@ -1,13 +1,9 @@
 package org.eclipse.tsp.java.client.protocol.restclient;
 
-import org.eclipse.tsp.java.client.models.annotation.Annotation;
-import org.junit.jupiter.api.Test;
-
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,7 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigInteger;
 import java.util.Optional;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import org.eclipse.tsp.java.client.models.annotation.Annotation;
+import org.junit.jupiter.api.Test;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 
 @WireMockTest(httpPort = 8080)
 public class RestClientTest {
@@ -24,7 +23,7 @@ public class RestClientTest {
     public void getMethod() {
         stubFor(get("/my/resource").willReturn(ok()));
         TspClientResponse<String> result = RestClient.get("http://localhost:8080/my/resource",
-                Optional.empty());
+                Optional.empty(), String.class);
 
         assertTrue(result.isOk());
 
@@ -33,7 +32,8 @@ public class RestClientTest {
     @Test
     public void postMethod() {
         stubFor(post("/my/resource").willReturn(ok()));
-        TspClientResponse<String> result = RestClient.post("http://localhost:8080/my/resource", Optional.empty());
+        TspClientResponse<String> result = RestClient.post("http://localhost:8080/my/resource", Optional.empty(),
+                String.class);
         assertTrue(result.isOk());
 
     }
@@ -49,7 +49,8 @@ public class RestClientTest {
     @Test
     public void deleteMethod() {
         stubFor(delete("/my/resource").willReturn(ok()));
-        TspClientResponse<String> result = RestClient.delete("http://localhost:8080/my/resource", Optional.empty());
+        TspClientResponse<String> result = RestClient.delete("http://localhost:8080/my/resource", Optional.empty(),
+                String.class);
         assertTrue(result.isOk());
     }
 

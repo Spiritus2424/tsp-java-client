@@ -1,22 +1,23 @@
 package org.eclipse.tsp.java.client.models.annotation;
 
-import java.util.ArrayList;
-
 /**
  * AnnotationCategoriesModel
  */
 public class AnnotationCategoriesModel {
-    private ArrayList<String> annotationCategories;
+    private String[] annotationCategories;
 
-    public AnnotationCategoriesModel(ArrayList<String> annotationCategories) {
+    public AnnotationCategoriesModel() {
+    }
+
+    public AnnotationCategoriesModel(String[] annotationCategories) {
         this.annotationCategories = annotationCategories;
     }
 
-    public ArrayList<String> getAnnotationCategories() {
+    public String[] getAnnotationCategories() {
         return annotationCategories;
     }
 
-    public void setAnnotationCategories(ArrayList<String> annotationCategories) {
+    public void setAnnotationCategories(String[] annotationCategories) {
         this.annotationCategories = annotationCategories;
     }
 

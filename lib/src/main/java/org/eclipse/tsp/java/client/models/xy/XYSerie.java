@@ -1,22 +1,29 @@
 package org.eclipse.tsp.java.client.models.xy;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 import org.eclipse.tsp.java.client.models.style.OutputElementStyle;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class XYSerie {
+
+    @JsonProperty("seriesName")
     private String serieName;
+    @JsonProperty("seriesId")
     private int serieId;
     private XYAxis xAxis;
     private XYAxis yAxis;
-    private ArrayList<BigInteger> xValues;
-    private ArrayList<BigInteger> yValues;
-    private ArrayList<Integer> tags;
+    private BigInteger[] xValues;
+    private BigInteger[] yValues;
+    private int[] tags;
     private OutputElementStyle style;
 
-    public XYSerie(String serieName, int serieId, XYAxis xAxis, XYAxis yAxis, ArrayList<BigInteger> xValues,
-            ArrayList<BigInteger> yValues, OutputElementStyle style) {
+    public XYSerie() {
+    }
+
+    public XYSerie(String serieName, int serieId, XYAxis xAxis, XYAxis yAxis, BigInteger[] xValues,
+            BigInteger[] yValues, OutputElementStyle style) {
         this.serieName = serieName;
         this.serieId = serieId;
         this.xAxis = xAxis;
@@ -26,8 +33,8 @@ public class XYSerie {
         this.style = style;
     }
 
-    public XYSerie(String serieName, int serieId, XYAxis xAxis, XYAxis yAxis, ArrayList<BigInteger> xValues,
-            ArrayList<BigInteger> yValues, OutputElementStyle style, ArrayList<Integer> tags) {
+    public XYSerie(String serieName, int serieId, XYAxis xAxis, XYAxis yAxis, BigInteger[] xValues,
+            BigInteger[] yValues, OutputElementStyle style, int[] tags) {
         this.serieName = serieName;
         this.serieId = serieId;
         this.xAxis = xAxis;
@@ -70,27 +77,27 @@ public class XYSerie {
         this.yAxis = yAxis;
     }
 
-    public ArrayList<BigInteger> getxValues() {
+    public BigInteger[] getxValues() {
         return xValues;
     }
 
-    public void setxValues(ArrayList<BigInteger> xValues) {
+    public void setxValues(BigInteger[] xValues) {
         this.xValues = xValues;
     }
 
-    public ArrayList<BigInteger> getyValues() {
+    public BigInteger[] getyValues() {
         return yValues;
     }
 
-    public void setyValues(ArrayList<BigInteger> yValues) {
+    public void setyValues(BigInteger[] yValues) {
         this.yValues = yValues;
     }
 
-    public ArrayList<Integer> getTags() {
+    public int[] getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<Integer> tags) {
+    public void setTags(int[] tags) {
         this.tags = tags;
     }
 

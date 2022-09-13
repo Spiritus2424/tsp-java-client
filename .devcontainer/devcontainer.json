@@ -3,13 +3,14 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-			"VARIANT": "11",
+			"VARIANT": "11"
 		}
 	},
 	"customizations": {
 		"vscode": {
 			"settings": {
-				"terminal.integrated.defaultProfile.linux": "zsh"
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"java.configuration.updateBuildConfiguration": "automatic"
 			},
 			"extensions": [
 				"vscjava.vscode-java-pack",
@@ -20,7 +21,8 @@
 		}
 	},
 	"mounts": [
-		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind"
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind",
+		"source=tsp-client-java-gradle-cache,target=/home/vscode/.gradle,type=volume"
 	],
 	"remoteUser": "vscode"
 }

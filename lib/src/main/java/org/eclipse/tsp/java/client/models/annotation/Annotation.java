@@ -15,6 +15,9 @@ public class Annotation {
     private String type;
     private OutputElementStyle style;
 
+    public Annotation() {
+    }
+
     public Annotation(String label, BigInteger time, BigInteger duration, int entryId, String type) {
         this.label = label;
         this.time = time;

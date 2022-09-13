@@ -11,10 +11,11 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 public class RestClient {
+
     private static ConnectionStatus connectionStatus = new ConnectionStatus();
 
-    @SuppressWarnings("unchecked")
-    public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters)
+    public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
+            Class<? extends T> clazz)
             throws ClassCastException {
         WebTarget webTarget = ClientBuilder.newClient().target(url);
         if (queryParameters.isPresent()) {
@@ -27,19 +28,24 @@ public class RestClient {
         checkResponseStatusCode(response.getStatusInfo().toEnum());
         return (response.hasEntity())
                 ? new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-                        response.getStatusInfo().getReasonPhrase(), (T) response.getEntity())
+                        response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz))
                 : new TspClientResponse<T>(response.getStatusInfo().toEnum(),
                         response.getStatusInfo().getReasonPhrase());
     }
 
-    public static <T> TspClientResponse<T> post(String url, Optional<Object> body) {
+    public static <T> TspClientResponse<T> post(String url, Optional<Object> body, Class<? extends T> clazz)
+            throws ClassCastException {
         final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
         Response response = ClientBuilder.newClient().target(url).request(MediaType.APPLICATION_JSON)
                 .post(entity);
 
         checkResponseStatusCode(response.getStatusInfo().toEnum());
-        return new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-                response.getStatusInfo().getReasonPhrase());
+
+        return (response.hasEntity())
+                ? new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+                        response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz))
+                : new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+                        response.getStatusInfo().getReasonPhrase());
     }
 
     public static <T> TspClientResponse<T> put(String url, Object body) {
@@ -50,8 +56,8 @@ public class RestClient {
                 response.getStatusInfo().getReasonPhrase());
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters)
+    public static <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
+            Class<? extends T> clazz)
             throws ClassCastException {
         WebTarget webTarget = ClientBuilder.newClient().target(url);
         if (queryParameters.isPresent()) {
@@ -65,7 +71,7 @@ public class RestClient {
 
         return (response.hasEntity())
                 ? new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-                        response.getStatusInfo().getReasonPhrase(), (T) response.getEntity())
+                        response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz))
                 : new TspClientResponse<T>(response.getStatusInfo().toEnum(),
                         response.getStatusInfo().getReasonPhrase());
     }

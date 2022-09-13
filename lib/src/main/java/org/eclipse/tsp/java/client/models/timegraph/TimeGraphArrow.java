@@ -11,6 +11,9 @@ public class TimeGraphArrow {
     private BigInteger end;
     private OutputElementStyle style;
 
+    public TimeGraphArrow() {
+    }
+
     public TimeGraphArrow(int sourceId, int targetId, BigInteger start, BigInteger end) {
         this.sourceId = sourceId;
         this.targetId = targetId;

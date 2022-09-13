@@ -1,29 +1,30 @@
 package org.eclipse.tsp.java.client.models.entry;
 
-import java.util.ArrayList;
-
 public class EntryModel<T> {
-    private ArrayList<EntryHeader> headers;
-    private ArrayList<T> entries;
+    private EntryHeader[] headers;
+    private T[] entries;
 
-    public EntryModel(ArrayList<EntryHeader> headers, ArrayList<T> entries) {
+    public EntryModel() {
+    }
+
+    public EntryModel(EntryHeader[] headers, T[] entries) {
         this.headers = headers;
         this.entries = entries;
     }
 
-    public ArrayList<EntryHeader> getHeaders() {
+    public EntryHeader[] getHeaders() {
         return headers;
     }
 
-    public void setHeaders(ArrayList<EntryHeader> headers) {
+    public void setHeaders(EntryHeader[] headers) {
         this.headers = headers;
     }
 
-    public ArrayList<T> getEntries() {
+    public T[] getEntries() {
         return entries;
     }
 
-    public void setEntries(ArrayList<T> entries) {
+    public void setEntries(T[] entries) {
         this.entries = entries;
     }
 }

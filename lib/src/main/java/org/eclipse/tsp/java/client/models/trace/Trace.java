@@ -2,7 +2,10 @@ package org.eclipse.tsp.java.client.models.trace;
 
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Trace {
+    @JsonProperty("UUID")
     private String uuid;
     private String name;
     private BigInteger start;
@@ -10,6 +13,9 @@ public class Trace {
     private String path;
     private int nbEvents;
     private String indexingStatus;
+
+    public Trace() {
+    }
 
     public Trace(String uuid, String name, BigInteger start, BigInteger end, String path, int nbEvents,
             String indexingStatus) {

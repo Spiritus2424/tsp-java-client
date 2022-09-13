@@ -1,10 +1,15 @@
 package org.eclipse.tsp.java.client.models.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class GenericResponse<T> {
 
     private T model;
     private ResponseStatus status;
     private String message;
+
+    public GenericResponse() {
+    }
 
     public GenericResponse(T model, ResponseStatus status, String message) {
         this.model = model;
@@ -28,6 +33,7 @@ public class GenericResponse<T> {
         this.status = status;
     }
 
+    @JsonProperty("statusMessage")
     public String getMessage() {
         return message;
     }

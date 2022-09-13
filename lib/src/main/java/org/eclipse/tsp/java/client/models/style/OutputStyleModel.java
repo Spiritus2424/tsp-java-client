@@ -5,6 +5,9 @@ import java.util.Map;
 public class OutputStyleModel {
     private Map<String, OutputElementStyle> styles;
 
+    public OutputStyleModel() {
+    }
+
     public OutputStyleModel(Map<String, OutputElementStyle> styles) {
         this.styles = styles;
     }

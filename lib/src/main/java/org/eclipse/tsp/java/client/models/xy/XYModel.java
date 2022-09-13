@@ -1,12 +1,13 @@
 package org.eclipse.tsp.java.client.models.xy;
 
-import java.util.ArrayList;
-
 public class XYModel {
     private String title;
-    private ArrayList<XYSerie> series;
+    private XYSerie[] series;
 
-    public XYModel(String title, ArrayList<XYSerie> series) {
+    public XYModel() {
+    }
+
+    public XYModel(String title, XYSerie[] series) {
         this.title = title;
         this.series = series;
     }
@@ -19,11 +20,11 @@ public class XYModel {
         this.title = title;
     }
 
-    public ArrayList<XYSerie> getSeries() {
+    public XYSerie[] getSeries() {
         return series;
     }
 
-    public void setSeries(ArrayList<XYSerie> series) {
+    public void setSeries(XYSerie[] series) {
         this.series = series;
     }
 }

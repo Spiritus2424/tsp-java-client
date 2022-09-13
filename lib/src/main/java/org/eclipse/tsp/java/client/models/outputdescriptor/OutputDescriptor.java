@@ -15,6 +15,9 @@ public class OutputDescriptor {
     private boolean isFinal;
     private ArrayList<String> compatibleProviders;
 
+    public OutputDescriptor() {
+    }
+
     public OutputDescriptor(String id, String name, String description, String type) {
         this.id = id;
         this.name = name;
