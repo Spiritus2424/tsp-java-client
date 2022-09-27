@@ -26,6 +26,7 @@ ARG GRADLE_VERSION=""
 RUN su vscode -c "umask 0002 && . /usr/local/sdkman/bin/sdkman-init.sh && sdk install gradle \"${GRADLE_VERSION}\""
 
 ENV GRADLE_USER_HOME=/home/vscode/.gradle
+ENV JAVA_HOME=/usr/lib/jvm/msopenjdk-current
 
 RUN mkdir -p $GRADLE_USER_HOME && \
     chown -R vscode:vscode $GRADLE_USER_HOME
@@ -73,6 +74,7 @@ RUN mkdir -p $GRADLE_USER_HOME && \
 
 Open Dev Container:
 -------------------
+- Open the folder *tsp-javaj-client* with Vscode
 - Open the command prompt `CTRL+SHIFT+P`
 - Run the *Remote-Containers: Reopen In Container* command
 
