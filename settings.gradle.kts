@@ -8,4 +8,6 @@
  */
 
 rootProject.name = "tsp-java-client"
+
 include("lib")
+project(":lib").name = "tsp-java-client"
