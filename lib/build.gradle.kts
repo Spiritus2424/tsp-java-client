@@ -70,13 +70,12 @@ publishing {
     }
 
     repositories {
-        maven("/tmp/maven")
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/spiritus2424/tsp-java-client")
             credentials {
-                username = project.findProperty("gpr.user").toString() ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key").toString() ?: System.getenv("GITHUB_TOKEN")
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
             }
         }
     }
