@@ -9,6 +9,7 @@
 group = "org.eclipse"
 version = "0.1.0"
 
+
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id("java-library")
@@ -26,6 +27,8 @@ java {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+
+    mavenLocal()
 }
 
 dependencies {
@@ -44,9 +47,7 @@ dependencies {
     implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
     implementation("org.glassfish.jersey.core:jersey-client:3.1.0-M3")
     implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.0-M3")
-    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.0-M3")
-
-    
+    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.0-M3")   
 }
 
 tasks.test {
@@ -65,12 +66,18 @@ tasks.jar {
 
 publishing {
     publications {
-        create<MavenPublication>("tsp-java-client") {
-            groupId = project.group.toString()
-            artifactId = project.name
-            version = project.version.toString()
+        create<MavenPublication>("tsp-java-client").from(components["java"])
+    }
 
-            from(components["java"])
+    repositories {
+        maven("/tmp/maven")
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/spiritus2424/tsp-java-client")
+            credentials {
+                username = project.findProperty("gpr.user").toString() ?: System.getenv("GITHUB_USERNAME")
+                password = project.findProperty("gpr.key").toString() ?: System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }
