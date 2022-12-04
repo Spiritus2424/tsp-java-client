@@ -50,10 +50,12 @@ public class TspClientTest {
 
 	private static final String FIXTURE_PATH = "fixtures/tspclient";
 	private TspClient tspClient = new TspClient("http://localhost:8080");
+	private static final String TSP_EXTENSION_URL = "/tsp/api";
 
 	@Test
 	public void fetchCheckHealth() {
-		stubFor(get("/health").willReturn(aResponse()
+		final String targetUrl = String.format("%s/health", TSP_EXTENSION_URL);
+		stubFor(get(targetUrl).willReturn(aResponse()
 				.withStatus(200)
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-check-health-0.json", FIXTURE_PATH))));
@@ -66,7 +68,8 @@ public class TspClientTest {
 
 	@Test
 	public void createExperiment() {
-		stubFor(post("/experiments").willReturn(aResponse()
+		final String targetUrl = String.format("%s/experiments", TSP_EXTENSION_URL);
+		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/create-experiment-0.json", FIXTURE_PATH))));
 
@@ -84,7 +87,8 @@ public class TspClientTest {
 	@Test
 	public void deleteExperiment() {
 		final String uuid = "22222222-2222-2222-2222-222222222222";
-		stubFor(delete("/experiments/".concat(uuid)).willReturn(aResponse()
+		final String targetUrl = String.format("%s/experiments/%s", TSP_EXTENSION_URL, uuid);
+		stubFor(delete(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/delete-experiment-0.json", FIXTURE_PATH))));
 
@@ -98,7 +102,9 @@ public class TspClientTest {
 	@Test
 	public void deleteTrace() {
 		final String uuid = "11111111-1111-1111-1111-111111111111";
-		stubFor(delete("/traces/".concat(uuid)).willReturn(aResponse()
+		final String targetUrl = String.format("%s/traces/%s", TSP_EXTENSION_URL, uuid);
+
+		stubFor(delete(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/delete-trace-0.json", FIXTURE_PATH))));
 
@@ -112,7 +118,7 @@ public class TspClientTest {
 	@Test
 	public void fetchExperimentOutputs() {
 		final String uuid = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs", uuid);
+		final String targetUrl = String.format("%s/experiments/%s/outputs", TSP_EXTENSION_URL, uuid);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-experiment-outputs-0.json", FIXTURE_PATH))));
@@ -127,7 +133,8 @@ public class TspClientTest {
 	public void fetchAnnotationCategories() throws JsonProcessingException, JsonMappingException {
 		final String experimentUuid = "11111111-1111-1111-1111-111111111111";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/%s/annotations", experimentUuid,
+		final String targetUrl = String.format("%s/experiments/%s/outputs/%s/annotations", TSP_EXTENSION_URL,
+				experimentUuid,
 				outputId);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -145,7 +152,8 @@ public class TspClientTest {
 	public void fetchAnnotationModel() throws JsonProcessingException, JsonMappingException {
 		final String experimentUuid = "11111111-1111-1111-1111-111111111111";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/%s/annotations", experimentUuid,
+		final String targetUrl = String.format("%s/experiments/%s/outputs/%s/annotations", TSP_EXTENSION_URL,
+				experimentUuid,
 				outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -170,7 +178,7 @@ public class TspClientTest {
 	@Test
 	public void fetchExperiment() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
-		final String targetUrl = String.format("/experiments/%s", experimentUuid);
+		final String targetUrl = String.format("%s/experiments/%s", TSP_EXTENSION_URL, experimentUuid);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-experiment-0.json", FIXTURE_PATH))));
@@ -188,7 +196,7 @@ public class TspClientTest {
 	@Test
 	public void fetchMarkerSets() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
-		final String targetUrl = String.format("/experiments/%s/outputs/markerSets",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/markerSets", TSP_EXTENSION_URL,
 				experimentUuid);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -206,7 +214,7 @@ public class TspClientTest {
 	public void fetchStyles() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/%s/style",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/%s/style", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -226,7 +234,7 @@ public class TspClientTest {
 	public void fetchTableColumns() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/table/%s/columns",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/table/%s/columns", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -246,7 +254,7 @@ public class TspClientTest {
 	public void fetchTableLines() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/table/%s/lines",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/table/%s/lines", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -269,7 +277,7 @@ public class TspClientTest {
 	public void fetchTimegraphArrows() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/timeGraph/%s/arrows",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/arrows", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -291,7 +299,7 @@ public class TspClientTest {
 	public void fetchTimegraphStates() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/timeGraph/%s/states",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/states", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -312,7 +320,7 @@ public class TspClientTest {
 	public void fetchTimegraphTooltip() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/timeGraph/%s/tooltip",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/tooltip", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -332,7 +340,7 @@ public class TspClientTest {
 	public void fetchTimegraphTree() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/timeGraph/%s/tree",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/tree", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -352,7 +360,7 @@ public class TspClientTest {
 	public void fetchXY() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/XY/%s/xy",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/xy", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -373,7 +381,7 @@ public class TspClientTest {
 	public void fetchXYTree() {
 		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
 		final String outputId = "11111111-1111-1111-1111-111111111111";
-		final String targetUrl = String.format("/experiments/%s/outputs/XY/%s/tree",
+		final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/tree", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -391,7 +399,7 @@ public class TspClientTest {
 
 	@Test
 	public void openTrace() {
-		final String targetUrl = String.format("/traces");
+		final String targetUrl = String.format("%s/traces", TSP_EXTENSION_URL);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/open-trace-0.json", FIXTURE_PATH))));
