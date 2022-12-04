@@ -35,7 +35,7 @@ public class TspClient {
     private ObjectMapper objectMapper;
 
     public TspClient(String baseUrl) {
-        this.baseUrl = baseUrl;
+        this.baseUrl = String.format("%s/tsp/api", baseUrl);
         this.objectMapper = new ObjectMapper();
     }
 
