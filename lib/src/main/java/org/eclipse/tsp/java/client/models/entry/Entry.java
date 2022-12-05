@@ -1,5 +1,6 @@
 package org.eclipse.tsp.java.client.models.entry;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.tsp.java.client.models.style.OutputElementStyle;
@@ -13,6 +14,7 @@ public class Entry {
     private Map<String, Object> metadata;
 
     public Entry() {
+        this.metadata = new HashMap<>();
     }
 
     public Entry(int id, String[] labels) {

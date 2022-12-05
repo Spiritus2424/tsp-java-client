@@ -1,5 +1,6 @@
 package org.eclipse.tsp.java.client.models.style;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class OutputElementStyle {
@@ -7,6 +8,7 @@ public class OutputElementStyle {
     private Map<String, Object> values;
 
     public OutputElementStyle() {
+        this.values = new HashMap<>();
     }
 
     public OutputElementStyle(String parentKey, Map<String, Object> values) {
