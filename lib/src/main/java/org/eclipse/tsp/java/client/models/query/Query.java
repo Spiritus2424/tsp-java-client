@@ -6,6 +6,9 @@ public class Query {
 
     private Map<String, Object> parameters;
 
+    public Query() {
+    }
+
     public Query(Map<String, Object> parameters) {
         this.parameters = parameters;
     }
