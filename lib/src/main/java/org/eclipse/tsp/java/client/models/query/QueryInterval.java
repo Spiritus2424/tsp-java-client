@@ -7,6 +7,9 @@ public class QueryInterval {
     private BigInteger end;
     private int nbTimes;
 
+    public QueryInterval() {
+    }
+
     public QueryInterval(BigInteger start, BigInteger end, int nbTimes) {
         this.start = start;
         this.end = end;

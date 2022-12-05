@@ -9,6 +9,9 @@ public class Bookmark {
     private BigInteger endTime;
     private String type;
 
+    public Bookmark() {
+    }
+
     public Bookmark(String uuid, String name, BigInteger startTime, BigInteger endTime, String type) {
         this.uuid = uuid;
         this.name = name;

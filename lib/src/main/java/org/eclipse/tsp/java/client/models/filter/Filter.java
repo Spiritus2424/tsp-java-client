@@ -10,6 +10,9 @@ public class Filter {
     private String expression;
     private int tags;
 
+    public Filter() {
+    }
+
     public Filter(String id, String name, BigInteger startTime, BigInteger endTime, String expression, int tags) {
         this.id = id;
         this.name = name;
