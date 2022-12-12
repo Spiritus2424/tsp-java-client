@@ -1,6 +1,8 @@
 package org.eclipse.tsp.java.client.models.experiment;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.tsp.java.client.models.trace.Trace;
 
@@ -14,13 +16,14 @@ public class Experiment {
     private BigInteger end;
     private int nbEvents;
     private String indexingStatus;
-    private Trace[] traces;
+    private List<Trace> traces;
 
     public Experiment() {
+        traces = new ArrayList<>();
     }
 
     public Experiment(String uuid, String name, BigInteger start, BigInteger end, int nbEvents, String indexingStatus,
-            Trace[] traces) {
+            List<Trace> traces) {
         this.uuid = uuid;
         this.name = name;
         this.start = start;
@@ -78,11 +81,11 @@ public class Experiment {
         this.indexingStatus = indexingStatus;
     }
 
-    public Trace[] getTraces() {
+    public List<Trace> getTraces() {
         return traces;
     }
 
-    public void setTraces(Trace[] traces) {
+    public void setTraces(List<Trace> traces) {
         this.traces = traces;
     }
 }

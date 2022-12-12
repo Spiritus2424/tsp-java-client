@@ -1,7 +1,9 @@
 package org.eclipse.tsp.java.client.models.query;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,14 +27,14 @@ public class QueryHelper {
         return new Query(additionalProperties);
     }
 
-    public static Query timeQuery(BigInteger[] requestedTimes, Map<String, Object> additionalProperties) {
+    public static Query timeQuery(List<BigInteger> requestedTimes, Map<String, Object> additionalProperties) {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(REQUESTED_TIMES_KEY, requestedTimes);
         parameters.putAll(additionalProperties);
         return new Query(parameters);
     }
 
-    public static Query selectionTimeQuery(BigInteger[] requestedTimes, int[] number,
+    public static Query selectionTimeQuery(List<BigInteger> requestedTimes, List<Integer> number,
             Map<String, Object> additionalProperties) {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(REQUESTED_TIMES_KEY, requestedTimes);
@@ -59,13 +61,13 @@ public class QueryHelper {
         return new Query(parameters);
     }
 
-    public static Query selectionTimeRangeQuery(BigInteger start, BigInteger end, int nbTimes, int[] items,
+    public static Query selectionTimeRangeQuery(BigInteger start, BigInteger end, int nbTimes, List<Integer> items,
             Optional<Map<String, Object>> additionalProperties) {
         return selectionTimeRangeQuery(start, end, Optional.of(nbTimes), Optional.of(items), additionalProperties);
     }
 
     public static Query selectionTimeRangeQuery(BigInteger start, BigInteger end, Optional<Integer> nbTimes,
-            Optional<int[]> items,
+            Optional<List<Integer>> items,
             Optional<Map<String, Object>> additionalProperties) {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(REQUESTED_TIMERANGE_KEY, nbTimes.isPresent() ? new QueryInterval(start, end, nbTimes.get())
@@ -82,7 +84,7 @@ public class QueryHelper {
         return new Query(parameters);
     }
 
-    public static Query tableQuery(int[] columnsId, int index, int count,
+    public static Query tableQuery(List<Integer> columnsId, int index, int count,
             Optional<Map<String, Object>> additionalProperties) {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(REQUESTED_TABLE_COLUMN_IDS_KEY, columnsId);
@@ -94,7 +96,7 @@ public class QueryHelper {
         return new Query(parameters);
     }
 
-    public static BigInteger[] splitRangeIntoEqualParts(BigInteger start, BigInteger end, int size) {
+    public static List<BigInteger> splitRangeIntoEqualParts(BigInteger start, BigInteger end, int size) {
 
         if (start.compareTo(end) == 1) {
             final BigInteger temp = end;
@@ -103,23 +105,21 @@ public class QueryHelper {
         }
 
         if (size == 0) {
-            final BigInteger[] temp = {};
-            return temp;
+            return new ArrayList<BigInteger>();
         } else if (size == 1) {
-            final BigInteger[] temp = { start };
-            return temp;
+            return new ArrayList<BigInteger>(List.of(start));
         }
 
         size = Math.min(size, end.subtract(start).add(BigInteger.ONE).intValue());
 
-        final BigInteger[] result = new BigInteger[size];
+        final List<BigInteger> result = new ArrayList<>(size);
         final int stepSize = Math.max(1, end.subtract(start).divide(BigInteger.valueOf(size - 1)).intValue());
 
         for (int i = 0; i < size; i++) {
-            result[i] = start.add(BigInteger.valueOf(i * stepSize));
+            result.set(i, start.add(BigInteger.valueOf(i * stepSize)));
         }
 
-        result[result.length - 1] = end;
+        result.set(result.size() - 1, end);
         return result;
     }
 }

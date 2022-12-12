@@ -1,6 +1,8 @@
 package org.eclipse.tsp.java.client.models.xy;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.tsp.java.client.models.style.OutputElementStyle;
 
@@ -14,16 +16,19 @@ public class XYSerie {
     private int serieId;
     private XYAxis xAxis;
     private XYAxis yAxis;
-    private BigInteger[] xValues;
-    private BigInteger[] yValues;
-    private int[] tags;
+    private List<BigInteger> xValues;
+    private List<BigInteger> yValues;
+    private List<Integer> tags;
     private OutputElementStyle style;
 
     public XYSerie() {
+        this.xValues = new ArrayList<>();
+        this.yValues = new ArrayList<>();
+        this.tags = new ArrayList<>();
     }
 
-    public XYSerie(String serieName, int serieId, XYAxis xAxis, XYAxis yAxis, BigInteger[] xValues,
-            BigInteger[] yValues, OutputElementStyle style) {
+    public XYSerie(String serieName, int serieId, XYAxis xAxis, XYAxis yAxis, List<BigInteger> xValues,
+            List<BigInteger> yValues, OutputElementStyle style) {
         this.serieName = serieName;
         this.serieId = serieId;
         this.xAxis = xAxis;
@@ -33,8 +38,8 @@ public class XYSerie {
         this.style = style;
     }
 
-    public XYSerie(String serieName, int serieId, XYAxis xAxis, XYAxis yAxis, BigInteger[] xValues,
-            BigInteger[] yValues, OutputElementStyle style, int[] tags) {
+    public XYSerie(String serieName, int serieId, XYAxis xAxis, XYAxis yAxis, List<BigInteger> xValues,
+            List<BigInteger> yValues, OutputElementStyle style, List<Integer> tags) {
         this.serieName = serieName;
         this.serieId = serieId;
         this.xAxis = xAxis;
@@ -77,27 +82,27 @@ public class XYSerie {
         this.yAxis = yAxis;
     }
 
-    public BigInteger[] getxValues() {
+    public List<BigInteger> getxValues() {
         return xValues;
     }
 
-    public void setxValues(BigInteger[] xValues) {
+    public void setxValues(List<BigInteger> xValues) {
         this.xValues = xValues;
     }
 
-    public BigInteger[] getyValues() {
+    public List<BigInteger> getyValues() {
         return yValues;
     }
 
-    public void setyValues(BigInteger[] yValues) {
+    public void setyValues(List<BigInteger> yValues) {
         this.yValues = yValues;
     }
 
-    public int[] getTags() {
+    public List<Integer> getTags() {
         return tags;
     }
 
-    public void setTags(int[] tags) {
+    public void setTags(List<Integer> tags) {
         this.tags = tags;
     }
 
