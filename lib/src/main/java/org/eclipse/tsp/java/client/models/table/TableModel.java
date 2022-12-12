@@ -1,15 +1,20 @@
 package org.eclipse.tsp.java.client.models.table;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TableModel {
     private int lowIndex;
     private int size;
-    private int[] columnIds;
-    private Line[] lines;
+    private List<Integer> columnIds;
+    private List<Line> lines;
 
     public TableModel() {
+        this.columnIds = new ArrayList<>();
+        this.lines = new ArrayList<>();
     }
 
-    public TableModel(int lowIndex, int size, int[] columnIds, Line[] lines) {
+    public TableModel(int lowIndex, int size, List<Integer> columnIds, List<Line> lines) {
         this.lowIndex = lowIndex;
         this.size = size;
         this.columnIds = columnIds;
@@ -32,19 +37,19 @@ public class TableModel {
         this.size = size;
     }
 
-    public int[] getColumnIds() {
+    public List<Integer> getColumnIds() {
         return columnIds;
     }
 
-    public void setColumnIds(int[] columnIds) {
+    public void setColumnIds(List<Integer> columnIds) {
         this.columnIds = columnIds;
     }
 
-    public Line[] getLines() {
+    public List<Line> getLines() {
         return lines;
     }
 
-    public void setLines(Line[] lines) {
+    public void setLines(List<Line> lines) {
         this.lines = lines;
     }
 }

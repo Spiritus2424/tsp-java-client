@@ -4,6 +4,7 @@ public class Health {
     private HealthStatus status;
 
     public Health() {
+        status = HealthStatus.DOWN;
     }
 
     public Health(HealthStatus status) {

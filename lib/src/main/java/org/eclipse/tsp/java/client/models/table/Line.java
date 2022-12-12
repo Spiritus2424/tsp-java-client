@@ -1,19 +1,23 @@
 package org.eclipse.tsp.java.client.models.table;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Line {
     private int index;
-    private Cell[] cells;
+    private List<Cell> cells;
     private int tags;
 
     public Line() {
+        this.cells = new ArrayList<>();
     }
 
-    public Line(int index, Cell[] cells) {
+    public Line(int index, List<Cell> cells) {
         this.index = index;
         this.cells = cells;
     }
 
-    public Line(int index, Cell[] cells, int tags) {
+    public Line(int index, List<Cell> cells, int tags) {
         this.index = index;
         this.cells = cells;
         this.tags = tags;
@@ -27,11 +31,11 @@ public class Line {
         this.index = index;
     }
 
-    public Cell[] getCells() {
+    public List<Cell> getCells() {
         return cells;
     }
 
-    public void setCells(Cell[] cells) {
+    public void setCells(List<Cell> cells) {
         this.cells = cells;
     }
 
