@@ -25,7 +25,12 @@
                 }
             }
         ],
-        "headers": []
+        "headers": [
+            {
+                "name": "",
+                "tooltip": ""
+            }
+        ]
     },
     "statusMessage": "Completed",
     "status": "COMPLETED"
