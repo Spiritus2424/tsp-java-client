@@ -89,7 +89,7 @@ public class TspClient {
                 Experiment.class);
     }
 
-    public TspClientResponse<OutputDescriptor[]> experimentOutPuts(String experimentUuid,
+    public TspClientResponse<OutputDescriptor[]> experimentOutputs(String experimentUuid,
             Optional<Map<String, String>> queryParameters) {
         return RestClient.get(String.format("%s/experiments/%s/outputs", this.baseUrl, experimentUuid),
                 queryParameters, OutputDescriptor[].class);
