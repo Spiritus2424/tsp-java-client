@@ -123,7 +123,7 @@ public class TspClientTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-experiment-outputs-0.json", FIXTURE_PATH))));
 
-		TspClientResponse<OutputDescriptor[]> response = tspClient.experimentOutPuts(uuid, Optional.empty());
+		TspClientResponse<OutputDescriptor[]> response = tspClient.experimentOutputs(uuid, Optional.empty());
 
 		assertEquals(4, response.getResponseModel().length);
 		assertEquals(OutputDescriptor.class, response.getResponseModel()[0].getClass());
@@ -144,7 +144,7 @@ public class TspClientTest {
 				.getAnnotationsCategories(experimentUuid, outputId, Optional.empty());
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
-		assertEquals(1, response.getResponseModel().getModel().getAnnotationCategories().length);
+		assertEquals(1, response.getResponseModel().getModel().getAnnotationCategories().size());
 		assertEquals(AnnotationCategoriesModel.class, response.getResponseModel().getModel().getClass());
 	}
 
@@ -166,11 +166,11 @@ public class TspClientTest {
 				outputId, query);
 		assertEquals(ResponseStatus.RUNNING, response.getResponseModel().getStatus());
 		assertEquals(Annotation.class,
-				response.getResponseModel().getModel().getAnnotations().get("Annotation category")[0]
+				response.getResponseModel().getModel().getAnnotations().get("Annotation category").get(0)
 						.getClass());
-		assertEquals(1, response.getResponseModel().getModel().getAnnotations().get("Annotation category").length);
+		assertEquals(1, response.getResponseModel().getModel().getAnnotations().get("Annotation category").size());
 		assertEquals(new BigInteger("1111111111111111111"),
-				response.getResponseModel().getModel().getAnnotations().get("Annotation category")[0]
+				response.getResponseModel().getModel().getAnnotations().get("Annotation category").get(0)
 						.getTime());
 
 	}
@@ -189,8 +189,8 @@ public class TspClientTest {
 		assertEquals(experimentUuid, response.getResponseModel().getUuid());
 		assertEquals(new BigInteger("1234567890123456789"), response.getResponseModel().getStart());
 		assertEquals("COMPLETED", response.getResponseModel().getIndexingStatus());
-		assertEquals(1, response.getResponseModel().getTraces().length);
-		assertEquals("kernel", response.getResponseModel().getTraces()[0].getName());
+		assertEquals(1, response.getResponseModel().getTraces().size());
+		assertEquals("kernel", response.getResponseModel().getTraces().get(0).getName());
 	}
 
 	@Test
@@ -267,8 +267,8 @@ public class TspClientTest {
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(TableModel.class, response.getResponseModel().getModel().getClass());
-		assertEquals(3, response.getResponseModel().getModel().getColumnIds().length);
-		assertEquals(2, response.getResponseModel().getModel().getLines().length);
+		assertEquals(3, response.getResponseModel().getModel().getColumnIds().size());
+		assertEquals(2, response.getResponseModel().getModel().getLines().size());
 		assertEquals(0, response.getResponseModel().getModel().getLowIndex());
 		assertEquals(999999, response.getResponseModel().getModel().getSize());
 	}
@@ -312,8 +312,8 @@ public class TspClientTest {
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(TimeGraphModel.class, response.getResponseModel().getModel().getClass());
-		assertEquals(1, response.getResponseModel().getModel().getRows().length);
-		assertEquals(TimeGraphRow[].class, response.getResponseModel().getModel().getRows().getClass());
+		assertEquals(1, response.getResponseModel().getModel().getRows().size());
+		assertEquals(TimeGraphRow.class, response.getResponseModel().getModel().getRows().get(0).getClass());
 	}
 
 	@Test
@@ -352,8 +352,8 @@ public class TspClientTest {
 				experimentUuid, outputId, query);
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
-		assertEquals(EntryHeader[].class, response.getResponseModel().getModel().getHeaders().getClass());
-		assertEquals(TimeGraphEntry[].class, response.getResponseModel().getModel().getEntries().getClass());
+		assertEquals(EntryHeader.class, response.getResponseModel().getModel().getHeaders().get(0).getClass());
+		assertEquals(TimeGraphEntry.class, response.getResponseModel().getModel().getEntries().get(0).getClass());
 	}
 
 	@Test
@@ -374,7 +374,7 @@ public class TspClientTest {
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(XYModel.class, response.getResponseModel().getModel().getClass());
 		assertEquals("Chart name", response.getResponseModel().getModel().getTitle());
-		assertEquals(XYSerie[].class, response.getResponseModel().getModel().getSeries().getClass());
+		assertEquals(XYSerie.class, response.getResponseModel().getModel().getSeries().get(0).getClass());
 	}
 
 	@Test
@@ -393,8 +393,8 @@ public class TspClientTest {
 				experimentUuid, outputId, query);
 
 		assertEquals(ResponseStatus.RUNNING, response.getResponseModel().getStatus());
-		assertEquals(EntryHeader[].class, response.getResponseModel().getModel().getHeaders().getClass());
-		assertEquals(Entry[].class, response.getResponseModel().getModel().getEntries().getClass());
+		assertEquals(EntryHeader.class, response.getResponseModel().getModel().getHeaders().get(0).getClass());
+		assertEquals(Entry.class, response.getResponseModel().getModel().getEntries().get(0).getClass());
 	}
 
 	@Test
