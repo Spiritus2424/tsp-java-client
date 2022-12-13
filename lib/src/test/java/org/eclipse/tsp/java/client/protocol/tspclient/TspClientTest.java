@@ -23,6 +23,7 @@ import org.eclipse.tsp.java.client.models.entry.EntryModel;
 import org.eclipse.tsp.java.client.models.experiment.Experiment;
 import org.eclipse.tsp.java.client.models.health.Health;
 import org.eclipse.tsp.java.client.models.health.HealthStatus;
+import org.eclipse.tsp.java.client.models.indexing.IndexingStatus;
 import org.eclipse.tsp.java.client.models.markerset.MarkerSet;
 import org.eclipse.tsp.java.client.models.outputdescriptor.OutputDescriptor;
 import org.eclipse.tsp.java.client.models.query.Query;
@@ -82,7 +83,7 @@ public class TspClientTest {
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals("22222222-2222-2222-2222-222222222222", response.getResponseModel().getUuid());
 		assertEquals(new BigInteger("1234567890123456789"), response.getResponseModel().getStart());
-		assertEquals("COMPLETED", response.getResponseModel().getIndexingStatus());
+		assertEquals(IndexingStatus.COMPLETED, response.getResponseModel().getIndexingStatus());
 	}
 
 	@Test
@@ -97,7 +98,7 @@ public class TspClientTest {
 
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals(uuid, response.getResponseModel().getUuid());
-		assertEquals("CLOSED", response.getResponseModel().getIndexingStatus());
+		assertEquals(IndexingStatus.CLOSED, response.getResponseModel().getIndexingStatus());
 	}
 
 	@Test
@@ -113,7 +114,7 @@ public class TspClientTest {
 
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals(uuid, response.getResponseModel().getUuid());
-		assertEquals("CLOSED", response.getResponseModel().getIndexingStatus());
+		assertEquals(IndexingStatus.CLOSED, response.getResponseModel().getIndexingStatus());
 	}
 
 	@Test
@@ -192,7 +193,7 @@ public class TspClientTest {
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals(experimentUuid, response.getResponseModel().getUuid());
 		assertEquals(new BigInteger("1234567890123456789"), response.getResponseModel().getStart());
-		assertEquals("COMPLETED", response.getResponseModel().getIndexingStatus());
+		assertEquals(IndexingStatus.COMPLETED, response.getResponseModel().getIndexingStatus());
 		assertEquals(1, response.getResponseModel().getTraces().size());
 		assertEquals("kernel", response.getResponseModel().getTraces().get(0).getName());
 	}
@@ -412,7 +413,7 @@ public class TspClientTest {
 		Query query = new Query(parameters);
 		TspClientResponse<Trace> response = tspClient.openTrace(query);
 
-		assertEquals("CLOSED", response.getResponseModel().getIndexingStatus());
+		assertEquals(IndexingStatus.CLOSED, response.getResponseModel().getIndexingStatus());
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals("11111111-1111-1111-1111-111111111111", response.getResponseModel().getUuid());
 	}
