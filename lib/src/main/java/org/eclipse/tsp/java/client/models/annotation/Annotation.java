@@ -12,13 +12,13 @@ public class Annotation {
     private BigInteger time;
     private BigInteger duration;
     private int entryId;
-    private String type;
+    private AnnotationType type;
     private OutputElementStyle style;
 
     public Annotation() {
     }
 
-    public Annotation(String label, BigInteger time, BigInteger duration, int entryId, String type) {
+    public Annotation(String label, BigInteger time, BigInteger duration, int entryId, AnnotationType type) {
         this.label = label;
         this.time = time;
         this.duration = duration;
@@ -27,7 +27,7 @@ public class Annotation {
         this.style = null;
     }
 
-    public Annotation(String label, BigInteger time, BigInteger duration, int entryId, String type,
+    public Annotation(String label, BigInteger time, BigInteger duration, int entryId, AnnotationType type,
             OutputElementStyle style) {
         this.label = label;
         this.time = time;
@@ -69,11 +69,11 @@ public class Annotation {
         this.entryId = entryId;
     }
 
-    public String getType() {
+    public AnnotationType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AnnotationType type) {
         this.type = type;
     }
 

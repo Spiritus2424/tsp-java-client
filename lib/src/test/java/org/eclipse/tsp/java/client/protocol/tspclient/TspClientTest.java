@@ -16,6 +16,7 @@ import java.util.Optional;
 import org.eclipse.tsp.java.client.models.annotation.Annotation;
 import org.eclipse.tsp.java.client.models.annotation.AnnotationCategoriesModel;
 import org.eclipse.tsp.java.client.models.annotation.AnnotationModel;
+import org.eclipse.tsp.java.client.models.annotation.AnnotationType;
 import org.eclipse.tsp.java.client.models.entry.Entry;
 import org.eclipse.tsp.java.client.models.entry.EntryHeader;
 import org.eclipse.tsp.java.client.models.entry.EntryModel;
@@ -172,6 +173,9 @@ public class TspClientTest {
 		assertEquals(new BigInteger("1111111111111111111"),
 				response.getResponseModel().getModel().getAnnotations().get("Annotation category").get(0)
 						.getTime());
+		assertEquals(AnnotationType.CHART,
+				response.getResponseModel().getModel().getAnnotations().get("Annotation category").get(0)
+						.getType());
 
 	}
 
