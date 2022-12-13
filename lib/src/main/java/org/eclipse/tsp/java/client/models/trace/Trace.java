@@ -2,6 +2,8 @@ package org.eclipse.tsp.java.client.models.trace;
 
 import java.math.BigInteger;
 
+import org.eclipse.tsp.java.client.models.indexing.IndexingStatus;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Trace {
@@ -12,13 +14,13 @@ public class Trace {
     private BigInteger end;
     private String path;
     private int nbEvents;
-    private String indexingStatus;
+    private IndexingStatus indexingStatus;
 
     public Trace() {
     }
 
     public Trace(String uuid, String name, BigInteger start, BigInteger end, String path, int nbEvents,
-            String indexingStatus) {
+            IndexingStatus indexingStatus) {
         this.uuid = uuid;
         this.name = name;
         this.start = start;
@@ -76,11 +78,11 @@ public class Trace {
         this.nbEvents = nbEvents;
     }
 
-    public String getIndexingStatus() {
+    public IndexingStatus getIndexingStatus() {
         return indexingStatus;
     }
 
-    public void setIndexingStatus(String indexingStatus) {
+    public void setIndexingStatus(IndexingStatus indexingStatus) {
         this.indexingStatus = indexingStatus;
     }
 

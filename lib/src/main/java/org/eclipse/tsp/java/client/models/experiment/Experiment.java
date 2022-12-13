@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.tsp.java.client.models.indexing.IndexingStatus;
 import org.eclipse.tsp.java.client.models.trace.Trace;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,14 +16,15 @@ public class Experiment {
     private BigInteger start;
     private BigInteger end;
     private int nbEvents;
-    private String indexingStatus;
+    private IndexingStatus indexingStatus;
     private List<Trace> traces;
 
     public Experiment() {
         traces = new ArrayList<>();
     }
 
-    public Experiment(String uuid, String name, BigInteger start, BigInteger end, int nbEvents, String indexingStatus,
+    public Experiment(String uuid, String name, BigInteger start, BigInteger end, int nbEvents,
+            IndexingStatus indexingStatus,
             List<Trace> traces) {
         this.uuid = uuid;
         this.name = name;
@@ -73,11 +75,11 @@ public class Experiment {
         this.nbEvents = nbEvents;
     }
 
-    public String getIndexingStatus() {
+    public IndexingStatus getIndexingStatus() {
         return indexingStatus;
     }
 
-    public void setIndexingStatus(String indexingStatus) {
+    public void setIndexingStatus(IndexingStatus indexingStatus) {
         this.indexingStatus = indexingStatus;
     }
 

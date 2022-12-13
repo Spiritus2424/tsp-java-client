@@ -9,7 +9,7 @@ public class OutputDescriptor {
     private String id;
     private String name;
     private String description;
-    private String type;
+    private OutputDescriptorType type;
     private Map<String, Object> queryParameters;
     private BigInteger start;
     private BigInteger end;
@@ -21,14 +21,14 @@ public class OutputDescriptor {
         this.compatibleProviders = new ArrayList<>();
     }
 
-    public OutputDescriptor(String id, String name, String description, String type) {
+    public OutputDescriptor(String id, String name, String description, OutputDescriptorType type) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
     }
 
-    public OutputDescriptor(String id, String name, String description, String type,
+    public OutputDescriptor(String id, String name, String description, OutputDescriptorType type,
             Map<String, Object> queryParameters) {
         this.id = id;
         this.name = name;
@@ -37,7 +37,7 @@ public class OutputDescriptor {
         this.queryParameters = queryParameters;
     }
 
-    public OutputDescriptor(String id, String name, String description, String type,
+    public OutputDescriptor(String id, String name, String description, OutputDescriptorType type,
             Map<String, Object> queryParameters, BigInteger start) {
         this.id = id;
         this.name = name;
@@ -47,7 +47,7 @@ public class OutputDescriptor {
         this.start = start;
     }
 
-    public OutputDescriptor(String id, String name, String description, String type,
+    public OutputDescriptor(String id, String name, String description, OutputDescriptorType type,
             Map<String, Object> queryParameters, BigInteger start, BigInteger end) {
         this.id = id;
         this.name = name;
@@ -58,7 +58,7 @@ public class OutputDescriptor {
         this.end = end;
     }
 
-    public OutputDescriptor(String id, String name, String description, String type,
+    public OutputDescriptor(String id, String name, String description, OutputDescriptorType type,
             Map<String, Object> queryParameters, BigInteger start, BigInteger end, boolean isFinal) {
         this.id = id;
         this.name = name;
@@ -70,7 +70,7 @@ public class OutputDescriptor {
         this.isFinal = isFinal;
     }
 
-    public OutputDescriptor(String id, String name, String description, String type,
+    public OutputDescriptor(String id, String name, String description, OutputDescriptorType type,
             Map<String, Object> queryParameters, BigInteger start, BigInteger end, boolean isFinal,
             ArrayList<String> compatibleProviders) {
         this.id = id;
@@ -108,11 +108,11 @@ public class OutputDescriptor {
         this.description = description;
     }
 
-    public String getType() {
+    public OutputDescriptorType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(OutputDescriptorType type) {
         this.type = type;
     }
 

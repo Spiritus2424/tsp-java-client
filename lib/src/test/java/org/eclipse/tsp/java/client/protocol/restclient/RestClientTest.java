@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.models.annotation.Annotation;
+import org.eclipse.tsp.java.client.models.annotation.AnnotationType;
 import org.junit.jupiter.api.Test;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
@@ -41,7 +42,7 @@ public class RestClientTest {
     @Test
     public void putMethod() {
         stubFor(put("/my/resource").willReturn(ok()));
-        Annotation annotation = new Annotation("label", BigInteger.ZERO, BigInteger.ZERO, 0, "type");
+        Annotation annotation = new Annotation("label", BigInteger.ZERO, BigInteger.ZERO, 0, AnnotationType.CHART);
         TspClientResponse<Annotation> result = RestClient.put("http://localhost:8080/my/resource", annotation);
         assertTrue(result.isOk());
     }
