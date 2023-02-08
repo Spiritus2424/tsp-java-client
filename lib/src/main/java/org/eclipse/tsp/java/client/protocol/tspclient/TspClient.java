@@ -81,7 +81,7 @@ public class TspClient {
     }
 
     public TspClientResponse<Experiment> updateExperiment(String experimentUuid, Query query) {
-        return RestClient.put(String.format("%s/experiments", this.baseUrl), Optional.of(query));
+        return RestClient.put(String.format("%s/experiments", this.baseUrl), Optional.of(query), Experiment.class);
     }
 
     public TspClientResponse<Experiment> deleteExperiment(String experimentUuid) {
@@ -221,8 +221,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<TableModel>> getTableLines(
-            String experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<TableModel>> getTableLines(String experimentUuid, String outputId,
             Query query) {
         TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/table/%s/lines", this.baseUrl, experimentUuid, outputId),
