@@ -47,6 +47,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 
+import jakarta.ws.rs.core.Response.Status;
+
 @WireMockTest(httpPort = 8080)
 public class TspClientTest {
 
@@ -416,6 +418,21 @@ public class TspClientTest {
 		assertEquals(IndexingStatus.CLOSED, response.getResponseModel().getIndexingStatus());
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals("11111111-1111-1111-1111-111111111111", response.getResponseModel().getUuid());
+	}
+
+	@Test
+	public void openTraceNotFound() {
+		final String targetUrl = String.format("%s/traces", TSP_EXTENSION_URL);
+		stubFor(post(targetUrl).willReturn(aResponse()
+				.withHeader("Content-Type", "application/json")
+				.withBodyFile(String.format("%s/open-trace-1.json", FIXTURE_PATH))
+				.withStatus(Status.NOT_FOUND.getStatusCode())));
+
+		Map<String, Object> parameters = new HashMap<>();
+		Query query = new Query(parameters);
+		TspClientResponse<Trace> response = tspClient.openTrace(query);
+
+		assertEquals(response.getStatusCode(), Status.NOT_FOUND);
 	}
 
 }
