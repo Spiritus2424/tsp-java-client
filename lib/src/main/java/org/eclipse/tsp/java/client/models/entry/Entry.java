@@ -56,6 +56,21 @@ public class Entry {
         this.metadata = metadata;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object)
+            isEquals = true;
+        else if (object == null || getClass() != object.getClass())
+            isEquals = false;
+        else {
+            Entry entry = (Entry) object;
+            isEquals = this.id == entry.getId();
+        }
+
+        return isEquals;
+    }
+
     public int getId() {
         return id;
     }
