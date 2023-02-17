@@ -50,6 +50,21 @@ public class XYSerie {
         this.tags = tags;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object)
+            isEquals = true;
+        else if (object == null || getClass() != object.getClass())
+            isEquals = false;
+        else {
+            XYSerie xySerie = (XYSerie) object;
+            isEquals = this.serieId == xySerie.getSerieId();
+        }
+
+        return isEquals;
+    }
+
     public String getSerieName() {
         return serieName;
     }
