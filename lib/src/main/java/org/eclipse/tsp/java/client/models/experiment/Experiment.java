@@ -36,6 +36,21 @@ public class Experiment {
         this.traces = traces;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object)
+            isEquals = true;
+        else if (object == null || getClass() != object.getClass())
+            isEquals = false;
+        else {
+            Experiment experiment = (Experiment) object;
+            isEquals = this.uuid.equals(experiment.getUuid());
+        }
+
+        return isEquals;
+    }
+
     public UUID getUuid() {
         return uuid;
     }
