@@ -84,6 +84,21 @@ public class OutputDescriptor {
         this.compatibleProviders = compatibleProviders;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object)
+            isEquals = true;
+        else if (object == null || getClass() != object.getClass())
+            isEquals = false;
+        else {
+            OutputDescriptor outputDescriptor = (OutputDescriptor) object;
+            isEquals = this.id.equals(outputDescriptor.getId());
+        }
+
+        return isEquals;
+    }
+
     public String getId() {
         return id;
     }
