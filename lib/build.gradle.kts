@@ -44,10 +44,18 @@ dependencies {
     implementation("com.google.guava:guava:31.0.1-jre")
     
     
+    // Jarkarta - HTTP implementation
     implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
     implementation("org.glassfish.jersey.core:jersey-client:3.1.0-M3")
     implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.0-M3")
-    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.0-M3")   
+    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.0-M3")  
+
+    // Lombok - Decorator
+    compileOnly("org.projectlombok:lombok:1.18.26")
+	annotationProcessor("org.projectlombok:lombok:1.18.26")
+	
+	testCompileOnly("org.projectlombok:lombok:1.18.26")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
 }
 
 tasks.test {
