@@ -1,6 +1,7 @@
 package org.eclipse.tsp.java.client.models.trace;
 
 import java.math.BigInteger;
+import java.util.UUID;
 
 import org.eclipse.tsp.java.client.models.indexing.IndexingStatus;
 
@@ -8,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Trace {
     @JsonProperty("UUID")
-    private String uuid;
+    private UUID uuid;
     private String name;
     private BigInteger start;
     private BigInteger end;
@@ -19,7 +20,7 @@ public class Trace {
     public Trace() {
     }
 
-    public Trace(String uuid, String name, BigInteger start, BigInteger end, String path, int nbEvents,
+    public Trace(UUID uuid, String name, BigInteger start, BigInteger end, String path, int nbEvents,
             IndexingStatus indexingStatus) {
         this.uuid = uuid;
         this.name = name;
@@ -30,11 +31,11 @@ public class Trace {
         this.indexingStatus = indexingStatus;
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
