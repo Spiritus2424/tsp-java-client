@@ -3,6 +3,7 @@ package org.eclipse.tsp.java.client.models.experiment;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.eclipse.tsp.java.client.models.indexing.IndexingStatus;
 import org.eclipse.tsp.java.client.models.trace.Trace;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Experiment {
     @JsonProperty("UUID")
-    private String uuid;
+    private UUID uuid;
     private String name;
     private BigInteger start;
     private BigInteger end;
@@ -23,7 +24,7 @@ public class Experiment {
         traces = new ArrayList<>();
     }
 
-    public Experiment(String uuid, String name, BigInteger start, BigInteger end, int nbEvents,
+    public Experiment(UUID uuid, String name, BigInteger start, BigInteger end, int nbEvents,
             IndexingStatus indexingStatus,
             List<Trace> traces) {
         this.uuid = uuid;
@@ -35,11 +36,11 @@ public class Experiment {
         this.traces = traces;
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
