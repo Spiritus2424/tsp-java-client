@@ -1,9 +1,10 @@
 package org.eclipse.tsp.java.client.models.bookmark;
 
 import java.math.BigInteger;
+import java.util.UUID;
 
 public class Bookmark {
-    private String uuid;
+    private UUID uuid;
     private String name;
     private BigInteger startTime;
     private BigInteger endTime;
@@ -12,7 +13,7 @@ public class Bookmark {
     public Bookmark() {
     }
 
-    public Bookmark(String uuid, String name, BigInteger startTime, BigInteger endTime, String type) {
+    public Bookmark(UUID uuid, String name, BigInteger startTime, BigInteger endTime, String type) {
         this.uuid = uuid;
         this.name = name;
         this.startTime = startTime;
@@ -20,11 +21,11 @@ public class Bookmark {
         this.type = type;
     }
 
-    public String getuuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
