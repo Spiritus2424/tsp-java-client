@@ -1,30 +1,15 @@
 package org.eclipse.tsp.java.client.models.entry;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+@Data
+@NoArgsConstructor
 public class EntryHeader {
+    @NonNull
     private String name;
+    @NonNull
     private String tooltip;
 
-    public EntryHeader() {
-    }
-
-    public EntryHeader(String name, String tooltip) {
-        this.name = name;
-        this.tooltip = tooltip;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTooltip() {
-        return tooltip;
-    }
-
-    public void setTooltip(String tooltip) {
-        this.tooltip = tooltip;
-    }
 }
