@@ -21,25 +21,28 @@ public class TimeGraphEntry extends Entry {
         this.end = end;
     }
 
-    public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String> labels, int parentId) {
-        super(id, labels, parentId);
-        this.start = start;
-        this.end = end;
-    }
+    // public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String>
+    // labels, int parentId) {
+    // super(id, labels, parentId);
+    // this.start = start;
+    // this.end = end;
+    // }
 
-    public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String> labels, int parentId,
-            Boolean hasData) {
-        super(id, labels, parentId, hasData);
-        this.start = start;
-        this.end = end;
-    }
+    // public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String>
+    // labels, int parentId,
+    // Boolean hasData) {
+    // super(id, labels, parentId, hasData);
+    // this.start = start;
+    // this.end = end;
+    // }
 
-    public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String> labels, int parentId, Boolean hasData,
-            OutputElementStyle style) {
-        super(id, labels, parentId, hasData, style);
-        this.start = start;
-        this.end = end;
-    }
+    // public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String>
+    // labels, int parentId, Boolean hasData,
+    // OutputElementStyle style) {
+    // super(id, labels, parentId, hasData, style);
+    // this.start = start;
+    // this.end = end;
+    // }
 
     public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String> labels, int parentId, Boolean hasData,
             OutputElementStyle style,
