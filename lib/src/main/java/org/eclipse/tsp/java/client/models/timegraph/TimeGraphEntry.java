@@ -15,11 +15,12 @@ public class TimeGraphEntry extends Entry {
         super();
     }
 
-    public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String> labels) {
-        super(id, labels);
-        this.start = start;
-        this.end = end;
-    }
+    // public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String>
+    // labels) {
+    // super(id, labels);
+    // this.start = start;
+    // this.end = end;
+    // }
 
     // public TimeGraphEntry(BigInteger start, BigInteger end, int id, List<String>
     // labels, int parentId) {
