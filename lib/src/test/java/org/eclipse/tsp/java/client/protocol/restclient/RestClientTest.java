@@ -54,7 +54,8 @@ public class RestClientTest {
     @Test
     public void putMethod() {
         stubFor(put(MOCK_URL).willReturn(ok()));
-        Annotation annotation = new Annotation("label", BigInteger.ZERO, BigInteger.ZERO, 0, AnnotationType.CHART);
+        Annotation annotation = new Annotation("label", BigInteger.ZERO, BigInteger.ZERO, 0, AnnotationType.CHART,
+                null);
         TspClientResponse<Annotation> result = RestClient.put("http://localhost:8080".concat(MOCK_URL), annotation,
                 Annotation.class);
         assertTrue(result.isOk());
