@@ -5,7 +5,6 @@ import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 /**
  * AnnotationCategoriesModel
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class AnnotationCategoriesModel {
     @NonNull
     private List<String> annotationCategories;
