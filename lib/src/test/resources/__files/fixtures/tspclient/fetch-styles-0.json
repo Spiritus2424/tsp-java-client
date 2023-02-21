@@ -2,7 +2,7 @@
     "model": {
         "styles": {
             "Style key": {
-                "parentKey": null,
+                "parentKey": "",
                 "values": {
                     "style-name": "Style name",
                     "background-color": "#646464",
