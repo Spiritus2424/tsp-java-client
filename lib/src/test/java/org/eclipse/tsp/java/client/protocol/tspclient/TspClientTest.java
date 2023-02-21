@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.eclipse.tsp.java.client.models.annotation.Annotation;
 import org.eclipse.tsp.java.client.models.annotation.AnnotationCategoriesModel;
@@ -83,14 +84,14 @@ public class TspClientTest {
 		TspClientResponse<Experiment> response = tspClient.createExperiment(query);
 
 		assertEquals("kernel", response.getResponseModel().getName());
-		assertEquals("22222222-2222-2222-2222-222222222222", response.getResponseModel().getUuid());
+		assertEquals(UUID.fromString("22222222-2222-2222-2222-222222222222"), response.getResponseModel().getUuid());
 		assertEquals(new BigInteger("1234567890123456789"), response.getResponseModel().getStart());
 		assertEquals(IndexingStatus.COMPLETED, response.getResponseModel().getIndexingStatus());
 	}
 
 	@Test
 	public void deleteExperiment() {
-		final String uuid = "22222222-2222-2222-2222-222222222222";
+		final UUID uuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String targetUrl = String.format("%s/experiments/%s", TSP_EXTENSION_URL, uuid);
 		stubFor(delete(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -105,7 +106,7 @@ public class TspClientTest {
 
 	@Test
 	public void deleteTrace() {
-		final String uuid = "11111111-1111-1111-1111-111111111111";
+		final UUID uuid = UUID.fromString("11111111-1111-1111-1111-111111111111");
 		final String targetUrl = String.format("%s/traces/%s", TSP_EXTENSION_URL, uuid);
 
 		stubFor(delete(targetUrl).willReturn(aResponse()
@@ -121,7 +122,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchExperimentOutputs() {
-		final String uuid = "11111111-1111-1111-1111-111111111111";
+		final UUID uuid = UUID.fromString("11111111-1111-1111-1111-111111111111");
 		final String targetUrl = String.format("%s/experiments/%s/outputs", TSP_EXTENSION_URL, uuid);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -135,7 +136,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchAnnotationCategories() throws JsonProcessingException, JsonMappingException {
-		final String experimentUuid = "11111111-1111-1111-1111-111111111111";
+		final UUID experimentUuid = UUID.fromString("11111111-1111-1111-1111-111111111111");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/%s/annotations", TSP_EXTENSION_URL,
 				experimentUuid,
@@ -154,7 +155,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchAnnotationModel() throws JsonProcessingException, JsonMappingException {
-		final String experimentUuid = "11111111-1111-1111-1111-111111111111";
+		final UUID experimentUuid = UUID.fromString("11111111-1111-1111-1111-111111111111");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/%s/annotations", TSP_EXTENSION_URL,
 				experimentUuid,
@@ -184,7 +185,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchExperiment() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String targetUrl = String.format("%s/experiments/%s", TSP_EXTENSION_URL, experimentUuid);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
@@ -202,7 +203,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchMarkerSets() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String targetUrl = String.format("%s/experiments/%s/outputs/markerSets", TSP_EXTENSION_URL,
 				experimentUuid);
 		stubFor(get(targetUrl).willReturn(aResponse()
@@ -219,7 +220,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchStyles() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/%s/style", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -239,7 +240,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchTableColumns() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/table/%s/columns", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -259,7 +260,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchTableLines() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/table/%s/lines", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -282,7 +283,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchTimegraphArrows() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/arrows", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -304,7 +305,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchTimegraphStates() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/states", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -325,7 +326,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchTimegraphTooltip() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/tooltip", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -345,7 +346,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchTimegraphTree() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/tree", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -365,7 +366,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchXY() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/xy", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -386,7 +387,7 @@ public class TspClientTest {
 
 	@Test
 	public void fetchXYTree() {
-		final String experimentUuid = "22222222-2222-2222-2222-222222222222";
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String outputId = "11111111-1111-1111-1111-111111111111";
 		final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/tree", TSP_EXTENSION_URL,
 				experimentUuid, outputId);
@@ -417,7 +418,7 @@ public class TspClientTest {
 
 		assertEquals(IndexingStatus.CLOSED, response.getResponseModel().getIndexingStatus());
 		assertEquals("kernel", response.getResponseModel().getName());
-		assertEquals("11111111-1111-1111-1111-111111111111", response.getResponseModel().getUuid());
+		assertEquals(UUID.fromString("11111111-1111-1111-1111-111111111111"), response.getResponseModel().getUuid());
 	}
 
 	@Test

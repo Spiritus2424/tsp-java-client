@@ -3,6 +3,7 @@ package org.eclipse.tsp.java.client.protocol.tspclient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.eclipse.tsp.java.client.models.annotation.AnnotationCategoriesModel;
 import org.eclipse.tsp.java.client.models.annotation.AnnotationModel;
@@ -40,11 +41,10 @@ public class TspClient {
     }
 
     public TspClientResponse<Trace[]> getTraces(Optional<Map<String, String>> queryParameters) {
-
         return RestClient.get(String.format("%s/traces", this.baseUrl), queryParameters, Trace[].class);
     }
 
-    public TspClientResponse<Trace> getTrace(String traceUuid) {
+    public TspClientResponse<Trace> getTrace(UUID traceUuid) {
         return RestClient.get(String.format("%s/traces/%s", this.baseUrl, traceUuid), Optional.empty(), Trace.class);
     }
 
@@ -52,7 +52,7 @@ public class TspClient {
         return RestClient.post(String.format("%s/traces", this.baseUrl), Optional.of(query), Trace.class);
     }
 
-    public TspClientResponse<Trace> deleteTrace(String traceUuid, Optional<Boolean> removeFromCache,
+    public TspClientResponse<Trace> deleteTrace(UUID traceUuid, Optional<Boolean> removeFromCache,
             Optional<Boolean> deleteFromDisk) {
         Map<String, String> queryParameters = new HashMap<String, String>();
         if (removeFromCache.isPresent()) {
@@ -71,7 +71,7 @@ public class TspClient {
         return RestClient.get(String.format("%s/experiments", this.baseUrl), queryParameters, Experiment[].class);
     }
 
-    public TspClientResponse<Experiment> getExperiment(String experimentUuid) {
+    public TspClientResponse<Experiment> getExperiment(UUID experimentUuid) {
         return RestClient.get(String.format("%s/experiments/%s", this.baseUrl, experimentUuid), Optional.empty(),
                 Experiment.class);
     }
@@ -80,22 +80,22 @@ public class TspClient {
         return RestClient.post(String.format("%s/experiments", this.baseUrl), Optional.of(query), Experiment.class);
     }
 
-    public TspClientResponse<Experiment> updateExperiment(String experimentUuid, Query query) {
+    public TspClientResponse<Experiment> updateExperiment(UUID experimentUuid, Query query) {
         return RestClient.put(String.format("%s/experiments", this.baseUrl), Optional.of(query), Experiment.class);
     }
 
-    public TspClientResponse<Experiment> deleteExperiment(String experimentUuid) {
+    public TspClientResponse<Experiment> deleteExperiment(UUID experimentUuid) {
         return RestClient.delete(String.format("%s/experiments/%s", this.baseUrl, experimentUuid), Optional.empty(),
                 Experiment.class);
     }
 
-    public TspClientResponse<OutputDescriptor[]> experimentOutputs(String experimentUuid,
+    public TspClientResponse<OutputDescriptor[]> experimentOutputs(UUID experimentUuid,
             Optional<Map<String, String>> queryParameters) {
         return RestClient.get(String.format("%s/experiments/%s/outputs", this.baseUrl, experimentUuid),
                 queryParameters, OutputDescriptor[].class);
     }
 
-    public TspClientResponse<GenericResponse<EntryModel<Entry>>> getXYTree(String experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<EntryModel<Entry>>> getXYTree(UUID experimentUuid, String outputId,
             Query query) {
         final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/XY/%s/tree", this.baseUrl, experimentUuid, outputId),
@@ -105,7 +105,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<XYModel>> getXY(String experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<XYModel>> getXY(UUID experimentUuid, String outputId,
             Query query) {
         final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/XY/%s/xy", this.baseUrl, experimentUuid, outputId),
@@ -115,7 +115,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<Map<String, String>>> getXYToolTip(String experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<Map<String, String>>> getXYToolTip(UUID experimentUuid, String outputId,
             int xValue, Optional<Integer> yValue, Optional<String> seriesId) {
         Map<String, String> queryParameters = new HashMap<String, String>();
         if (yValue.isPresent()) {
@@ -134,7 +134,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<EntryModel<TimeGraphEntry>>> getTimeGraphTree(String experimentUuid,
+    public TspClientResponse<GenericResponse<EntryModel<TimeGraphEntry>>> getTimeGraphTree(UUID experimentUuid,
             String outputId, Query query) {
         final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/timeGraph/%s/tree", this.baseUrl, experimentUuid, outputId),
@@ -144,7 +144,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<TimeGraphModel>> getTimeGraphStates(String experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<TimeGraphModel>> getTimeGraphStates(UUID experimentUuid, String outputId,
             Query query) {
         final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/timeGraph/%s/states", this.baseUrl, experimentUuid, outputId),
@@ -154,7 +154,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<TimeGraphArrow[]>> getTimeGraphArrows(String experimentUuid,
+    public TspClientResponse<GenericResponse<TimeGraphArrow[]>> getTimeGraphArrows(UUID experimentUuid,
             String outputId, Query query) {
         final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/timeGraph/%s/arrows", this.baseUrl, experimentUuid, outputId),
@@ -165,7 +165,7 @@ public class TspClient {
                 });
     }
 
-    public TspClientResponse<GenericResponse<MarkerSet[]>> getMarkerSets(String experimentUuid) {
+    public TspClientResponse<GenericResponse<MarkerSet[]>> getMarkerSets(UUID experimentUuid) {
         final TspClientResponse<String> tspClientResponse = RestClient.get(
                 String.format("%s/experiments/%s/outputs/markerSets", this.baseUrl, experimentUuid),
                 Optional.empty(), String.class);
@@ -175,7 +175,7 @@ public class TspClient {
     }
 
     public TspClientResponse<GenericResponse<AnnotationCategoriesModel>> getAnnotationsCategories(
-            String experimentUuid, String outputId, Optional<String> markerSetId) {
+            UUID experimentUuid, String outputId, Optional<String> markerSetId) {
         Map<String, String> queryParameters = null;
         if (markerSetId.isPresent()) {
             queryParameters = new HashMap<String, String>();
@@ -190,7 +190,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(String experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(UUID experimentUuid, String outputId,
             Query query) {
 
         final TspClientResponse<String> tspClientResponse = RestClient.post(
@@ -201,7 +201,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<Map<String, String>>> getTimeGraphTooltip(String experimentUuid,
+    public TspClientResponse<GenericResponse<Map<String, String>>> getTimeGraphTooltip(UUID experimentUuid,
             String outputId,
             Query query) {
         TspClientResponse<String> tspClientResponse = RestClient.post(
@@ -211,8 +211,8 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<ColumnHeaderEntry[]>> getTableColumns(String experimentUuid,
-            String outputId, Query query) {
+    public TspClientResponse<GenericResponse<ColumnHeaderEntry[]>> getTableColumns(UUID experimentUuid, String outputId,
+            Query query) {
         TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/table/%s/columns", this.baseUrl, experimentUuid, outputId),
                 Optional.of(query), String.class);
@@ -221,7 +221,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<TableModel>> getTableLines(String experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<TableModel>> getTableLines(UUID experimentUuid, String outputId,
             Query query) {
         TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/table/%s/lines", this.baseUrl, experimentUuid, outputId),
@@ -231,8 +231,7 @@ public class TspClient {
         });
     }
 
-    public TspClientResponse<GenericResponse<OutputStyleModel>> getStyles(String experimentUuid,
-            String outputId,
+    public TspClientResponse<GenericResponse<OutputStyleModel>> getStyles(UUID experimentUuid, String outputId,
             Query query) {
         TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format("%s/experiments/%s/outputs/%s/style", this.baseUrl, experimentUuid, outputId),
