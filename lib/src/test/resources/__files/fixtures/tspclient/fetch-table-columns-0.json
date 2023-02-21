@@ -3,20 +3,20 @@
         {
             "name": "Trace",
             "id": 0,
-            "type": null,
-            "description": null
+            "type": "",
+            "description": ""
         },
         {
             "name": "Timestamp",
             "id": 1,
-            "type": null,
-            "description": null
+            "type": "",
+            "description": ""
         },
         {
             "name": "Content",
             "id": 2,
-            "type": null,
-            "description": null
+            "type": "",
+            "description": ""
         }
     ],
     "statusMessage": "Completed",

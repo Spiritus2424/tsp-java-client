@@ -7,100 +7,30 @@ import org.eclipse.tsp.java.client.models.indexing.IndexingStatus;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 public class Trace {
     @JsonProperty("UUID")
+    @EqualsAndHashCode.Include
+    @NonNull
     private UUID uuid;
+    @NonNull
     private String name;
+    @NonNull
     private BigInteger start;
+    @NonNull
     private BigInteger end;
+    @NonNull
     private String path;
+    @NonNull
     private int nbEvents;
+    @NonNull
     private IndexingStatus indexingStatus;
-
-    public Trace() {
-    }
-
-    public Trace(UUID uuid, String name, BigInteger start, BigInteger end, String path, int nbEvents,
-            IndexingStatus indexingStatus) {
-        this.uuid = uuid;
-        this.name = name;
-        this.start = start;
-        this.end = end;
-        this.path = path;
-        this.nbEvents = nbEvents;
-        this.indexingStatus = indexingStatus;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        boolean isEquals = false;
-        if (this == object) {
-            isEquals = true;
-        } else if (object == null || getClass() != object.getClass()) {
-            isEquals = false;
-        } else {
-            Trace trace = (Trace) object;
-            isEquals = this.uuid.equals(trace.getUuid());
-        }
-
-        return isEquals;
-    }
-
-    public UUID getUuid() {
-
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigInteger getStart() {
-        return start;
-    }
-
-    public void setStart(BigInteger start) {
-        this.start = start;
-    }
-
-    public BigInteger getEnd() {
-        return end;
-    }
-
-    public void setEnd(BigInteger end) {
-        this.end = end;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public int getNbEvents() {
-        return nbEvents;
-    }
-
-    public void setNbEvents(int nbEvents) {
-        this.nbEvents = nbEvents;
-    }
-
-    public IndexingStatus getIndexingStatus() {
-        return indexingStatus;
-    }
-
-    public void setIndexingStatus(IndexingStatus indexingStatus) {
-        this.indexingStatus = indexingStatus;
-    }
 
 }

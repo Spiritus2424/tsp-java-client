@@ -1,7 +1,6 @@
 package org.eclipse.tsp.java.client.models.experiment;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,100 +9,30 @@ import org.eclipse.tsp.java.client.models.trace.Trace;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 public class Experiment {
     @JsonProperty("UUID")
+    @EqualsAndHashCode.Include
+    @NonNull
     private UUID uuid;
+    @NonNull
     private String name;
+    @NonNull
     private BigInteger start;
+    @NonNull
     private BigInteger end;
+    @NonNull
     private int nbEvents;
+    @NonNull
     private IndexingStatus indexingStatus;
+    @NonNull
     private List<Trace> traces;
 
-    public Experiment() {
-        traces = new ArrayList<>();
-    }
-
-    public Experiment(UUID uuid, String name, BigInteger start, BigInteger end, int nbEvents,
-            IndexingStatus indexingStatus,
-            List<Trace> traces) {
-        this.uuid = uuid;
-        this.name = name;
-        this.start = start;
-        this.end = end;
-        this.nbEvents = nbEvents;
-        this.indexingStatus = indexingStatus;
-        this.traces = traces;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        boolean isEquals = false;
-        if (this == object)
-            isEquals = true;
-        else if (object == null || getClass() != object.getClass())
-            isEquals = false;
-        else {
-            Experiment experiment = (Experiment) object;
-            isEquals = this.uuid.equals(experiment.getUuid());
-        }
-
-        return isEquals;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigInteger getStart() {
-        return start;
-    }
-
-    public void setStart(BigInteger start) {
-        this.start = start;
-    }
-
-    public BigInteger getEnd() {
-        return end;
-    }
-
-    public void setEnd(BigInteger end) {
-        this.end = end;
-    }
-
-    public int getNbEvents() {
-        return nbEvents;
-    }
-
-    public void setNbEvents(int nbEvents) {
-        this.nbEvents = nbEvents;
-    }
-
-    public IndexingStatus getIndexingStatus() {
-        return indexingStatus;
-    }
-
-    public void setIndexingStatus(IndexingStatus indexingStatus) {
-        this.indexingStatus = indexingStatus;
-    }
-
-    public List<Trace> getTraces() {
-        return traces;
-    }
-
-    public void setTraces(List<Trace> traces) {
-        this.traces = traces;
-    }
 }
