@@ -1,34 +1,16 @@
 package org.eclipse.tsp.java.client.models.table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cell {
+    @NonNull
     private String content;
     private int tags;
 
-    public Cell() {
-    }
-
-    public Cell(String content) {
-        this.content = content;
-    }
-
-    public Cell(String content, int tags) {
-        this.content = content;
-        this.tags = tags;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public int getTags() {
-        return tags;
-    }
-
-    public void setTags(int tags) {
-        this.tags = tags;
-    }
 }
