@@ -12,12 +12,19 @@ public class MarkerSet {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object)
+            isEquals = true;
+        else if (object == null || getClass() != object.getClass())
+            isEquals = false;
+        else {
+            MarkerSet markerSet = (MarkerSet) object;
+            isEquals = this.id.equals(markerSet.id);
+        }
 
-    public void setName(String name) {
-        this.name = name;
+        return isEquals;
     }
 
     public String getId() {
@@ -27,4 +34,13 @@ public class MarkerSet {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

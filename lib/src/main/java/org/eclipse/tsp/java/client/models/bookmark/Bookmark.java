@@ -21,7 +21,23 @@ public class Bookmark {
         this.type = type;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object) {
+            isEquals = true;
+        } else if (object == null || getClass() != object.getClass()) {
+            isEquals = false;
+        } else {
+            Bookmark bookmark = (Bookmark) object;
+            isEquals = this.uuid.equals(bookmark.getUuid());
+        }
+
+        return isEquals;
+    }
+
     public UUID getUuid() {
+
         return uuid;
     }
 

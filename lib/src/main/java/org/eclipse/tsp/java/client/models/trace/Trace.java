@@ -31,7 +31,23 @@ public class Trace {
         this.indexingStatus = indexingStatus;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object) {
+            isEquals = true;
+        } else if (object == null || getClass() != object.getClass()) {
+            isEquals = false;
+        } else {
+            Trace trace = (Trace) object;
+            isEquals = this.uuid.equals(trace.getUuid());
+        }
+
+        return isEquals;
+    }
+
     public UUID getUuid() {
+
         return uuid;
     }
 

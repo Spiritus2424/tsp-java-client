@@ -29,6 +29,21 @@ public class TimeGraphArrow {
         this.style = style;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object)
+            isEquals = true;
+        else if (object == null || getClass() != object.getClass())
+            isEquals = false;
+        else {
+            TimeGraphArrow timeGraphArrow = (TimeGraphArrow) object;
+            isEquals = this.sourceId == timeGraphArrow.getSourceId() && this.targetId == timeGraphArrow.getTargetId();
+        }
+
+        return isEquals;
+    }
+
     public int getSourceId() {
         return sourceId;
     }

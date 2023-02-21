@@ -16,6 +16,21 @@ public class TimeGraphRow {
         this.states = states;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object)
+            isEquals = true;
+        else if (object == null || getClass() != object.getClass())
+            isEquals = false;
+        else {
+            TimeGraphRow timeGraphRow = (TimeGraphRow) object;
+            isEquals = this.entryId == timeGraphRow.getEntryId();
+        }
+
+        return isEquals;
+    }
+
     public int getEntryId() {
         return entryId;
     }

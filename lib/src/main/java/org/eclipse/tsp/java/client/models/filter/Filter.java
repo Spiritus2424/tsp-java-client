@@ -22,6 +22,21 @@ public class Filter {
         this.tags = tags;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        boolean isEquals = false;
+        if (this == object)
+            isEquals = true;
+        else if (object == null || getClass() != object.getClass())
+            isEquals = false;
+        else {
+            Filter filter = (Filter) object;
+            isEquals = this.id.equals(filter.getId());
+        }
+
+        return isEquals;
+    }
+
     public String getId() {
         return id;
     }
