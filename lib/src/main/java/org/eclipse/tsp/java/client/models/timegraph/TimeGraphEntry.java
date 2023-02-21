@@ -4,15 +4,15 @@ import java.math.BigInteger;
 
 import org.eclipse.tsp.java.client.models.entry.Entry;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class TimeGraphEntry extends Entry {
     @NonNull

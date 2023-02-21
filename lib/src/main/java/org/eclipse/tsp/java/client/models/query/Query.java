@@ -3,12 +3,12 @@ package org.eclipse.tsp.java.client.models.query;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Query {
     @NonNull
     private final Map<String, Object> parameters;

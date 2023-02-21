@@ -3,32 +3,21 @@ package org.eclipse.tsp.java.client.models.xy;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@RequiredArgsConstructor
+// @NoArgsConstructor
 public class XYModel {
+    @NonNull
     private String title;
+    @NonNull
     private List<XYSerie> series;
 
     public XYModel() {
         this.series = new ArrayList<>();
     }
 
-    public XYModel(String title, List<XYSerie> series) {
-        this.title = title;
-        this.series = series;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<XYSerie> getSeries() {
-        return series;
-    }
-
-    public void setSeries(List<XYSerie> series) {
-        this.series = series;
-    }
 }
