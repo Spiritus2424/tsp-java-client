@@ -53,7 +53,7 @@ public class QueryHelper {
             Optional<Map<String, Object>> additionalProperties) {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(REQUESTED_TIMERANGE_KEY, nbTimes.isPresent() ? new QueryInterval(start, end, nbTimes.get())
-                : new QueryInterval(start, end));
+                : new QueryInterval(start, end, 0));
         if (additionalProperties.isPresent()) {
             parameters.putAll(additionalProperties.get());
         }
@@ -71,7 +71,7 @@ public class QueryHelper {
             Optional<Map<String, Object>> additionalProperties) {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(REQUESTED_TIMERANGE_KEY, nbTimes.isPresent() ? new QueryInterval(start, end, nbTimes.get())
-                : new QueryInterval(start, end));
+                : new QueryInterval(start, end, 0));
 
         if (items.isPresent()) {
             parameters.put(REQUESTED_ITEMS_KEY, items.get());
