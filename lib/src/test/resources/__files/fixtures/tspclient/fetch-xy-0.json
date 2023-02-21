@@ -14,7 +14,27 @@
                     1.11111111111111,
                     2.22222222222222,
                     3.33333333333333
-                ]
+                ],
+                "style": {
+                    "parentKey": "",
+                    "values": {
+                        "style-name": "Style name",
+                        "background-color": "#646464",
+                        "height": 0.33,
+                        "opacity": 1.0,
+                        "style-group": "Group name"
+                    }
+                },
+                "xAxis": {
+                    "label": "",
+                    "unit": "",
+                    "dataType": ""
+                },
+                "yAxis": {
+                    "label": "",
+                    "unit": "",
+                    "dataType": ""
+                }
             }
         ]
     },
