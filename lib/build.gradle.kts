@@ -20,7 +20,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -75,6 +75,10 @@ tasks.jar {
 publishing {
     publications {
         create<MavenPublication>("tsp-java-client").from(components["java"])
+        create<MavenPublication>("tsp-java-client-insiders"){
+            artifactId = "tsp-java-client-insiders"
+            from(components["java"])
+        }
     }
 
     repositories {
