@@ -20,7 +20,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      packages: write
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -36,7 +38,12 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: test
+    # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
+    # the publishing section of your build.gradle
     - name: Publish Insiders to GitHub Packages
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: publishTsp-java-client-insidersPublicationToGitHubPackagesRepository
+      env:
+        USERNAME: ${{ github.actor }}
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
