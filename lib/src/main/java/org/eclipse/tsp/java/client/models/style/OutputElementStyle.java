@@ -2,17 +2,14 @@ package org.eclipse.tsp.java.client.models.style;
 
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class OutputElementStyle {
-    @NonNull
     private String parentKey;
-    @NonNull
     private Map<String, Object> values;
 }
