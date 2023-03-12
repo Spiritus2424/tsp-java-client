@@ -1,9 +1,9 @@
-package org.eclipse.tsp.java.client.shared.restclient;
+package org.eclipse.tsp.java.client.core.restclient;
 
 import java.util.Map;
 import java.util.Optional;
 
-import org.eclipse.tsp.java.client.shared.tspclient.TspClientResponse;
+import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;

@@ -4,10 +4,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
+import org.eclipse.tsp.java.client.core.restclient.RestClient;
+import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
-import org.eclipse.tsp.java.client.shared.restclient.RestClient;
-import org.eclipse.tsp.java.client.shared.tspclient.TspClientResponse;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 

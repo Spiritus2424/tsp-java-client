@@ -34,6 +34,8 @@ import org.eclipse.tsp.java.client.api.timegraph.TimeGraphRow;
 import org.eclipse.tsp.java.client.api.trace.Trace;
 import org.eclipse.tsp.java.client.api.xy.XYModel;
 import org.eclipse.tsp.java.client.api.xy.XYSerie;
+import org.eclipse.tsp.java.client.core.tspclient.TspClient;
+import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.Entry;
 import org.eclipse.tsp.java.client.shared.entry.EntryHeader;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
@@ -41,8 +43,6 @@ import org.eclipse.tsp.java.client.shared.indexing.IndexingStatus;
 import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 import org.eclipse.tsp.java.client.shared.response.ResponseStatus;
-import org.eclipse.tsp.java.client.shared.tspclient.TspClient;
-import org.eclipse.tsp.java.client.shared.tspclient.TspClientResponse;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

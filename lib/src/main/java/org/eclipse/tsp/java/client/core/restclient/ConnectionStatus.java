@@ -1,4 +1,4 @@
-package org.eclipse.tsp.java.client.shared.restclient;
+package org.eclipse.tsp.java.client.core.restclient;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

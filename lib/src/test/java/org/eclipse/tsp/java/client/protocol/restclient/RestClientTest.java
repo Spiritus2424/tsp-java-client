@@ -14,8 +14,8 @@ import java.util.Optional;
 
 import org.eclipse.tsp.java.client.api.annotation.Annotation;
 import org.eclipse.tsp.java.client.api.annotation.AnnotationType;
-import org.eclipse.tsp.java.client.shared.restclient.RestClient;
-import org.eclipse.tsp.java.client.shared.tspclient.TspClientResponse;
+import org.eclipse.tsp.java.client.core.restclient.RestClient;
+import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.junit.jupiter.api.Test;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;

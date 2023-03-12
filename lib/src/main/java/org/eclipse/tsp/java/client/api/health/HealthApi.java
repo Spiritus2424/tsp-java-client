@@ -3,8 +3,8 @@ package org.eclipse.tsp.java.client.api.health;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
-import org.eclipse.tsp.java.client.shared.restclient.RestClient;
-import org.eclipse.tsp.java.client.shared.tspclient.TspClientResponse;
+import org.eclipse.tsp.java.client.core.restclient.RestClient;
+import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 
 public class HealthApi extends AbstractTspApi {
     private final String HEALTH_API_URL = "%s/health";

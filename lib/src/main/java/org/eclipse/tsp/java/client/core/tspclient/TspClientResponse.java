@@ -1,4 +1,4 @@
-package org.eclipse.tsp.java.client.shared.tspclient;
+package org.eclipse.tsp.java.client.core.tspclient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
