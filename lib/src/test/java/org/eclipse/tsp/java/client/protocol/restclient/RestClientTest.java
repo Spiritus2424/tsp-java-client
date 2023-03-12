@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigInteger;
 import java.util.Optional;
 
-import org.eclipse.tsp.java.client.annotation.Annotation;
-import org.eclipse.tsp.java.client.annotation.AnnotationType;
+import org.eclipse.tsp.java.client.api.annotation.Annotation;
+import org.eclipse.tsp.java.client.api.annotation.AnnotationType;
 import org.eclipse.tsp.java.client.shared.restclient.RestClient;
 import org.eclipse.tsp.java.client.shared.tspclient.TspClientResponse;
 import org.junit.jupiter.api.Test;
