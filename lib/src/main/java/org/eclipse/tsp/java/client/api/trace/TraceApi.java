@@ -22,7 +22,7 @@ public class TraceApi extends AbstractTspApi {
     }
 
     public TspClientResponse<Trace> getTrace(UUID traceUuid) {
-        return RestClient.get(String.format(this.TRACE_API_URL.concat("%s"), this.getBaseUrl(), traceUuid),
+        return RestClient.get(String.format(this.TRACE_API_URL.concat("/%s"), this.getBaseUrl(), traceUuid),
                 Optional.empty(), Trace.class);
     }
 
@@ -41,7 +41,7 @@ public class TraceApi extends AbstractTspApi {
             queryParameters.put("deleteTrace", deleteFromDisk.get().toString());
         }
 
-        return RestClient.delete(String.format(this.TRACE_API_URL.concat("%s"), this.getBaseUrl(), traceUuid),
+        return RestClient.delete(String.format(this.TRACE_API_URL.concat("/%s"), this.getBaseUrl(), traceUuid),
                 Optional.of(queryParameters),
                 Trace.class);
     }

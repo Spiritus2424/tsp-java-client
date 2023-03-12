@@ -1,9 +1,7 @@
-package org.eclipse.tsp.java.client.protocol.restclient;
+package org.eclipse.tsp.java.client.core.restclient;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.eclipse.tsp.java.client.core.restclient.ConnectionStatus;
-import org.eclipse.tsp.java.client.core.restclient.PclConnectionStatus;
 import org.junit.jupiter.api.Test;
 
 public class ConnectionStatusTest {

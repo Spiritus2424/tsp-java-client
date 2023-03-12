@@ -3,7 +3,7 @@ package org.eclipse.tsp.java.client.shared.entry;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.tsp.java.client.style.OutputElementStyle;
+import org.eclipse.tsp.java.client.api.style.OutputElementStyle;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package org.eclipse.tsp.java.client.protocol.restclient;
+package org.eclipse.tsp.java.client.core.restclient;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import org.eclipse.tsp.java.client.api.annotation.Annotation;
 import org.eclipse.tsp.java.client.api.annotation.AnnotationType;
-import org.eclipse.tsp.java.client.core.restclient.RestClient;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.junit.jupiter.api.Test;
 
