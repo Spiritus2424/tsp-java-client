@@ -9,7 +9,7 @@ import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 import org.eclipse.tsp.java.client.shared.restclient.RestClient;
 import org.eclipse.tsp.java.client.shared.tspclient.TspClientResponse;
-import org.eclipse.tsp.java.client.tsp.AbstractTspApi;
+import org.eclipse.tsp.java.client.tspapi.AbstractTspApi;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 

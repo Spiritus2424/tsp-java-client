@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.eclipse.tsp.java.client.shared.restclient.RestClient;
 import org.eclipse.tsp.java.client.shared.tspclient.TspClientResponse;
-import org.eclipse.tsp.java.client.tsp.AbstractTspApi;
+import org.eclipse.tsp.java.client.tspapi.AbstractTspApi;
 
 public class OutputDescriptorApi extends AbstractTspApi {
     private final String OUTPUT_DESCRIPTOR_API_URL = "%s/experiments/%s/outputs";

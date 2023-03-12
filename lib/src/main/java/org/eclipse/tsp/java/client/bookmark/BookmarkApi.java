@@ -3,7 +3,7 @@ package org.eclipse.tsp.java.client.bookmark;
 import java.util.List;
 import java.util.UUID;
 
-import org.eclipse.tsp.java.client.tsp.AbstractTspApi;
+import org.eclipse.tsp.java.client.tspapi.AbstractTspApi;
 
 public class BookmarkApi extends AbstractTspApi {
     private final String BOOKMARK_API_URL = "%s/experiments/{expUUID}/bookmarks";

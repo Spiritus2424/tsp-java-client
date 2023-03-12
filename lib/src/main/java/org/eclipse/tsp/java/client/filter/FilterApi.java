@@ -2,7 +2,7 @@ package org.eclipse.tsp.java.client.filter;
 
 import java.util.List;
 
-import org.eclipse.tsp.java.client.tsp.AbstractTspApi;
+import org.eclipse.tsp.java.client.tspapi.AbstractTspApi;
 
 public class FilterApi extends AbstractTspApi {
     private final String FILTER_API_URL = "%s/filters";

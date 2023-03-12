@@ -1,4 +1,4 @@
-package org.eclipse.tsp.java.client.tsp;
+package org.eclipse.tsp.java.client.tspapi;
 
 import lombok.Getter;
 
