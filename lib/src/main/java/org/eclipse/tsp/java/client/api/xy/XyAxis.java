@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class XYAxis {
+public class XyAxis {
     @NonNull
     private String label;
     @NonNull

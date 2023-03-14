@@ -33,13 +33,13 @@ public class XyApi extends AbstractTspApi {
                 });
     }
 
-    public TspClientResponse<GenericResponse<XYModel>> getXY(UUID experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<XyModel>> getXY(UUID experimentUuid, String outputId,
             Query query) {
         final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format(this.XY_API_URL.concat("/xy"), this.getBaseUrl(), experimentUuid, outputId),
                 Optional.of(query), String.class);
 
-        return TspClientResponse.getGenericResponse(tspClientResponse, new TypeReference<GenericResponse<XYModel>>() {
+        return TspClientResponse.getGenericResponse(tspClientResponse, new TypeReference<GenericResponse<XyModel>>() {
         });
     }
 

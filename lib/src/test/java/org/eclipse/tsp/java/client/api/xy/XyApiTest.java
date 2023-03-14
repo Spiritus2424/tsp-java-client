@@ -22,50 +22,50 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 
 @WireMockTest(httpPort = 8080)
 public class XyApiTest {
-    private static final String FIXTURE_PATH = "fixtures/tspclient";
-    private static final String TSP_EXTENSION_URL = "/tsp/api";
+        private static final String FIXTURE_PATH = "fixtures/tspclient";
+        private static final String TSP_EXTENSION_URL = "/tsp/api";
 
-    private XyApi xyApi = new XyApi("http://localhost:8080");
+        private XyApi xyApi = new XyApi("http://localhost:8080");
 
-    @Test
-    public void fetchXY() {
-        final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
-        final String outputId = "11111111-1111-1111-1111-111111111111";
-        final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/xy", TSP_EXTENSION_URL,
-                experimentUuid, outputId);
-        stubFor(post(targetUrl).willReturn(aResponse()
-                .withHeader("Content-Type", "application/json")
-                .withBodyFile(String.format("%s/fetch-xy-0.json", FIXTURE_PATH))));
+        @Test
+        public void fetchXY() {
+                final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
+                final String outputId = "11111111-1111-1111-1111-111111111111";
+                final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/xy", TSP_EXTENSION_URL,
+                                experimentUuid, outputId);
+                stubFor(post(targetUrl).willReturn(aResponse()
+                                .withHeader("Content-Type", "application/json")
+                                .withBodyFile(String.format("%s/fetch-xy-0.json", FIXTURE_PATH))));
 
-        Map<String, Object> parameters = new HashMap<>();
-        Query query = new Query(parameters);
-        TspClientResponse<GenericResponse<XYModel>> response = this.xyApi.getXY(
-                experimentUuid, outputId, query);
+                Map<String, Object> parameters = new HashMap<>();
+                Query query = new Query(parameters);
+                TspClientResponse<GenericResponse<XyModel>> response = this.xyApi.getXY(
+                                experimentUuid, outputId, query);
 
-        assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
-        assertEquals(XYModel.class, response.getResponseModel().getModel().getClass());
-        assertEquals("Chart name", response.getResponseModel().getModel().getTitle());
-        assertEquals(XYSerie.class, response.getResponseModel().getModel().getSeries().get(0).getClass());
-    }
+                assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
+                assertEquals(XyModel.class, response.getResponseModel().getModel().getClass());
+                assertEquals("Chart name", response.getResponseModel().getModel().getTitle());
+                assertEquals(XySerie.class, response.getResponseModel().getModel().getSeries().get(0).getClass());
+        }
 
-    @Test
-    public void fetchXYTree() {
-        final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
-        final String outputId = "11111111-1111-1111-1111-111111111111";
-        final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/tree", TSP_EXTENSION_URL,
-                experimentUuid, outputId);
-        stubFor(post(targetUrl).willReturn(aResponse()
-                .withHeader("Content-Type", "application/json")
-                .withBodyFile(String.format("%s/fetch-xy-tree-0.json", FIXTURE_PATH))));
+        @Test
+        public void fetchXYTree() {
+                final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
+                final String outputId = "11111111-1111-1111-1111-111111111111";
+                final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/tree", TSP_EXTENSION_URL,
+                                experimentUuid, outputId);
+                stubFor(post(targetUrl).willReturn(aResponse()
+                                .withHeader("Content-Type", "application/json")
+                                .withBodyFile(String.format("%s/fetch-xy-tree-0.json", FIXTURE_PATH))));
 
-        Map<String, Object> parameters = new HashMap<>();
-        Query query = new Query(parameters);
-        TspClientResponse<GenericResponse<EntryModel<Entry>>> response = this.xyApi.getXYTree(
-                experimentUuid, outputId, query);
+                Map<String, Object> parameters = new HashMap<>();
+                Query query = new Query(parameters);
+                TspClientResponse<GenericResponse<EntryModel<Entry>>> response = this.xyApi.getXYTree(
+                                experimentUuid, outputId, query);
 
-        assertEquals(ResponseStatus.RUNNING, response.getResponseModel().getStatus());
-        assertEquals(EntryHeader.class, response.getResponseModel().getModel().getHeaders().get(0).getClass());
-        assertEquals(Entry.class, response.getResponseModel().getModel().getEntries().get(0).getClass());
-    }
+                assertEquals(ResponseStatus.RUNNING, response.getResponseModel().getStatus());
+                assertEquals(EntryHeader.class, response.getResponseModel().getModel().getHeaders().get(0).getClass());
+                assertEquals(Entry.class, response.getResponseModel().getModel().getEntries().get(0).getClass());
+        }
 
 }

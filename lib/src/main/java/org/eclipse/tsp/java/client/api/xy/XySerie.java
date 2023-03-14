@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class XYSerie {
+public class XySerie {
     @JsonProperty("seriesName")
     @NonNull
     private String serieName;
@@ -26,10 +26,10 @@ public class XYSerie {
     private int serieId;
     @JsonProperty("xAxis")
     @NonNull
-    private XYAxis xAxis;
+    private XyAxis xAxis;
     @JsonProperty("yAxis")
     @NonNull
-    private XYAxis yAxis;
+    private XyAxis yAxis;
     @JsonProperty("xValues")
     @NonNull
     private List<BigInteger> xValues;

@@ -10,13 +10,13 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 // @NoArgsConstructor
-public class XYModel {
+public class XyModel {
     @NonNull
     private String title;
     @NonNull
-    private List<XYSerie> series;
+    private List<XySerie> series;
 
-    public XYModel() {
+    public XyModel() {
         this.series = new ArrayList<>();
     }
 
