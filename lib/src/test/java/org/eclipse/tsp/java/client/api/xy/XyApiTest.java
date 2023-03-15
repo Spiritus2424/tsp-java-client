@@ -28,7 +28,7 @@ public class XyApiTest {
         private XyApi xyApi = new XyApi("http://localhost:8080");
 
         @Test
-        public void fetchXY() {
+        public void fetchXy() {
                 final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
                 final String outputId = "11111111-1111-1111-1111-111111111111";
                 final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/xy", TSP_EXTENSION_URL,
@@ -39,7 +39,7 @@ public class XyApiTest {
 
                 Map<String, Object> parameters = new HashMap<>();
                 Query query = new Query(parameters);
-                TspClientResponse<GenericResponse<XyModel>> response = this.xyApi.getXY(
+                TspClientResponse<GenericResponse<XyModel>> response = this.xyApi.getXy(
                                 experimentUuid, outputId, query);
 
                 assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
@@ -49,7 +49,7 @@ public class XyApiTest {
         }
 
         @Test
-        public void fetchXYTree() {
+        public void fetchXyTree() {
                 final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
                 final String outputId = "11111111-1111-1111-1111-111111111111";
                 final String targetUrl = String.format("%s/experiments/%s/outputs/XY/%s/tree", TSP_EXTENSION_URL,
@@ -60,7 +60,7 @@ public class XyApiTest {
 
                 Map<String, Object> parameters = new HashMap<>();
                 Query query = new Query(parameters);
-                TspClientResponse<GenericResponse<EntryModel<Entry>>> response = this.xyApi.getXYTree(
+                TspClientResponse<GenericResponse<EntryModel<Entry>>> response = this.xyApi.getXyTree(
                                 experimentUuid, outputId, query);
 
                 assertEquals(ResponseStatus.RUNNING, response.getResponseModel().getStatus());
