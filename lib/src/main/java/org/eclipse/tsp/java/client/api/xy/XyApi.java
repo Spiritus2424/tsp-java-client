@@ -22,7 +22,7 @@ public class XyApi extends AbstractTspApi {
         super(baseUrl);
     }
 
-    public TspClientResponse<GenericResponse<EntryModel<Entry>>> getXYTree(UUID experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<EntryModel<Entry>>> getXyTree(UUID experimentUuid, String outputId,
             Query query) {
         final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format(this.XY_API_URL.concat("/tree"), this.getBaseUrl(), experimentUuid, outputId),
@@ -33,7 +33,7 @@ public class XyApi extends AbstractTspApi {
                 });
     }
 
-    public TspClientResponse<GenericResponse<XyModel>> getXY(UUID experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<XyModel>> getXy(UUID experimentUuid, String outputId,
             Query query) {
         final TspClientResponse<String> tspClientResponse = RestClient.post(
                 String.format(this.XY_API_URL.concat("/xy"), this.getBaseUrl(), experimentUuid, outputId),
@@ -43,7 +43,7 @@ public class XyApi extends AbstractTspApi {
         });
     }
 
-    public TspClientResponse<GenericResponse<Map<String, String>>> getXYToolTip(UUID experimentUuid, String outputId,
+    public TspClientResponse<GenericResponse<Map<String, String>>> getXyTooltip(UUID experimentUuid, String outputId,
             int xValue, Optional<Integer> yValue, Optional<String> seriesId) {
         Map<String, String> queryParameters = new HashMap<String, String>();
         if (yValue.isPresent()) {
