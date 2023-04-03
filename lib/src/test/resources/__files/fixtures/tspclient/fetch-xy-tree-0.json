@@ -12,6 +12,19 @@
                     "10.000 s"
                 ],
                 "hasData": true
+            },
+            {
+                "id": 11,
+                "parentId": -1,
+                "style": null,
+                "labels": [
+                    "process",
+                    "123",
+                    "100.000 %",
+                    "10.000 s"
+                ],
+                "hasData": true,
+                "isDefault": true
             }
         ],
         "headers": [
