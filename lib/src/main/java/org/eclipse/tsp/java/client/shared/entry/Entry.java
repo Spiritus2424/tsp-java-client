@@ -25,6 +25,6 @@ public class Entry {
     private Boolean hasData;
     private OutputElementStyle style;
     private Map<String, Object> metadata;
-    private Boolean isDefault;
+    private Boolean isDefault = false;
 
 }
