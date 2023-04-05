@@ -53,9 +53,18 @@ dependencies {
     // Lombok - Decorator
     compileOnly("org.projectlombok:lombok:1.18.26")
 	annotationProcessor("org.projectlombok:lombok:1.18.26")
-	
 	testCompileOnly("org.projectlombok:lombok:1.18.26")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
+
+    // Jcabi-Aspects - Async Decorator
+    implementation("com.jcabi:jcabi-aspects:0.24.1")
+    runtimeOnly("org.aspectj:aspectjrt:1.9.19")
+    implementation("com.jcabi:jcabi-maven-plugin:0.17.0")
+
+
+	// Stopwatch
+	testImplementation("org.apache.commons:commons-lang3:3.12.0")
+
 }
 
 tasks.test {
