@@ -23,4 +23,7 @@ dependencies {
 	// Google - Auto Service
 	annotationProcessor("com.google.auto.service:auto-service:1.0.1")
 	compileOnly("com.google.auto.service:auto-service:1.0.1")
+	
+	// Javapoet
+	implementation("com.squareup:javapoet:1.13.0")
 }

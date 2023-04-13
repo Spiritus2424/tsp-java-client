@@ -1,12 +1,12 @@
-package org.eclipse.tsp.java.client.core.async;
+package org.eclipse.annotationprocessor.async;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
 public @interface Async {
 
 }

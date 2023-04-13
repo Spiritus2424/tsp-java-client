@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.eclipse.tsp.java.client.PersonBuilder;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
@@ -41,7 +42,7 @@ public class AnnotationApiTest {
 
 		TspClientResponse<GenericResponse<AnnotationCategoriesModel>> response = this.annotationApi
 				.getAnnotationsCategories(experimentUuid, outputId, Optional.empty());
-
+		new PersonBuilder().build();
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(1, response.getResponseModel().getModel().getAnnotationCategories().size());
 		assertEquals(AnnotationCategoriesModel.class, response.getResponseModel().getModel().getClass());

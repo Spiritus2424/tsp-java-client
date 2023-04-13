@@ -39,9 +39,10 @@ dependencies {
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.33.2")
 
 	// Custom Annotation
-	// annotationProcessor(files(":tsp-java-client.core.async.AsyncProcessor"))
+	annotationProcessor(files(":tsp-java-client.core.async.AsyncProcessor"))
+	implementation(files(":tsp-java-client.core.async.AsyncProcessor")) 
 	annotationProcessor(project(":annotationprocessor"))
-	implementation(project(":annotationprocessor"))
+	implementation(project(":annotationprocessor")) 
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
@@ -69,12 +70,6 @@ dependencies {
 
 	// Stopwatch
 	testImplementation("org.apache.commons:commons-lang3:3.12.0")
-
-	// Javapoet
-	implementation("com.squareup:javapoet:1.13.0")
-
-	// Google - Auto Service
-	implementation("com.google.auto.service:auto-service:1.0.1")
 }
 
 tasks.test {

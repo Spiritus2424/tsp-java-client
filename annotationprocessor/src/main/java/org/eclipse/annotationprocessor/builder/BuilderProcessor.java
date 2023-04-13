@@ -29,6 +29,7 @@ public class BuilderProcessor extends AbstractProcessor {
 	public BuilderProcessor() {
 		System.out.println("Annotation processor running");
 	}
+
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		for (TypeElement annotation : annotations) {
@@ -76,6 +77,7 @@ public class BuilderProcessor extends AbstractProcessor {
 		}
 
 		String simpleClassName = className.substring(lastDot + 1);
+		// String builderClassName = className;
 		String builderClassName = className + "Builder";
 		String builderSimpleClassName = builderClassName.substring(lastDot + 1);
 
