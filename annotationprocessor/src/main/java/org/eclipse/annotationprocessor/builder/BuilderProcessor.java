@@ -1,4 +1,4 @@
-package processor.builder;
+package org.eclipse.annotationprocessor.builder;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +21,7 @@ import javax.tools.JavaFileObject;
 
 import com.google.auto.service.AutoService;
 
-@SupportedAnnotationTypes("processor.builder.BuilderProperty")
+@SupportedAnnotationTypes("org.eclipse.annotationprocessor.builder.BuilderProperty")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class BuilderProcessor extends AbstractProcessor {

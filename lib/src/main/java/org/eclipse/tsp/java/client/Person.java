@@ -1,6 +1,6 @@
 package org.eclipse.tsp.java.client;
 
-import processor.builder.BuilderProperty;
+import org.eclipse.annotationprocessor.builder.BuilderProperty;
 
 public class Person {
 

@@ -1,4 +1,4 @@
-package processor.builder;
+package org.eclipse.annotationprocessor.builder;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
