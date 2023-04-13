@@ -28,9 +28,9 @@ import com.squareup.javapoet.TypeSpec;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class AsyncProcessor extends AbstractProcessor {
+
 	@Override
-	public boolean process(Set<? extends TypeElement> annotations,
-			RoundEnvironment roundEnvironment) {
+	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnvironment) {
 
 		Map<String, List<Element>> classMethodElements = new HashMap<>();
 		roundEnvironment.getElementsAnnotatedWith(Async.class).stream().forEach((Element element) -> {

@@ -24,7 +24,6 @@ java {
     
 }
 
-
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -39,8 +38,6 @@ dependencies {
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.33.2")
 
 	// Custom Annotation
-	annotationProcessor(files(":tsp-java-client.core.async.AsyncProcessor"))
-	implementation(files(":tsp-java-client.core.async.AsyncProcessor")) 
 	annotationProcessor(project(":annotationprocessor"))
 	implementation(project(":annotationprocessor")) 
 
@@ -62,11 +59,6 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok:1.18.26")
 	testCompileOnly("org.projectlombok:lombok:1.18.26")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
-
-    // Jcabi-Aspects - Async Decorator
-    implementation("com.jcabi:jcabi-aspects:0.24.1")
-    runtimeOnly("org.aspectj:aspectjrt:1.9.19")
-    implementation("com.jcabi:jcabi-maven-plugin:0.17.0")
 
 	// Stopwatch
 	testImplementation("org.apache.commons:commons-lang3:3.12.0")
