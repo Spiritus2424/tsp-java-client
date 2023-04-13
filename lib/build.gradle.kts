@@ -39,9 +39,9 @@ dependencies {
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.33.2")
 
 	// Custom Annotation
-	compileOnly("javax.annotation:javax.annotation-api:1.3.2")
-    compileOnly("javax.inject:javax.inject:1")
-	annotationProcessor(files(":tsp-java-client.core.async.AsyncProcessor"))
+	// annotationProcessor(files(":tsp-java-client.core.async.AsyncProcessor"))
+	compileOnly(project(":annotation"))
+	annotationProcessor(project(":annotation"))
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
@@ -77,16 +77,16 @@ dependencies {
 	implementation("com.google.auto.service:auto-service:1.0.1")
 }
 
-tasks.compileJava {
-	doFirst {
-        println("AnnotationProcessorPath for $name is ${options.getAnnotationProcessorPath()?.getFiles()}")
-    }
-    // options.annotationProcessorPath += annotationProcessor
-    // options.compilerArgs.addAll(listOf(
-    //     "-proc:only",
-    //     "-processor", "org.eclipse.tsp.java.client.core.async.AsyncProcessor"
-    // ))
-}
+// tasks.compileJava {
+// 	doFirst {
+//         println("AnnotationProcessorPath for $name is ${options.getAnnotationProcessorPath()?.getFiles()}")
+//     }
+//     // options.annotationProcessorPath += annotationProcessor
+//     // options.compilerArgs.addAll(listOf(
+//     //     "-proc:only",
+//     //     "-processor", "org.eclipse.tsp.java.client.core.async.AsyncProcessor"
+//     // ))
+// }
 
 tasks.test {
     // Use JUnit Platform for unit tests.

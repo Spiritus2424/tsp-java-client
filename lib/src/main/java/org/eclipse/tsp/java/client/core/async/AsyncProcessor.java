@@ -78,7 +78,7 @@ public class AsyncProcessor extends AbstractProcessor {
 	private void generateBuilderFile(Element element) {
 		String className = element.getSimpleName().toString();
 		String packageName = element.getEnclosingElement().toString();
-		String builderName = className + "com.youtube.geekific.Builder";
+		String builderName = className + "org.eclipse.tsp.java.client.Builder";
 		String builderFullName = packageName + "." + builderName;
 		List<? extends Element> fields = element.getEnclosedElements()
 				.stream().filter(e -> FIELD.equals(e.getKind())).toList();
