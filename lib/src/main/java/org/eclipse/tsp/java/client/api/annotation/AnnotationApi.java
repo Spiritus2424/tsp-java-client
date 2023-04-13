@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
+import org.eclipse.tsp.java.client.core.async.Async;
 import org.eclipse.tsp.java.client.core.restclient.RestClient;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Query;
@@ -20,6 +21,7 @@ public class AnnotationApi extends AbstractTspApi {
 		super(baseUrl);
 	}
 
+	@Async
 	public TspClientResponse<GenericResponse<AnnotationCategoriesModel>> getAnnotationsCategories(
 			UUID experimentUuid, String outputId, Optional<String> markerSetId) {
 		Map<String, String> queryParameters = null;
@@ -37,6 +39,7 @@ public class AnnotationApi extends AbstractTspApi {
 				});
 	}
 
+	@Async
 	public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(UUID experimentUuid,
 			String outputId,
 			Query query) {

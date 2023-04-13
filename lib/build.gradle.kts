@@ -13,16 +13,17 @@ version = "v2.0.3-alpha"
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id("java-library")
-
+	
     // Apply the maven-publish plugin for API and implementation separation. 
     id("maven-publish")
 }
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
+	
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    
 }
+
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -36,6 +37,11 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     // WireMock
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.33.2")
+
+	// Custom Annotation
+	compileOnly("javax.annotation:javax.annotation-api:1.3.2")
+    compileOnly("javax.inject:javax.inject:1")
+	annotationProcessor(files(":tsp-java-client.core.async.AsyncProcessor"))
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
@@ -61,10 +67,25 @@ dependencies {
     runtimeOnly("org.aspectj:aspectjrt:1.9.19")
     implementation("com.jcabi:jcabi-maven-plugin:0.17.0")
 
-
 	// Stopwatch
 	testImplementation("org.apache.commons:commons-lang3:3.12.0")
 
+	// Javapoet
+	implementation("com.squareup:javapoet:1.13.0")
+
+	// Google - Auto Service
+	implementation("com.google.auto.service:auto-service:1.0.1")
+}
+
+tasks.compileJava {
+	doFirst {
+        println("AnnotationProcessorPath for $name is ${options.getAnnotationProcessorPath()?.getFiles()}")
+    }
+    // options.annotationProcessorPath += annotationProcessor
+    // options.compilerArgs.addAll(listOf(
+    //     "-proc:only",
+    //     "-processor", "org.eclipse.tsp.java.client.core.async.AsyncProcessor"
+    // ))
 }
 
 tasks.test {
