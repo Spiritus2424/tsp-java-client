@@ -31,8 +31,10 @@ public class AnnotationApi extends AbstractTspApi {
 		}
 
 		final TspClientResponse<String> tspClientResponse = RestClient.get(
-				String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
-				markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(), String.class);
+				String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid,
+						outputId),
+				markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(),
+				String.class);
 
 		return TspClientResponse.getGenericResponse(tspClientResponse,
 				new TypeReference<GenericResponse<AnnotationCategoriesModel>>() {
@@ -44,12 +46,12 @@ public class AnnotationApi extends AbstractTspApi {
 			String outputId,
 			Query query) {
 		final TspClientResponse<String> tspClientResponse = RestClient.post(
-				String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
+				String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid,
+						outputId),
 				Optional.of(query), String.class);
 
 		return TspClientResponse.getGenericResponse(tspClientResponse,
 				new TypeReference<GenericResponse<AnnotationModel>>() {
 				});
 	}
-
 }

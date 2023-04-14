@@ -47,7 +47,6 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:31.0.1-jre")
     
-    
     // Jarkarta - HTTP implementation
     implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
     implementation("org.glassfish.jersey.core:jersey-client:3.1.0-M3")
