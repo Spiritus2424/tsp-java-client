@@ -60,44 +60,36 @@ public class AnnotationApiAsyncTest {
 		assertTrue(syncStopWatch.getTime(TimeUnit.MICROSECONDS) > asyncStopWatch.getTime(TimeUnit.MICROSECONDS));
 	}
 
-	// @Test
-	// public void fetchAnnotationModel() {
-	// final UUID experimentUuid =
-	// UUID.fromString("11111111-1111-1111-1111-111111111111");
-	// final String outputId = "11111111-1111-1111-1111-111111111111";
-	// final String targetUrl =
-	// String.format("%s/experiments/%s/outputs/%s/annotations", TSP_EXTENSION_URL,
-	// experimentUuid,
-	// outputId);
-	// stubFor(post(targetUrl).willReturn(aResponse()
-	// .withHeader("Content-Type", "application/json")
-	// .withBodyFile(String.format("%s/fetch-annotation-model-0.json",
-	// FIXTURE_PATH))));
+	@Test
+	public void fetchAnnotationModel() {
+		final UUID experimentUuid = UUID.fromString("11111111-1111-1111-1111-111111111111");
+		final String outputId = "11111111-1111-1111-1111-111111111111";
+		final String targetUrl = String.format("%s/experiments/%s/outputs/%s/annotations", TSP_EXTENSION_URL,
+				experimentUuid,
+				outputId);
+		stubFor(get(targetUrl).willReturn(aResponse()
+				.withHeader("Content-Type", "application/json")
+				.withBodyFile(String.format("%s/fetch-annotation-categories-0.json", FIXTURE_PATH))));
 
-	// Map<String, Object> parameters = new HashMap<>();
-	// Query query = new Query(parameters);
+		final int TOTAL_REQUEST = 100;
+		StopWatch syncStopWatch = new StopWatch();
+		syncStopWatch.start();
+		for (int i = 0; i < TOTAL_REQUEST; i++) {
+			this.annotationApi.getAnnotationsCategories(experimentUuid, outputId, Optional.empty());
+		}
+		syncStopWatch.stop();
 
-	// TspClientResponse<GenericResponse<AnnotationModel>> response =
-	// this.annotationApi.getAnnotations(experimentUuid,
-	// outputId, query);
-	// assertEquals(ResponseStatus.RUNNING,
-	// response.getResponseModel().getStatus());
-	// assertEquals(Annotation.class,
-	// response.getResponseModel().getModel().getAnnotations().get("Annotation
-	// category").get(0)
-	// .getClass());
-	// assertEquals(1,
-	// response.getResponseModel().getModel().getAnnotations().get("Annotation
-	// category").size());
-	// assertEquals(new BigInteger("1111111111111111111"),
-	// response.getResponseModel().getModel().getAnnotations().get("Annotation
-	// category").get(0)
-	// .getTime());
-	// assertEquals(AnnotationType.CHART,
-	// response.getResponseModel().getModel().getAnnotations().get("Annotation
-	// category").get(0)
-	// .getType());
-
-	// }
+		StopWatch asyncStopWatch = new StopWatch();
+		asyncStopWatch.start();
+		List<CompletableFuture<TspClientResponse<GenericResponse<AnnotationCategoriesModel>>>> futures = new ArrayList<>();
+		for (int i = 0; i < TOTAL_REQUEST; i++) {
+			futures.add(this.annotationApiAsync.getAnnotationsCategories(experimentUuid, outputId, Optional.empty()));
+		}
+		CompletableFuture<Void> allFutures = CompletableFuture
+				.allOf(futures.toArray(new CompletableFuture[futures.size()]));
+		allFutures.join(); // waits until all futures complete
+		asyncStopWatch.stop();
+		assertTrue(syncStopWatch.getTime(TimeUnit.MICROSECONDS) > asyncStopWatch.getTime(TimeUnit.MICROSECONDS));
+	}
 
 }
