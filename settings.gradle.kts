@@ -9,5 +9,6 @@
 
 rootProject.name = "tsp-java-client"
 
+include("annotationprocessor")
 include("lib")
 project(":lib").name = "tsp-java-client"

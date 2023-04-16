@@ -7,21 +7,21 @@
  */
 
 group = "org.eclipse"
-version = "v2.0.3-alpha"
+version = "v2.0.4-alpha"
 
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id("java-library")
-
+	
     // Apply the maven-publish plugin for API and implementation separation. 
     id("maven-publish")
 }
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
+	
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    
 }
 
 repositories {
@@ -37,12 +37,15 @@ dependencies {
     // WireMock
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.33.2")
 
+	// Custom Annotation
+	annotationProcessor(project(":annotationprocessor"))
+	implementation(project(":annotationprocessor")) 
+
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:31.0.1-jre")
-    
     
     // Jarkarta - HTTP implementation
     implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
@@ -53,9 +56,11 @@ dependencies {
     // Lombok - Decorator
     compileOnly("org.projectlombok:lombok:1.18.26")
 	annotationProcessor("org.projectlombok:lombok:1.18.26")
-	
 	testCompileOnly("org.projectlombok:lombok:1.18.26")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
+
+	// Stopwatch
+	testImplementation("org.apache.commons:commons-lang3:3.12.0")
 }
 
 tasks.test {
