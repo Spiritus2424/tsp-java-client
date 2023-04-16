@@ -40,13 +40,16 @@ public class AsyncProcessor extends AbstractProcessor {
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnvironment) {
 
 		Map<String, List<Element>> classMethodElements = new HashMap<>();
-		roundEnvironment.getElementsAnnotatedWith(Async.class).stream().forEach((Element element) -> {
-			if (!classMethodElements.containsKey(element.getEnclosingElement().toString())) {
-				classMethodElements.put(element.getEnclosingElement().toString(), new ArrayList<Element>());
-			}
-			if (element.getKind() == ElementKind.METHOD) {
-				classMethodElements.get(element.getEnclosingElement().toString()).add(element);
-			}
+
+		annotations.stream().forEach((TypeElement annotation) -> {
+			roundEnvironment.getElementsAnnotatedWith(annotation).stream().forEach((Element element) -> {
+				if (!classMethodElements.containsKey(element.getEnclosingElement().toString())) {
+					classMethodElements.put(element.getEnclosingElement().toString(), new ArrayList<Element>());
+				}
+				if (element.getKind() == ElementKind.METHOD) {
+					classMethodElements.get(element.getEnclosingElement().toString()).add(element);
+				}
+			});
 		});
 		classMethodElements.entrySet().stream().forEach((Map.Entry<String, List<Element>> entry) -> {
 			if (!entry.getValue().isEmpty()) {

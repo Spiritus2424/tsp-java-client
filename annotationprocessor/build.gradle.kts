@@ -1,5 +1,4 @@
 
-version = "v1"
 plugins {
      // Apply the java-library plugin for API and implementation separation.
     id("java-library")
