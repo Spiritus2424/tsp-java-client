@@ -7,7 +7,7 @@
  */
 
 group = "org.eclipse"
-version = "v2.0.9-alpha"
+version = "v2.0.10-alpha"
 
 
 plugins {
@@ -39,7 +39,7 @@ dependencies {
 
 	// Custom Annotation
 	annotationProcessor(project(":annotationprocessor"))
-	implementation(project(":annotationprocessor"))
+	compileOnly(project(":annotationprocessor"))
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
