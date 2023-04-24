@@ -39,7 +39,7 @@ dependencies {
 
 	// Custom Annotation
 	annotationProcessor(project(":annotationprocessor"))
-	compileOnly(project(":annotationprocessor"))
+	implementation(project(":annotationprocessor"))
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
@@ -49,9 +49,9 @@ dependencies {
     
     // Jarkarta - HTTP implementation
     implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
-    implementation("org.glassfish.jersey.core:jersey-client:3.1.0-M3")
-    implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.0-M3")
-    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.0-M3")  
+    implementation("org.glassfish.jersey.core:jersey-client:3.1.1")
+    implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.1")
+    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.1")  
 
     // Lombok - Decorator
     compileOnly("org.projectlombok:lombok:1.18.26")
