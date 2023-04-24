@@ -125,13 +125,11 @@ public class AsyncProcessor extends AbstractProcessor {
 					.returns(this.getCompletableFuturType(methodElement))
 					.addParameters(this.getParameters(methodElement))
 					.addStatement(
-							// "return $T.supplyAsync(() -> this.$N.$N($L), this.$N)",
-							"return $T.supplyAsync(() -> this.$N.$N($L))",
+							"return $T.supplyAsync(() -> this.$N.$N($L), this.$N)",
 							CompletableFuture.class,
 							fieldSpec.name, methodElement.getSimpleName(),
-							String.join(", ", this.getParametersName(methodElement))
-			// executorServiceFieldSpec.name
-			)
+							String.join(", ", this.getParametersName(methodElement)),
+							executorServiceFieldSpec.name)
 					.build();
 
 			methods.add(methodSpec);
