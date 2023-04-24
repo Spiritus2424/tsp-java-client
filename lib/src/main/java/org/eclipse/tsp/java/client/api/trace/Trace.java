@@ -18,21 +18,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Trace {
-    @JsonProperty("UUID")
-    @EqualsAndHashCode.Include
-    @NonNull
-    private UUID uuid;
-    @NonNull
-    private String name;
-    @NonNull
-    private BigInteger start;
-    @NonNull
-    private BigInteger end;
-    @NonNull
-    private String path;
-    @NonNull
-    private int nbEvents;
-    @NonNull
-    private IndexingStatus indexingStatus;
+	@JsonProperty(value = "UUID", required = true)
+	@EqualsAndHashCode.Include
+	@NonNull
+	private UUID uuid;
+	@NonNull
+	private String name;
+	@NonNull
+	private BigInteger start;
+	@NonNull
+	private BigInteger end;
+	@NonNull
+	private String path;
+	@NonNull
+	private int nbEvents;
+	@NonNull
+	private IndexingStatus indexingStatus;
 
 }
