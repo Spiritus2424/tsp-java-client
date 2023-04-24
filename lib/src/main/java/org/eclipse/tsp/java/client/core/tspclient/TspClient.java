@@ -1,5 +1,8 @@
 package org.eclipse.tsp.java.client.core.tspclient;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.eclipse.tsp.java.client.api.annotation.AnnotationApi;
 import org.eclipse.tsp.java.client.api.annotation.AnnotationApiAsync;
 import org.eclipse.tsp.java.client.api.bookmark.BookmarkApi;
@@ -119,41 +122,49 @@ public class TspClient {
 	private XyApiAsync xyApiAsync;
 
 	public TspClient(String baseUrl) {
+		this.constructAllApi(baseUrl, Executors.newSingleThreadExecutor());
+	}
+
+	public TspClient(String baseUrl, ExecutorService executorService) {
+		this.constructAllApi(baseUrl, executorService);
+	}
+
+	private void constructAllApi(String baseUrl, ExecutorService executorService) {
 		// Annotation Api
 		this.annotationApi = new AnnotationApi(baseUrl);
-		this.annotationApiAsync = new AnnotationApiAsync(baseUrl);
+		this.annotationApiAsync = new AnnotationApiAsync(baseUrl, executorService);
 		// Bookmark Api
 		this.bookmarkApi = new BookmarkApi(baseUrl);
-		this.bookmarkApiAsync = new BookmarkApiAsync(baseUrl);
+		this.bookmarkApiAsync = new BookmarkApiAsync(baseUrl, executorService);
 		// Experiment Api
 		this.experimentApi = new ExperimentApi(baseUrl);
-		this.experimentApiAsync = new ExperimentApiAsync(baseUrl);
+		this.experimentApiAsync = new ExperimentApiAsync(baseUrl, executorService);
 		// Filter Api
 		this.filterApi = new FilterApi(baseUrl);
-		this.filterApiAsync = new FilterApiAsync(baseUrl);
+		this.filterApiAsync = new FilterApiAsync(baseUrl, executorService);
 		// Health Api
 		this.healthApi = new HealthApi(baseUrl);
-		this.healthApiAsync = new HealthApiAsync(baseUrl);
+		this.healthApiAsync = new HealthApiAsync(baseUrl, executorService);
 		// MarkerSet Api
 		this.markerSetApi = new MarkerSetApi(baseUrl);
-		this.markerSetApiAsync = new MarkerSetApiAsync(baseUrl);
+		this.markerSetApiAsync = new MarkerSetApiAsync(baseUrl, executorService);
 		// OutputDescriptor Api
 		this.outputDescriptorApi = new OutputDescriptorApi(baseUrl);
-		this.outputDescriptorApiAsync = new OutputDescriptorApiAsync(baseUrl);
+		this.outputDescriptorApiAsync = new OutputDescriptorApiAsync(baseUrl, executorService);
 		// Style Api
 		this.styleApi = new StyleApi(baseUrl);
-		this.styleApiAsync = new StyleApiAsync(baseUrl);
+		this.styleApiAsync = new StyleApiAsync(baseUrl, executorService);
 		// Table Api
 		this.tableApi = new TableApi(baseUrl);
-		this.tableApiAsync = new TableApiAsync(baseUrl);
+		this.tableApiAsync = new TableApiAsync(baseUrl, executorService);
 		// TimeGraph Api
 		this.timeGraphApi = new TimeGraphApi(baseUrl);
-		this.timeGraphApiAsync = new TimeGraphApiAsync(baseUrl);
+		this.timeGraphApiAsync = new TimeGraphApiAsync(baseUrl, executorService);
 		// Trace Api
 		this.traceApi = new TraceApi(baseUrl);
-		this.traceApiAsync = new TraceApiAsync(baseUrl);
+		this.traceApiAsync = new TraceApiAsync(baseUrl, executorService);
 		// Xy Api
 		this.xyApi = new XyApi(baseUrl);
-		this.xyApiAsync = new XyApiAsync(baseUrl);
+		this.xyApiAsync = new XyApiAsync(baseUrl, executorService);
 	}
 }

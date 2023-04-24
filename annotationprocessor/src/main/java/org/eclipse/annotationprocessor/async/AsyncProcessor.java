@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Processor;
@@ -63,16 +64,19 @@ public class AsyncProcessor extends AbstractProcessor {
 	public void generateAsyncClass(String className, List<Element> methodElements) {
 		TypeElement classElement = (TypeElement) methodElements.get(0).getEnclosingElement();
 		FieldSpec syncApiField = this.generateField(classElement);
+		FieldSpec executorField = this.generateExecutionServiceField();
 		MethodSpec constructor = this.generateConstructor(classElement, syncApiField);
+
 		List<MethodSpec> asyncMethods = new ArrayList<>();
-		this.generateAsyncMethods(methodElements, asyncMethods, syncApiField);
+		this.generateAsyncMethods(methodElements, asyncMethods, syncApiField, executorField);
 		// add the new method to the class
 		TypeSpec updatedClass = TypeSpec
 				.classBuilder(classElement.getSimpleName().toString().concat("Async"))
 				.addModifiers(Modifier.PUBLIC)
+				.addField(syncApiField)
+				.addField(executorField)
 				.addMethod(constructor)
 				.addMethods(asyncMethods)
-				.addField(syncApiField)
 				.build();
 
 		// write the updated class to a file
@@ -94,15 +98,24 @@ public class AsyncProcessor extends AbstractProcessor {
 				.build();
 	}
 
+	public FieldSpec generateExecutionServiceField() {
+		return FieldSpec.builder(TypeVariableName.get("ExecutorService"),
+				"executorService", Modifier.PRIVATE)
+				.build();
+	}
+
 	public MethodSpec generateConstructor(TypeElement classElement, FieldSpec fieldSpec) {
 		return MethodSpec.constructorBuilder()
 				.addModifiers(Modifier.PUBLIC)
 				.addParameter(String.class, "baseUrl")
+				.addParameter(ExecutorService.class, "executorService")
 				.addStatement("this.$N = new $N(baseUrl)", fieldSpec.name, fieldSpec.type.toString())
+				.addStatement("this.$N = $N", "executorService", "executorService")
 				.build();
 	}
 
-	public void generateAsyncMethods(List<Element> methodElements, List<MethodSpec> methods, FieldSpec fieldSpec) {
+	public void generateAsyncMethods(List<Element> methodElements, List<MethodSpec> methods, FieldSpec fieldSpec,
+			FieldSpec executorServiceFieldSpec) {
 		methodElements.stream().forEach((Element element) -> {
 			ExecutableElement methodElement = (ExecutableElement) element;
 
@@ -112,10 +125,11 @@ public class AsyncProcessor extends AbstractProcessor {
 					.returns(this.getCompletableFuturType(methodElement))
 					.addParameters(this.getParameters(methodElement))
 					.addStatement(
-							"return $T.supplyAsync(() -> this.$N.$N($L))",
+							"return $T.supplyAsync(() -> this.$N.$N($L), $N)",
 							CompletableFuture.class,
 							fieldSpec.name, methodElement.getSimpleName(),
-							String.join(", ", this.getParametersName(methodElement)))
+							String.join(", ", this.getParametersName(methodElement)),
+							executorServiceFieldSpec.name)
 					.build();
 
 			methods.add(methodSpec);
