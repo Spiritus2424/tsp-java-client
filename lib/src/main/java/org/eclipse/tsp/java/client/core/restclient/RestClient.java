@@ -4,9 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
-import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -21,8 +18,7 @@ public class RestClient {
 
 	public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
-		WebTarget webTarget = ClientBuilder.newClient().register(new JacksonJsonProvider(new ObjectMapper()))
-				.target(url);
+		WebTarget webTarget = ClientBuilder.newClient().target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
 				webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
@@ -42,7 +38,8 @@ public class RestClient {
 	public static <T> TspClientResponse<T> post(String url, Optional<Object> body, Class<? extends T> clazz) {
 		final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
 
-		Response response = ClientBuilder.newClient().register(new JacksonJsonProvider(new ObjectMapper())).target(url)
+		Response response = ClientBuilder.newClient()
+				.target(url)
 				.request(MediaType.APPLICATION_JSON)
 				.post(entity);
 
@@ -57,8 +54,10 @@ public class RestClient {
 
 	public static <T> TspClientResponse<T> put(String url, Object body, Class<? extends T> clazz) {
 		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
-		Response response = ClientBuilder.newClient().register(new JacksonJsonProvider(new ObjectMapper())).target(url)
-				.request(MediaType.APPLICATION_JSON).put(entity);
+		Response response = ClientBuilder.newClient()
+				.target(url)
+				.request(MediaType.APPLICATION_JSON)
+				.put(entity);
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
 		return (response.hasEntity() && isResponseSuccess(response.getStatus()))
@@ -70,8 +69,7 @@ public class RestClient {
 
 	public static <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
-		WebTarget webTarget = ClientBuilder.newClient().register(new JacksonJsonProvider(new ObjectMapper()))
-				.target(url);
+		WebTarget webTarget = ClientBuilder.newClient().target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
 				webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
