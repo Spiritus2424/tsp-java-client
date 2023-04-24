@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 
+import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
@@ -16,9 +17,11 @@ public class RestClient {
 
 	private static ConnectionStatus connectionStatus = new ConnectionStatus();
 
+	private static Client client = ClientBuilder.newClient();
+
 	public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
-		WebTarget webTarget = ClientBuilder.newClient().target(url);
+		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
 				webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
@@ -38,7 +41,7 @@ public class RestClient {
 	public static <T> TspClientResponse<T> post(String url, Optional<Object> body, Class<? extends T> clazz) {
 		final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
 
-		Response response = ClientBuilder.newClient()
+		Response response = client
 				.target(url)
 				.request(MediaType.APPLICATION_JSON)
 				.post(entity);
@@ -54,7 +57,7 @@ public class RestClient {
 
 	public static <T> TspClientResponse<T> put(String url, Object body, Class<? extends T> clazz) {
 		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
-		Response response = ClientBuilder.newClient()
+		Response response = client
 				.target(url)
 				.request(MediaType.APPLICATION_JSON)
 				.put(entity);
@@ -69,7 +72,7 @@ public class RestClient {
 
 	public static <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
-		WebTarget webTarget = ClientBuilder.newClient().target(url);
+		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
 				webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
