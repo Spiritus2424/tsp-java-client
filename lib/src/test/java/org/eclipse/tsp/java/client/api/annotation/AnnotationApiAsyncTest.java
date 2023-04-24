@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -25,7 +26,8 @@ public class AnnotationApiAsyncTest {
 	private static final String FIXTURE_PATH = "fixtures/tspclient";
 	private static final String TSP_EXTENSION_URL = "/tsp/api";
 
-	private AnnotationApiAsync annotationApiAsync = new AnnotationApiAsync("http://localhost:8080");
+	private AnnotationApiAsync annotationApiAsync = new AnnotationApiAsync("http://localhost:8080",
+			Executors.newSingleThreadExecutor());
 	private AnnotationApi annotationApi = new AnnotationApi("http://localhost:8080");
 
 	@Test
