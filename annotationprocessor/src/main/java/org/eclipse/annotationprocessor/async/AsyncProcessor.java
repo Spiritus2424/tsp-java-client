@@ -33,7 +33,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 
 @SupportedAnnotationTypes("org.eclipse.annotationprocessor.async.Async")
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class AsyncProcessor extends AbstractProcessor {
 
