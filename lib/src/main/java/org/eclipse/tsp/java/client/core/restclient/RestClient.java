@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -17,10 +20,12 @@ import jakarta.ws.rs.core.Response.Status;
 public class RestClient {
 
 	private static final Client client = ClientBuilder.newClient().register(JacksonFeature.class);
+	private static final ObjectMapper mapper = new ObjectMapper();
 	private static ConnectionStatus connectionStatus = new ConnectionStatus();
 
 	public static synchronized <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
+
 		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
@@ -75,12 +80,20 @@ public class RestClient {
 		return createTspClientResponse(response, clazz);
 	}
 
-	private static <T> TspClientResponse<T> createTspClientResponse(Response response, Class<? extends T> clazz) {
+	private static synchronized <T> TspClientResponse<T> createTspClientResponse(Response response,
+			Class<? extends T> clazz) {
 		TspClientResponse<T> tspClientResponse = null;
 
 		if (response.hasEntity() && isResponseSuccess(response.getStatus())) {
+			String value = response.readEntity(String.class);
+			T entity = null;
+			try {
+				entity = mapper.readValue(value, clazz);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-					response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz));
+					response.getStatusInfo().getReasonPhrase(), entity);
 
 		} else {
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
