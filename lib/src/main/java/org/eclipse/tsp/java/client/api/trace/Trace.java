@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Trace {
-	@JsonProperty("UUID")
+	@JsonProperty(value = "UUID", required = true)
 	@EqualsAndHashCode.Include
 	@NonNull
 	private UUID uuid;
