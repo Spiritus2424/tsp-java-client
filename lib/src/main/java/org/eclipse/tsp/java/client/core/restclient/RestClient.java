@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -15,12 +16,11 @@ import jakarta.ws.rs.core.Response.Status;
 
 public class RestClient {
 
-	// private static final Client client = ClientBuilder.newClient();
+	private static final Client client = ClientBuilder.newClient().register(JacksonFeature.class);
 	private static ConnectionStatus connectionStatus = new ConnectionStatus();
 
 	public static synchronized <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
-		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
@@ -37,7 +37,6 @@ public class RestClient {
 
 	public static synchronized <T> TspClientResponse<T> post(String url, Optional<Object> body,
 			Class<? extends T> clazz) {
-		Client client = ClientBuilder.newClient();
 		final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
 		Response response = client
 				.target(url)
@@ -50,7 +49,6 @@ public class RestClient {
 	}
 
 	public static synchronized <T> TspClientResponse<T> put(String url, Object body, Class<? extends T> clazz) {
-		Client client = ClientBuilder.newClient();
 		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
 		Response response = client
 				.target(url)
@@ -64,7 +62,6 @@ public class RestClient {
 	public static synchronized <T> TspClientResponse<T> delete(String url,
 			Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
-		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
