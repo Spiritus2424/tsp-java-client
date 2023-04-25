@@ -17,6 +17,7 @@ public class RestClient {
 
 	private static final Client client = ClientBuilder.newClient();
 	private static ConnectionStatus connectionStatus = new ConnectionStatus();
+	private static Object lock = new Object();
 
 	public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
@@ -30,11 +31,8 @@ public class RestClient {
 		Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
-		return (response.hasEntity() && isResponseSuccess(response.getStatus()))
-				? new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-						response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz))
-				: new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-						response.getStatusInfo().getReasonPhrase());
+		return createTspClientResponse(response, clazz);
+
 	}
 
 	public static <T> TspClientResponse<T> post(String url, Optional<Object> body, Class<? extends T> clazz) {
@@ -45,12 +43,8 @@ public class RestClient {
 				.post(entity);
 
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
+		return createTspClientResponse(response, clazz);
 
-		return (response.hasEntity() && isResponseSuccess(response.getStatus()))
-				? new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-						response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz))
-				: new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-						response.getStatusInfo().getReasonPhrase());
 	}
 
 	public static <T> TspClientResponse<T> put(String url, Object body, Class<? extends T> clazz) {
@@ -60,12 +54,8 @@ public class RestClient {
 				.request(MediaType.APPLICATION_JSON)
 				.put(entity);
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
+		return createTspClientResponse(response, clazz);
 
-		return (response.hasEntity() && isResponseSuccess(response.getStatus()))
-				? new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-						response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz))
-				: new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-						response.getStatusInfo().getReasonPhrase());
 	}
 
 	public static <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
@@ -80,11 +70,23 @@ public class RestClient {
 		Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
-		return (response.hasEntity() && isResponseSuccess(response.getStatus()))
-				? new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-						response.getStatusInfo().getReasonPhrase(), response.readEntity(clazz))
-				: new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-						response.getStatusInfo().getReasonPhrase());
+		return createTspClientResponse(response, clazz);
+	}
+
+	private static <T> TspClientResponse<T> createTspClientResponse(Response response, Class<? extends T> clazz) {
+		TspClientResponse<T> tspClientResponse = null;
+
+		if (response.hasEntity() && isResponseSuccess(response.getStatus())) {
+			synchronized (lock) {
+				T entity = response.readEntity(clazz);
+				tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+						response.getStatusInfo().getReasonPhrase(), entity);
+			}
+		} else {
+			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+					response.getStatusInfo().getReasonPhrase());
+		}
+		return tspClientResponse;
 	}
 
 	public static void addConnectionStatusListener(PclConnectionStatus pclConnectionStatus) {
