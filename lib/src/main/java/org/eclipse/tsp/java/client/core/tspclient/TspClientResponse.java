@@ -15,29 +15,30 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class TspClientResponse<T> {
-    @NonNull
-    private Status statusCode;
-    @NonNull
-    private String statusMessage;
-    private T responseModel;
+	private static ObjectMapper objectMapper = new ObjectMapper();
 
-    public boolean isOk() {
-        return this.statusCode == Status.OK;
-    }
+	@NonNull
+	private Status statusCode;
+	@NonNull
+	private String statusMessage;
+	private T responseModel;
 
-    public static <T> TspClientResponse<T> getGenericResponse(TspClientResponse<String> tspClientResponse,
-            TypeReference<T> typeReferene) {
-        T genericResponse = null;
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            genericResponse = objectMapper.readValue(tspClientResponse.getResponseModel(), typeReferene);
-        } catch (JsonMappingException exception) {
-            System.err.println(exception);
-        } catch (JsonProcessingException exception) {
-            System.err.println(exception);
-        }
+	public boolean isOk() {
+		return this.statusCode == Status.OK;
+	}
 
-        return new TspClientResponse<T>(tspClientResponse.getStatusCode(),
-                tspClientResponse.getStatusMessage(), genericResponse);
-    }
+	public static <T> TspClientResponse<T> getGenericResponse(TspClientResponse<String> tspClientResponse,
+			TypeReference<T> typeReferene) {
+		T genericResponse = null;
+		try {
+			genericResponse = objectMapper.readValue(tspClientResponse.getResponseModel(), typeReferene);
+		} catch (JsonMappingException exception) {
+			System.err.println(exception);
+		} catch (JsonProcessingException exception) {
+			System.err.println(exception);
+		}
+
+		return new TspClientResponse<T>(tspClientResponse.getStatusCode(),
+				tspClientResponse.getStatusMessage(), genericResponse);
+	}
 }

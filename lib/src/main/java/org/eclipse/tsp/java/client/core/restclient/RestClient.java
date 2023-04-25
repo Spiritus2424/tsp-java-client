@@ -23,7 +23,7 @@ public class RestClient {
 	private static final ObjectMapper mapper = new ObjectMapper();
 	private static ConnectionStatus connectionStatus = new ConnectionStatus();
 
-	public static synchronized <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
+	public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
 
 		WebTarget webTarget = client.target(url);
@@ -40,7 +40,7 @@ public class RestClient {
 
 	}
 
-	public static synchronized <T> TspClientResponse<T> post(String url, Optional<Object> body,
+	public static <T> TspClientResponse<T> post(String url, Optional<Object> body,
 			Class<? extends T> clazz) {
 		final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
 		Response response = client
@@ -53,7 +53,7 @@ public class RestClient {
 
 	}
 
-	public static synchronized <T> TspClientResponse<T> put(String url, Object body, Class<? extends T> clazz) {
+	public static <T> TspClientResponse<T> put(String url, Object body, Class<? extends T> clazz) {
 		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
 		Response response = client
 				.target(url)
@@ -64,7 +64,7 @@ public class RestClient {
 
 	}
 
-	public static synchronized <T> TspClientResponse<T> delete(String url,
+	public static <T> TspClientResponse<T> delete(String url,
 			Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
 		WebTarget webTarget = client.target(url);
