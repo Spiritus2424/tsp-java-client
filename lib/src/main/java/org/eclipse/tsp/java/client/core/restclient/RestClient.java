@@ -15,9 +15,8 @@ import jakarta.ws.rs.core.Response.Status;
 
 public class RestClient {
 
-	private static ConnectionStatus connectionStatus = new ConnectionStatus();
-
 	private static final Client client = ClientBuilder.newClient();
+	private static ConnectionStatus connectionStatus = new ConnectionStatus();
 
 	public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
