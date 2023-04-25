@@ -88,10 +88,15 @@ public class RestClient {
 			String value = response.readEntity(String.class);
 			T entity = null;
 			try {
-				entity = mapper.readValue(value, clazz);
+				if (!clazz.equals(String.class)) {
+					entity = mapper.readValue(value, clazz);
+				} else {
+					entity = (T) value;
+				}
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
+
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
 					response.getStatusInfo().getReasonPhrase(), entity);
 
