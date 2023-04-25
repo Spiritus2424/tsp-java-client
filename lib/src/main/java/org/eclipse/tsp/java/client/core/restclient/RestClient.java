@@ -4,9 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
-import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -24,9 +21,6 @@ public class RestClient {
 
 	public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
-		final JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
-		provider.setMapper(new ObjectMapper());
-		client.register(provider);
 		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
@@ -45,9 +39,6 @@ public class RestClient {
 	}
 
 	public static <T> TspClientResponse<T> post(String url, Optional<Object> body, Class<? extends T> clazz) {
-		final JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
-		provider.setMapper(new ObjectMapper());
-		client.register(provider);
 		final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
 		Response response = client
 				.target(url)
@@ -64,9 +55,6 @@ public class RestClient {
 	}
 
 	public static <T> TspClientResponse<T> put(String url, Object body, Class<? extends T> clazz) {
-		final JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
-		provider.setMapper(new ObjectMapper());
-		client.register(provider);
 		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
 		Response response = client
 				.target(url)
@@ -83,9 +71,6 @@ public class RestClient {
 
 	public static <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
 			Class<? extends T> clazz) {
-		final JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
-		provider.setMapper(new ObjectMapper());
-		client.register(provider);
 		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
