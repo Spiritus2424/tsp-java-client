@@ -7,13 +7,12 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.eclipse.tsp.java.client.api.annotation.dto.AnnotationRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
-import org.eclipse.tsp.java.client.shared.query.Query;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 import org.eclipse.tsp.java.client.shared.response.ResponseStatus;
 import org.junit.jupiter.api.Test;
@@ -58,11 +57,9 @@ public class AnnotationApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-annotation-model.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
-
+		Body<AnnotationRequestDto> body = new Body<>(new AnnotationRequestDto());
 		TspClientResponse<GenericResponse<AnnotationModel>> response = this.annotationApi.getAnnotations(experimentUuid,
-				outputId, query);
+				outputId, body);
 		assertEquals(ResponseStatus.RUNNING, response.getResponseModel().getStatus());
 		assertEquals(Annotation.class,
 				response.getResponseModel().getModel().getAnnotations().get("Annotation category").get(0)
