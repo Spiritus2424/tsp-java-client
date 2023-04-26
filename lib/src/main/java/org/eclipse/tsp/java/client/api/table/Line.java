@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Line {
-    @NonNull
-    private int index;
-    @NonNull
-    private List<Cell> cells;
-    private int tags;
+	@NonNull
+	private Integer index;
+	@NonNull
+	private List<Cell> cells;
+	private Integer tags;
 
 }

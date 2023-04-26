@@ -11,17 +11,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Filter {
-    @NonNull
-    private String id;
-    @NonNull
-    private String name;
-    @NonNull
-    private BigInteger startTime;
-    @NonNull
-    private BigInteger endTime;
-    @NonNull
-    private String expression;
-    @NonNull
-    private int tags;
+	@NonNull
+	private String id;
+	@NonNull
+	private String name;
+	@NonNull
+	private BigInteger startTime;
+	@NonNull
+	private BigInteger endTime;
+	@NonNull
+	private String expression;
+	@NonNull
+	private Integer tags;
 
 }

@@ -31,7 +31,7 @@ public class Trace {
 	@NonNull
 	private String path;
 	@NonNull
-	private int nbEvents;
+	private Integer nbEvents;
 	@NonNull
 	private IndexingStatus indexingStatus;
 

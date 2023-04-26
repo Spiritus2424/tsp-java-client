@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Cell {
-    @NonNull
-    private String content;
-    private int tags;
+	@NonNull
+	private String content;
+	private Integer tags;
 
 }

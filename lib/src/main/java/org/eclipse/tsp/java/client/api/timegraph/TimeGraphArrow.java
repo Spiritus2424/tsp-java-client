@@ -15,14 +15,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class TimeGraphArrow {
-    @NonNull
-    private int sourceId;
-    @NonNull
-    private int targetId;
-    @NonNull
-    private BigInteger start;
-    @NonNull
-    private BigInteger end;
-    private OutputElementStyle style;
+	@NonNull
+	private Integer sourceId;
+	@NonNull
+	private Integer targetId;
+	@NonNull
+	private BigInteger start;
+	@NonNull
+	private BigInteger end;
+	private OutputElementStyle style;
 
 }

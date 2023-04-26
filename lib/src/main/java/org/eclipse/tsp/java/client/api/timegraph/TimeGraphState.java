@@ -15,11 +15,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class TimeGraphState {
-    @NonNull
-    private BigInteger start;
-    @NonNull
-    private BigInteger end;
-    private String label;
-    private int tags;
-    private OutputElementStyle style;
+	@NonNull
+	private BigInteger start;
+	@NonNull
+	private BigInteger end;
+	private String label;
+	private Integer tags;
+	private OutputElementStyle style;
 }

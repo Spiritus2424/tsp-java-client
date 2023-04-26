@@ -18,16 +18,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Annotation {
-    @NonNull
-    private String label;
-    @NonNull
-    private BigInteger time;
-    @NonNull
-    private BigInteger duration;
-    @NonNull
-    private int entryId;
-    @NonNull
-    private AnnotationType type;
+	@NonNull
+	private String label;
+	@NonNull
+	private BigInteger time;
+	@NonNull
+	private BigInteger duration;
+	@NonNull
+	private Integer entryId;
+	@NonNull
+	private AnnotationType type;
 
-    private OutputElementStyle style;
+	private OutputElementStyle style;
 }

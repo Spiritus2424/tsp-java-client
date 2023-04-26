@@ -18,27 +18,27 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class XySerie {
-    @JsonProperty("seriesName")
-    @NonNull
-    private String serieName;
-    @JsonProperty("seriesId")
-    @NonNull
-    private int serieId;
-    @JsonProperty("xAxis")
-    @NonNull
-    private XyAxis xAxis;
-    @JsonProperty("yAxis")
-    @NonNull
-    private XyAxis yAxis;
-    @JsonProperty("xValues")
-    @NonNull
-    private List<BigInteger> xValues;
-    @JsonProperty("yValues")
-    @NonNull
-    private List<Double> yValues;
-    @NonNull
-    private OutputElementStyle style;
+	@JsonProperty("seriesName")
+	@NonNull
+	private String serieName;
+	@JsonProperty("seriesId")
+	@NonNull
+	private Integer serieId;
+	@JsonProperty("xAxis")
+	@NonNull
+	private XyAxis xAxis;
+	@JsonProperty("yAxis")
+	@NonNull
+	private XyAxis yAxis;
+	@JsonProperty("xValues")
+	@NonNull
+	private List<BigInteger> xValues;
+	@JsonProperty("yValues")
+	@NonNull
+	private List<Double> yValues;
+	@NonNull
+	private OutputElementStyle style;
 
-    private List<Integer> tags;
+	private List<Integer> tags;
 
 }
