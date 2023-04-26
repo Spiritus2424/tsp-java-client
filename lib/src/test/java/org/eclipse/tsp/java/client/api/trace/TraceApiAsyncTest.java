@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import org.eclipse.tsp.java.client.api.trace.dto.OpenTraceRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.indexing.IndexingStatus;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
@@ -33,7 +34,7 @@ public class TraceApiAsyncTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/open-trace.json", FIXTURE_PATH))));
 
-		OpenTraceRequestDto body = new OpenTraceRequestDto("traceUri");
+		Body<OpenTraceRequestDto> body = new Body<>(new OpenTraceRequestDto("traceUri"));
 		TspClientResponse<Trace> response = this.traceApiAsync.openTrace(body).join();
 
 		assertEquals(IndexingStatus.CLOSED,

@@ -7,17 +7,17 @@ import org.eclipse.tsp.java.client.api.AbstractTspApi;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 
 public class HealthApi extends AbstractTspApi {
-	private final String HEALTH_API_URL = "%s/health";
+	private final String HEALTH_API_URL;
 
 	public HealthApi(String baseUrl) {
 		super(baseUrl);
+		this.HEALTH_API_URL = this.getBaseUrl().concat("/health");
 	}
 
 	@Async
 	public TspClientResponse<Health> checkHealth() {
-		return this.getRestClientSingleton()
-				.get(String.format(this.HEALTH_API_URL, this.getBaseUrl()),
-						Optional.empty(),
-						this.getTypeFactory().constructType(Health.class));
+		return this.getRestClientSingleton().get(this.HEALTH_API_URL,
+				Optional.empty(),
+				this.getTypeFactory().constructType(Health.class));
 	}
 }

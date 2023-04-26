@@ -16,30 +16,31 @@ import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 
 public class XyApi extends AbstractTspApi {
-	private final String XY_API_URL = "%s/experiments/%s/outputs/XY/%s";
+	private final String XY_API_URL;
 
 	public XyApi(String baseUrl) {
 		super(baseUrl);
+		this.XY_API_URL = this.getBaseUrl().concat("/experiments/%s/outputs/XY/%s");
 	}
 
 	@Async
 	public TspClientResponse<GenericResponse<EntryModel<Entry>>> getXyTree(UUID experimentUuid, String outputId,
 			Body<GetXyTreeRequestDto> body) {
-		return this.getRestClientSingleton()
-				.post(String.format(this.XY_API_URL.concat("/tree"), this.getBaseUrl(), experimentUuid, outputId),
-						Optional.of(body),
-						this.getTypeFactory().constructParametricType(GenericResponse.class,
-								this.getTypeFactory().constructParametricType(EntryModel.class,
-										Entry.class)));
+		return this.getRestClientSingleton().post(
+				String.format(this.XY_API_URL.concat("/tree"), experimentUuid, outputId),
+				Optional.of(body),
+				this.getTypeFactory().constructParametricType(GenericResponse.class,
+						this.getTypeFactory().constructParametricType(EntryModel.class,
+								Entry.class)));
 	}
 
 	@Async
 	public TspClientResponse<GenericResponse<XyModel>> getXy(UUID experimentUuid, String outputId,
 			Body<GetXyModelRequestDto> body) {
-		return this.getRestClientSingleton()
-				.post(String.format(this.XY_API_URL.concat("/xy"), this.getBaseUrl(), experimentUuid, outputId),
-						Optional.of(body),
-						this.getTypeFactory().constructParametricType(GenericResponse.class, XyModel.class));
+		return this.getRestClientSingleton().post(
+				String.format(this.XY_API_URL.concat("/xy"), experimentUuid, outputId),
+				Optional.of(body),
+				this.getTypeFactory().constructParametricType(GenericResponse.class, XyModel.class));
 	}
 
 	@Async
@@ -54,11 +55,11 @@ public class XyApi extends AbstractTspApi {
 			queryParameters.put("seriesId", seriesId.get().toString());
 		}
 
-		return this.getRestClientSingleton()
-				.get(String.format(this.XY_API_URL.concat("/tooltip"), this.getBaseUrl(), experimentUuid, outputId),
-						Optional.of(queryParameters),
-						this.getTypeFactory().constructParametricType(GenericResponse.class,
-								this.getTypeFactory().constructMapType(Map.class, String.class, String.class)));
+		return this.getRestClientSingleton().get(
+				String.format(this.XY_API_URL.concat("/tooltip"), experimentUuid, outputId),
+				Optional.of(queryParameters),
+				this.getTypeFactory().constructParametricType(GenericResponse.class,
+						this.getTypeFactory().constructMapType(Map.class, String.class, String.class)));
 
 	}
 

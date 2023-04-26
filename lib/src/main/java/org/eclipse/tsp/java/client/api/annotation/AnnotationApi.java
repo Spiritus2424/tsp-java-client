@@ -13,10 +13,11 @@ import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 
 public class AnnotationApi extends AbstractTspApi {
-	private final String ANNOTATION_API_URL = "%s/experiments/%s/outputs/%s/annotations";
+	private final String ANNOTATION_API_URL;
 
 	public AnnotationApi(String baseUrl) {
 		super(baseUrl);
+		this.ANNOTATION_API_URL = this.getBaseUrl().concat("/experiments/%s/outputs/%s/annotations");
 	}
 
 	@Async
@@ -28,20 +29,18 @@ public class AnnotationApi extends AbstractTspApi {
 			queryParameters.put("markserId", markerSetId.get());
 		}
 
-		return this.getRestClientSingleton()
-				.get(String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
-						markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(),
-						this.getTypeFactory().constructParametricType(GenericResponse.class,
-								AnnotationCategoriesModel.class));
+		return this.getRestClientSingleton().get(String.format(this.ANNOTATION_API_URL, experimentUuid, outputId),
+				markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(),
+				this.getTypeFactory().constructParametricType(GenericResponse.class,
+						AnnotationCategoriesModel.class));
 	}
 
 	@Async
 	public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(UUID experimentUuid,
 			String outputId,
 			Body<GetAnnotationsRequestDto> body) {
-		return this.getRestClientSingleton()
-				.post(String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
-						Optional.of(body),
-						this.getTypeFactory().constructParametricType(GenericResponse.class, AnnotationModel.class));
+		return this.getRestClientSingleton().post(String.format(this.ANNOTATION_API_URL, experimentUuid, outputId),
+				Optional.of(body),
+				this.getTypeFactory().constructParametricType(GenericResponse.class, AnnotationModel.class));
 	}
 }

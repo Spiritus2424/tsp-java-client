@@ -6,10 +6,11 @@ import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
 
 public class FilterApi extends AbstractTspApi {
-	private final String FILTER_API_URL = "%s/filters";
+	private final String FILTER_API_URL;
 
 	public FilterApi(String baseUrl) {
 		super(baseUrl);
+		this.FILTER_API_URL = this.getBaseUrl().concat("/filters");
 	}
 
 	@Async

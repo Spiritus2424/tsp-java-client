@@ -7,10 +7,11 @@ import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
 
 public class BookmarkApi extends AbstractTspApi {
-	private final String BOOKMARK_API_URL = "%s/experiments/{expUUID}/bookmarks";
+	private final String BOOKMARK_API_URL;
 
 	public BookmarkApi(String baseUrl) {
 		super(baseUrl);
+		this.BOOKMARK_API_URL = this.getBaseUrl().concat("/experiments/{expUUID}/bookmarks");
 	}
 
 	@Async

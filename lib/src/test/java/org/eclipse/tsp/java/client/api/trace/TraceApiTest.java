@@ -14,6 +14,7 @@ import java.util.UUID;
 import org.eclipse.tsp.java.client.api.trace.dto.OpenTraceRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.indexing.IndexingStatus;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.junit.jupiter.api.Test;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
@@ -64,7 +65,7 @@ public class TraceApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/open-trace.json", FIXTURE_PATH))));
 
-		OpenTraceRequestDto body = new OpenTraceRequestDto("traceUri");
+		Body<OpenTraceRequestDto> body = new Body<>(new OpenTraceRequestDto("traceUri"));
 		TspClientResponse<Trace> response = this.traceApi.openTrace(body);
 
 		assertEquals(IndexingStatus.CLOSED, response.getResponseModel().getIndexingStatus());
@@ -80,7 +81,7 @@ public class TraceApiTest {
 				.withBodyFile(String.format("%s/open-trace-not-found.json", FIXTURE_PATH))
 				.withStatus(Status.NOT_FOUND.getStatusCode())));
 
-		OpenTraceRequestDto body = new OpenTraceRequestDto("traceUri");
+		Body<OpenTraceRequestDto> body = new Body<>(new OpenTraceRequestDto("traceUri"));
 		TspClientResponse<Trace> response = this.traceApi.openTrace(body);
 
 		assertEquals(response.getStatusCode(), Status.NOT_FOUND);
