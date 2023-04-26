@@ -51,7 +51,7 @@ dependencies {
     api("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
     api("org.glassfish.jersey.core:jersey-client:3.1.1")
     api("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.1")  
-    testImplementation("org.glassfish.jersey.inject:jersey-hk2:3.1.1")
+    implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.1")
 
     // Lombok - Decorator
     compileOnly("org.projectlombok:lombok:1.18.26")
