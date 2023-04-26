@@ -36,7 +36,6 @@ public class MarkerSetApiTest {
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(1, response.getResponseModel().getModel().size());
-
 		assertEquals("marker.set.id", new ArrayList<MarkerSet>(response.getResponseModel().getModel()).get(0).getId());
 	}
 }
