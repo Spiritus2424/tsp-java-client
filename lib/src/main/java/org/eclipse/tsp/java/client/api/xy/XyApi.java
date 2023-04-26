@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
-import org.eclipse.tsp.java.client.api.xy.dto.XyModelRequestDto;
-import org.eclipse.tsp.java.client.api.xy.dto.XyTreeRequestDto;
+import org.eclipse.tsp.java.client.api.xy.dto.GetXyModelRequestDto;
+import org.eclipse.tsp.java.client.api.xy.dto.GetXyTreeRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.Entry;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
@@ -24,7 +24,7 @@ public class XyApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<EntryModel<Entry>>> getXyTree(UUID experimentUuid, String outputId,
-			Body<XyTreeRequestDto> body) {
+			Body<GetXyTreeRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.XY_API_URL.concat("/tree"), this.getBaseUrl(), experimentUuid, outputId),
 						Optional.of(body),
@@ -35,7 +35,7 @@ public class XyApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<XyModel>> getXy(UUID experimentUuid, String outputId,
-			Body<XyModelRequestDto> body) {
+			Body<GetXyModelRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.XY_API_URL.concat("/xy"), this.getBaseUrl(), experimentUuid, outputId),
 						Optional.of(body),
@@ -43,7 +43,7 @@ public class XyApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<Map<String, String>>> getXyTooltip(UUID experimentUuid, String outputId,
+	public TspClientResponse<GenericResponse<Map<String, String>>> getXyTooltips(UUID experimentUuid, String outputId,
 			int xValue, Optional<Integer> yValue, Optional<String> seriesId) {
 		Map<String, String> queryParameters = new HashMap<String, String>();
 		if (yValue.isPresent()) {

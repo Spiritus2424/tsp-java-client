@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class TableLineRequestDto {
+public class GetTableLinesRequestDto {
 	@JsonProperty("requested_table_count")
 	@NonNull
 	private Integer requestedTableCount;

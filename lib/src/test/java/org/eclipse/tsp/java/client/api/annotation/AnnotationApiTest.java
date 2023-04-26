@@ -10,7 +10,7 @@ import java.math.BigInteger;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.eclipse.tsp.java.client.api.annotation.dto.AnnotationRequestDto;
+import org.eclipse.tsp.java.client.api.annotation.dto.GetAnnotationsRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
@@ -57,7 +57,7 @@ public class AnnotationApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-annotation-model.json", FIXTURE_PATH))));
 
-		Body<AnnotationRequestDto> body = new Body<>(new AnnotationRequestDto());
+		Body<GetAnnotationsRequestDto> body = new Body<>(new GetAnnotationsRequestDto());
 		TspClientResponse<GenericResponse<AnnotationModel>> response = this.annotationApi.getAnnotations(experimentUuid,
 				outputId, body);
 		assertEquals(ResponseStatus.RUNNING, response.getResponseModel().getStatus());

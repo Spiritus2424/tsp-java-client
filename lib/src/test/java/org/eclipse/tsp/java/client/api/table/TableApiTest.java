@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.eclipse.tsp.java.client.api.table.dto.TableLineRequestDto;
+import org.eclipse.tsp.java.client.api.table.dto.GetTableLinesRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.query.Query;
@@ -57,7 +57,7 @@ public class TableApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-table-lines.json", FIXTURE_PATH))));
 
-		Body<TableLineRequestDto> body = new Body<>();
+		Body<GetTableLinesRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<TableModel>> response = this.tableApi.getTableLines(experimentUuid,
 				outputId, body);
 

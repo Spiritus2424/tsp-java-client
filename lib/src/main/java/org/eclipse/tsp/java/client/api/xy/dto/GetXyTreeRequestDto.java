@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class XyTreeRequestDto {
+public class GetXyTreeRequestDto {
 
 	@JsonProperty("requested_times")
 	private List<BigInteger> requestedTimes;

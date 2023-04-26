@@ -1,4 +1,4 @@
-package org.eclipse.tsp.java.client.api.xy.dto;
+package org.eclipse.tsp.java.client.api.timegraph.dto;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class XyModelRequestDto {
+public class GetTimeGraphStatesRequestDto {
 
 	@JsonProperty("requested_timerange")
 	@NonNull
