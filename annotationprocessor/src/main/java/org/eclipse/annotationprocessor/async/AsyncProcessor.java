@@ -138,7 +138,11 @@ public class AsyncProcessor extends AbstractProcessor {
 
 	public List<ParameterSpec> getParameters(ExecutableElement methodElement) {
 		return methodElement.getParameters().stream().map((VariableElement variableElement) -> {
-			return ParameterSpec.get(variableElement);
+			return ParameterSpec
+					.builder(TypeVariableName.get(variableElement.asType().toString()),
+							variableElement.getSimpleName().toString())
+					.addModifiers(variableElement.getModifiers())
+					.build();
 		}).toList();
 	}
 

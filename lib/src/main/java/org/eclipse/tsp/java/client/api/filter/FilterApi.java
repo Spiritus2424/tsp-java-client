@@ -6,10 +6,11 @@ import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
 
 public class FilterApi extends AbstractTspApi {
-	private final String FILTER_API_URL = "%s/filters";
+	private final String FILTER_API_URL;
 
 	public FilterApi(String baseUrl) {
 		super(baseUrl);
+		this.FILTER_API_URL = this.getBaseUrl().concat("/filters");
 	}
 
 	@Async
@@ -18,22 +19,22 @@ public class FilterApi extends AbstractTspApi {
 	}
 
 	@Async
-	public Filter getFilter(String filterId) {
+	public Filter getFilter(final String filterId) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Filter createFilter(Filter filter) {
+	public Filter createFilter(final Filter filter) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Filter updateFilter(String filterId, Filter filter) {
+	public Filter updateFilter(final String filterId, Filter filter) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Filter deleteFilter(String filterId) {
+	public Filter deleteFilter(final String filterId) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 }

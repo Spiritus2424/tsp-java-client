@@ -7,34 +7,35 @@ import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
 
 public class BookmarkApi extends AbstractTspApi {
-	private final String BOOKMARK_API_URL = "%s/experiments/{expUUID}/bookmarks";
+	private final String BOOKMARK_API_URL;
 
 	public BookmarkApi(String baseUrl) {
 		super(baseUrl);
+		this.BOOKMARK_API_URL = this.getBaseUrl().concat("/experiments/{expUUID}/bookmarks");
 	}
 
 	@Async
-	public List<Bookmark> getBookmarks(UUID experimentUuid) {
+	public List<Bookmark> getBookmarks(final UUID experimentUuid) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Bookmark getBookmark(UUID experimentUuid, UUID bookmarkUuid) {
+	public Bookmark getBookmark(final UUID experimentUuid, final UUID bookmarkUuid) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Bookmark createBookmark(UUID experimentUuid, Bookmark bookmark) {
+	public Bookmark createBookmark(final UUID experimentUuid, final Bookmark bookmark) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Bookmark updateBookmark(UUID experimentUuid, UUID bookmarkUuid, Bookmark bookmark) {
+	public Bookmark updateBookmark(final UUID experimentUuid, final UUID bookmarkUuid, final Bookmark bookmark) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Bookmark deleteBookmark(UUID experimentUuid, UUID bookmarkUuid) {
+	public Bookmark deleteBookmark(final UUID experimentUuid, final UUID bookmarkUuid) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 }

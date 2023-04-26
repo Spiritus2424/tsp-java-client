@@ -14,6 +14,7 @@ import java.util.UUID;
 import org.eclipse.tsp.java.client.api.experiment.dto.CreateExperimentRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.indexing.IndexingStatus;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.junit.jupiter.api.Test;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
@@ -33,7 +34,10 @@ public class ExperimentApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/create-experiment.json", FIXTURE_PATH))));
 
-		CreateExperimentRequestDto body = new CreateExperimentRequestDto("Experiment Name", new ArrayList<UUID>());
+		Body<CreateExperimentRequestDto> body = new Body<>(
+				new CreateExperimentRequestDto(
+						"Experiment Name",
+						new ArrayList<UUID>()));
 		TspClientResponse<Experiment> response = this.experimentApi.createExperiment(body);
 
 		assertEquals("kernel", response.getResponseModel().getName());

@@ -10,36 +10,42 @@ import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
 import org.eclipse.tsp.java.client.api.trace.dto.OpenTraceRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
+import org.eclipse.tsp.java.client.shared.query.Body;
 
 public class TraceApi extends AbstractTspApi {
-	private final String TRACE_API_URL = "%s/traces";
+	private final String TRACE_API_URL;
 
 	public TraceApi(String baseUrl) {
 		super(baseUrl);
+		this.TRACE_API_URL = this.getBaseUrl().concat("/traces");
 	}
 
 	@Async
-	public TspClientResponse<List<Trace>> getTraces(Optional<Map<String, String>> queryParameters) {
-		return this.getRestClientSingleton().get(String.format(this.TRACE_API_URL, this.getBaseUrl()), queryParameters,
+	public TspClientResponse<List<Trace>> getTraces(final Optional<Map<String, String>> queryParameters) {
+		return this.getRestClientSingleton().get(this.TRACE_API_URL,
+				queryParameters,
 				this.getTypeFactory().constructCollectionType(List.class, Trace.class));
 	}
 
 	@Async
-	public TspClientResponse<Trace> getTrace(UUID traceUuid) {
-		return this.getRestClientSingleton().get(
-				String.format(this.TRACE_API_URL.concat("/%s"), this.getBaseUrl(), traceUuid),
-				Optional.empty(), this.getTypeFactory().constructType(Trace.class));
+	public TspClientResponse<Trace> getTrace(final UUID traceUuid) {
+		return this.getRestClientSingleton().get(String.format(this.TRACE_API_URL.concat("/%s"), traceUuid),
+				Optional.empty(),
+				this.getTypeFactory().constructType(Trace.class));
 	}
 
 	@Async
-	public TspClientResponse<Trace> openTrace(OpenTraceRequestDto body) {
-		return this.getRestClientSingleton().post(String.format(this.TRACE_API_URL, this.getBaseUrl()),
-				Optional.of(body), this.getTypeFactory().constructType(Trace.class));
+	public TspClientResponse<Trace> openTrace(final Body<OpenTraceRequestDto> body) {
+		return this.getRestClientSingleton().post(this.TRACE_API_URL,
+				Optional.of(body),
+				this.getTypeFactory().constructType(Trace.class));
 	}
 
 	@Async
-	public TspClientResponse<Trace> deleteTrace(UUID traceUuid, Optional<Boolean> removeFromCache,
-			Optional<Boolean> deleteFromDisk) {
+	public TspClientResponse<Trace> deleteTrace(
+			final UUID traceUuid,
+			final Optional<Boolean> removeFromCache,
+			final Optional<Boolean> deleteFromDisk) {
 		Map<String, String> queryParameters = new HashMap<String, String>();
 		if (removeFromCache.isPresent()) {
 			queryParameters.put("removeCache", removeFromCache.get().toString());
@@ -49,9 +55,9 @@ public class TraceApi extends AbstractTspApi {
 			queryParameters.put("deleteTrace", deleteFromDisk.get().toString());
 		}
 
-		return this.getRestClientSingleton().delete(
-				String.format(this.TRACE_API_URL.concat("/%s"), this.getBaseUrl(), traceUuid),
-				Optional.of(queryParameters), this.getTypeFactory().constructType(Trace.class));
+		return this.getRestClientSingleton().delete(String.format(this.TRACE_API_URL.concat("/%s"), traceUuid),
+				Optional.of(queryParameters),
+				this.getTypeFactory().constructType(Trace.class));
 	}
 
 }

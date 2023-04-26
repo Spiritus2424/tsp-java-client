@@ -10,18 +10,20 @@ import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 
 public class StyleApi extends AbstractTspApi {
-	private final String STYLE_API_URL = "%s/experiments/%s/outputs/%s/style";
+	private final String STYLE_API_URL;
 
 	public StyleApi(String baseUrl) {
 		super(baseUrl);
+		this.STYLE_API_URL = this.getBaseUrl().concat("/experiments/%s/outputs/%s/style");
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<OutputStyleModel>> getStyles(UUID experimentUuid, String outputId,
-			Query query) {
-		return this.getRestClientSingleton()
-				.post(String.format(this.STYLE_API_URL, this.getBaseUrl(), experimentUuid, outputId),
-						Optional.of(query),
-						this.getTypeFactory().constructParametricType(GenericResponse.class, OutputStyleModel.class));
+	public TspClientResponse<GenericResponse<OutputStyleModel>> getStyles(
+			final UUID experimentUuid,
+			final String outputId,
+			final Query query) {
+		return this.getRestClientSingleton().post(String.format(this.STYLE_API_URL, experimentUuid, outputId),
+				Optional.of(query),
+				this.getTypeFactory().constructParametricType(GenericResponse.class, OutputStyleModel.class));
 	}
 }
