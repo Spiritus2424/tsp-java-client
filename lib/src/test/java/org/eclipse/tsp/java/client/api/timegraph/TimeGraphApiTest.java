@@ -7,16 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.eclipse.tsp.java.client.api.style.OutputElementStyle;
+import org.eclipse.tsp.java.client.api.timegraph.dto.ArrowRequestDto;
+import org.eclipse.tsp.java.client.api.timegraph.dto.StateRequestDto;
+import org.eclipse.tsp.java.client.api.timegraph.dto.TooltipRequestDto;
+import org.eclipse.tsp.java.client.api.timegraph.dto.TreeRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.EntryHeader;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
-import org.eclipse.tsp.java.client.shared.query.Query;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 import org.eclipse.tsp.java.client.shared.response.ResponseStatus;
 import org.junit.jupiter.api.Test;
@@ -40,10 +43,9 @@ public class TimeGraphApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-timegraph-arrows.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
+		Body<ArrowRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<List<TimeGraphArrow>>> response = this.timeGraphApi.getTimeGraphArrows(
-				experimentUuid, outputId, query);
+				experimentUuid, outputId, body);
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(1, response.getResponseModel().getModel().size());
@@ -61,10 +63,9 @@ public class TimeGraphApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-timegraph-states.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
+		Body<StateRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<TimeGraphModel>> response = this.timeGraphApi.getTimeGraphStates(
-				experimentUuid, outputId, query);
+				experimentUuid, outputId, body);
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(TimeGraphModel.class, response.getResponseModel().getModel().getClass());
@@ -82,10 +83,9 @@ public class TimeGraphApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-timegraph-tooltip.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
+		Body<TooltipRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<Map<String, String>>> response = this.timeGraphApi.getTimeGraphTooltip(
-				experimentUuid, outputId, query);
+				experimentUuid, outputId, body);
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertTrue(response.getResponseModel().getModel() instanceof Map);
@@ -102,10 +102,9 @@ public class TimeGraphApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-timegraph-tree.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
+		Body<TreeRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<EntryModel<TimeGraphEntry>>> response = this.timeGraphApi.getTimeGraphTree(
-				experimentUuid, outputId, query);
+				experimentUuid, outputId, body);
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(EntryHeader.class, response.getResponseModel().getModel().getHeaders().get(0).getClass());
