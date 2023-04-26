@@ -20,21 +20,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Experiment {
-    @JsonProperty("UUID")
-    @EqualsAndHashCode.Include
-    @NonNull
-    private UUID uuid;
-    @NonNull
-    private String name;
-    @NonNull
-    private BigInteger start;
-    @NonNull
-    private BigInteger end;
-    @NonNull
-    private int nbEvents;
-    @NonNull
-    private IndexingStatus indexingStatus;
-    @NonNull
-    private List<Trace> traces;
+	@JsonProperty("UUID")
+	@EqualsAndHashCode.Include
+	@NonNull
+	private UUID uuid;
+	@NonNull
+	private String name;
+	@NonNull
+	private BigInteger start;
+	@NonNull
+	private BigInteger end;
+	@NonNull
+	private Integer nbEvents;
+	@NonNull
+	private IndexingStatus indexingStatus;
+	@NonNull
+	private List<Trace> traces;
 
 }

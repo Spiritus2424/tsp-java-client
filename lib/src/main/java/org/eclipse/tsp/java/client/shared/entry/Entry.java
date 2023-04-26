@@ -16,15 +16,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Entry {
-    @NonNull
-    private int id;
-    @NonNull
-    private List<String> labels;
+	@NonNull
+	private Integer id;
+	@NonNull
+	private List<String> labels;
 
-    private int parentId;
-    private Boolean hasData;
-    private OutputElementStyle style;
-    private Map<String, Object> metadata;
-    private Boolean isDefault = false;
+	private Integer parentId;
+	private Boolean hasData;
+	private OutputElementStyle style;
+	private Map<String, Object> metadata;
+	private Boolean isDefault = false;
 
 }

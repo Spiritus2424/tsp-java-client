@@ -11,13 +11,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class TableModel {
-    @NonNull
-    private int lowIndex;
-    @NonNull
-    private int size;
-    @NonNull
-    private List<Integer> columnIds;
-    @NonNull
-    private List<Line> lines;
+	@NonNull
+	private Integer lowIndex;
+	@NonNull
+	private Integer size;
+	@NonNull
+	private List<Integer> columnIds;
+	@NonNull
+	private List<Line> lines;
 
 }

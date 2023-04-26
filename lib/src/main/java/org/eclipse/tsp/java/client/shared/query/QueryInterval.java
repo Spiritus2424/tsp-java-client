@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class QueryInterval {
-    @NonNull
-    private BigInteger start;
-    @NonNull
-    private BigInteger end;
-    private int nbTimes;
+	@NonNull
+	private BigInteger start;
+	@NonNull
+	private BigInteger end;
+	private Integer nbTimes;
 
 }
