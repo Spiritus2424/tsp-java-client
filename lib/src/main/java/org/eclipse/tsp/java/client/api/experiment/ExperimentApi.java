@@ -7,8 +7,9 @@ import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
+import org.eclipse.tsp.java.client.api.experiment.dto.CreateExperimentRequestDto;
+import org.eclipse.tsp.java.client.api.experiment.dto.UpdateExperimentRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
-import org.eclipse.tsp.java.client.shared.query.Query;
 
 public class ExperimentApi extends AbstractTspApi {
 	final String EXPERIMENT_API_URL = "%s/experiments";
@@ -34,18 +35,18 @@ public class ExperimentApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<Experiment> createExperiment(Query query) {
+	public TspClientResponse<Experiment> createExperiment(CreateExperimentRequestDto body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.EXPERIMENT_API_URL, this.getBaseUrl()),
-						Optional.of(query),
+						Optional.of(body),
 						this.getTypeFactory().constructType(Experiment.class));
 	}
 
 	@Async
-	public TspClientResponse<Experiment> updateExperiment(UUID experimentUuid, Query query) {
+	public TspClientResponse<Experiment> updateExperiment(UUID experimentUuid, UpdateExperimentRequestDto body) {
 		return this.getRestClientSingleton()
 				.put(String.format(this.EXPERIMENT_API_URL, this.getBaseUrl()),
-						Optional.of(query),
+						Optional.of(body),
 						this.getTypeFactory().constructType(Experiment.class));
 	}
 

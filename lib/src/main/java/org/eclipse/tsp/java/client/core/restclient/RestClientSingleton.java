@@ -8,7 +8,9 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -22,18 +24,21 @@ import lombok.Getter;
 public class RestClientSingleton {
 	private static final RestClientSingleton instance = new RestClientSingleton();
 
-	private RestClientSingleton() {
-		// Private constructor to prevent instantiation from outside
-	}
-
 	public static RestClientSingleton getInstance() {
 		return instance;
 	}
 
 	@Getter
-	private final ObjectMapper objectMapper = new ObjectMapper();
-	private final Client client = ClientBuilder.newClient().register(JacksonFeature.class);
-	private final ConnectionStatus connectionStatus = new ConnectionStatus();
+	private final ObjectMapper objectMapper;
+	private final Client client;
+	private final ConnectionStatus connectionStatus;
+
+	private RestClientSingleton() {
+		// Private constructor to prevent instantiation from outside
+		this.objectMapper = JsonMapper.builder().enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS).build();
+		this.client = ClientBuilder.newClient().register(JacksonFeature.class);
+		this.connectionStatus = new ConnectionStatus();
+	}
 
 	public <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters, JavaType javaType) {
 		WebTarget webTarget = client.target(url);

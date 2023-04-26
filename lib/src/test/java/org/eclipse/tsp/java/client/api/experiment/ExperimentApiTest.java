@@ -8,13 +8,12 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.UUID;
 
+import org.eclipse.tsp.java.client.api.experiment.dto.CreateExperimentRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.indexing.IndexingStatus;
-import org.eclipse.tsp.java.client.shared.query.Query;
 import org.junit.jupiter.api.Test;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
@@ -34,10 +33,8 @@ public class ExperimentApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/create-experiment.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-
-		Query query = new Query(parameters);
-		TspClientResponse<Experiment> response = this.experimentApi.createExperiment(query);
+		CreateExperimentRequestDto body = new CreateExperimentRequestDto("Experiment Name", new ArrayList<UUID>());
+		TspClientResponse<Experiment> response = this.experimentApi.createExperiment(body);
 
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals(UUID.fromString("22222222-2222-2222-2222-222222222222"), response.getResponseModel().getUuid());
