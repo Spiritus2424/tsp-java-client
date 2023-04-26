@@ -8,8 +8,8 @@ import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
+import org.eclipse.tsp.java.client.api.trace.dto.OpenTraceRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
-import org.eclipse.tsp.java.client.shared.query.Query;
 
 public class TraceApi extends AbstractTspApi {
 	private final String TRACE_API_URL = "%s/traces";
@@ -32,9 +32,9 @@ public class TraceApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<Trace> openTrace(Query query) {
+	public TspClientResponse<Trace> openTrace(OpenTraceRequestDto body) {
 		return this.getRestClientSingleton().post(String.format(this.TRACE_API_URL, this.getBaseUrl()),
-				Optional.of(query), this.getTypeFactory().constructType(Trace.class));
+				Optional.of(body), this.getTypeFactory().constructType(Trace.class));
 	}
 
 	@Async

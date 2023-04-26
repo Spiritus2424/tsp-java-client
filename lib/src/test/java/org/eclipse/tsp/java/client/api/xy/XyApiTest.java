@@ -5,15 +5,15 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
+import org.eclipse.tsp.java.client.api.xy.dto.XyModelRequestDto;
+import org.eclipse.tsp.java.client.api.xy.dto.XyTreeRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.Entry;
 import org.eclipse.tsp.java.client.shared.entry.EntryHeader;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
-import org.eclipse.tsp.java.client.shared.query.Query;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 import org.eclipse.tsp.java.client.shared.response.ResponseStatus;
 import org.junit.jupiter.api.Test;
@@ -37,10 +37,9 @@ public class XyApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-xy.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
+		Body<XyModelRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<XyModel>> response = this.xyApi.getXy(
-				experimentUuid, outputId, query);
+				experimentUuid, outputId, body);
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(XyModel.class, response.getResponseModel().getModel().getClass());
@@ -58,10 +57,9 @@ public class XyApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-xy-tree.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
+		Body<XyTreeRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<EntryModel<Entry>>> response = this.xyApi.getXyTree(
-				experimentUuid, outputId, query);
+				experimentUuid, outputId, body);
 
 		assertEquals(ResponseStatus.RUNNING, response.getResponseModel().getStatus());
 		assertEquals(EntryHeader.class, response.getResponseModel().getModel().getHeaders().get(0).getClass());

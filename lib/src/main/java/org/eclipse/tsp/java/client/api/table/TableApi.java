@@ -6,7 +6,9 @@ import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
+import org.eclipse.tsp.java.client.api.table.dto.TableLineRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 
@@ -31,10 +33,10 @@ public class TableApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<TableModel>> getTableLines(UUID experimentUuid, String outputId,
-			Query query) {
+			Body<TableLineRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TABLE_API_URL.concat("/lines"), this.getBaseUrl(), experimentUuid, outputId),
-						Optional.of(query),
+						Optional.of(body),
 						this.getTypeFactory().constructParametricType(GenericResponse.class, TableModel.class));
 	}
 }
