@@ -21,7 +21,7 @@ public class ExperimentApi extends AbstractTspApi {
 	public TspClientResponse<List<Experiment>> getExperiments(Optional<Map<String, String>> queryParameters) {
 		return this.getRestClientSingleton().get(String.format(this.EXPERIMENT_API_URL, this.getBaseUrl()),
 				queryParameters,
-				this.getTypeFactory().constructArrayType(Experiment.class));
+				this.getTypeFactory().constructCollectionType(List.class, Experiment.class));
 	}
 
 	@Async

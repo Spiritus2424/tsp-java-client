@@ -21,7 +21,7 @@ public class TraceApi extends AbstractTspApi {
 	@Async
 	public TspClientResponse<List<Trace>> getTraces(Optional<Map<String, String>> queryParameters) {
 		return this.getRestClientSingleton().get(String.format(this.TRACE_API_URL, this.getBaseUrl()), queryParameters,
-				this.getTypeFactory().constructArrayType(Trace.class));
+				this.getTypeFactory().constructCollectionType(List.class, Trace.class));
 	}
 
 	@Async
