@@ -9,6 +9,7 @@ import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
 import org.eclipse.tsp.java.client.api.timegraph.dto.TimeGraphArrowRequestDto;
 import org.eclipse.tsp.java.client.api.timegraph.dto.TimeGraphStateRequestDto;
+import org.eclipse.tsp.java.client.api.timegraph.dto.TimeGraphTooltipRequestDto;
 import org.eclipse.tsp.java.client.api.timegraph.dto.TimeGraphTreeRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
@@ -47,7 +48,7 @@ public class TimeGraphApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<Map<String, String>>> getTimeGraphTooltip(UUID experimentUuid,
-			String outputIdclass XyModelRequestDto,
+			String outputId,
 			Body<TimeGraphTooltipRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip"), this.getBaseUrl(), experimentUuid,
