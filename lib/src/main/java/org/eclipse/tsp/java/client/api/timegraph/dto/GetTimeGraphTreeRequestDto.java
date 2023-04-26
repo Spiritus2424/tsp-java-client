@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeGraphTreeRequestDto {
+public class GetTimeGraphTreeRequestDto {
 	@JsonProperty("requested_times")
 	private List<BigInteger> requestedTimes;
 

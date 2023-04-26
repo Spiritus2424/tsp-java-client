@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
-import org.eclipse.tsp.java.client.api.annotation.dto.AnnotationRequestDto;
+import org.eclipse.tsp.java.client.api.annotation.dto.GetAnnotationsRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
@@ -38,7 +38,7 @@ public class AnnotationApi extends AbstractTspApi {
 	@Async
 	public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(UUID experimentUuid,
 			String outputId,
-			Body<AnnotationRequestDto> body) {
+			Body<GetAnnotationsRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
 						Optional.of(body),

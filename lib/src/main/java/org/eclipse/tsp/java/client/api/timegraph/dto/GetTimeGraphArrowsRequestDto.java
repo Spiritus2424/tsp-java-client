@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class TimeGraphArrowRequestDto {
+public class GetTimeGraphArrowsRequestDto {
 	@JsonProperty("requested_timerange")
 	@NonNull
 	private QueryInterval requestedTimerange;

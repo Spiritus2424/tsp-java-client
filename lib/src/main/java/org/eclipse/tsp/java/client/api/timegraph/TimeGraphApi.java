@@ -7,10 +7,10 @@ import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
-import org.eclipse.tsp.java.client.api.timegraph.dto.TimeGraphArrowRequestDto;
-import org.eclipse.tsp.java.client.api.timegraph.dto.TimeGraphStateRequestDto;
-import org.eclipse.tsp.java.client.api.timegraph.dto.TimeGraphTooltipRequestDto;
-import org.eclipse.tsp.java.client.api.timegraph.dto.TimeGraphTreeRequestDto;
+import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphArrowsRequestDto;
+import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphStatesRequestDto;
+import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphTooltipsRequestDto;
+import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphTreeRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
 import org.eclipse.tsp.java.client.shared.query.Body;
@@ -25,7 +25,7 @@ public class TimeGraphApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<List<TimeGraphArrow>>> getTimeGraphArrows(UUID experimentUuid,
-			String outputId, Body<TimeGraphArrowRequestDto> body) {
+			String outputId, Body<GetTimeGraphArrowsRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/arrows"), this.getBaseUrl(), experimentUuid,
 						outputId),
@@ -38,7 +38,7 @@ public class TimeGraphApi extends AbstractTspApi {
 	@Async
 	public TspClientResponse<GenericResponse<TimeGraphModel>> getTimeGraphStates(UUID experimentUuid,
 			String outputId,
-			Body<TimeGraphStateRequestDto> body) {
+			Body<GetTimeGraphStatesRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/states"), this.getBaseUrl(), experimentUuid,
 						outputId),
@@ -47,9 +47,9 @@ public class TimeGraphApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<Map<String, String>>> getTimeGraphTooltip(UUID experimentUuid,
+	public TspClientResponse<GenericResponse<Map<String, String>>> getTimeGraphTooltips(UUID experimentUuid,
 			String outputId,
-			Body<TimeGraphTooltipRequestDto> body) {
+			Body<GetTimeGraphTooltipsRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip"), this.getBaseUrl(), experimentUuid,
 						outputId),
@@ -60,7 +60,7 @@ public class TimeGraphApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<EntryModel<TimeGraphEntry>>> getTimeGraphTree(UUID experimentUuid,
-			String outputId, Body<TimeGraphTreeRequestDto> body) {
+			String outputId, Body<GetTimeGraphTreeRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tree"), this.getBaseUrl(), experimentUuid,
 						outputId),

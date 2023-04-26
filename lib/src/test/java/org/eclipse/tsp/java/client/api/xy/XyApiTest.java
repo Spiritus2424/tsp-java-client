@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.UUID;
 
-import org.eclipse.tsp.java.client.api.xy.dto.XyModelRequestDto;
-import org.eclipse.tsp.java.client.api.xy.dto.XyTreeRequestDto;
+import org.eclipse.tsp.java.client.api.xy.dto.GetXyModelRequestDto;
+import org.eclipse.tsp.java.client.api.xy.dto.GetXyTreeRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.Entry;
 import org.eclipse.tsp.java.client.shared.entry.EntryHeader;
@@ -37,7 +37,7 @@ public class XyApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-xy.json", FIXTURE_PATH))));
 
-		Body<XyModelRequestDto> body = new Body<>();
+		Body<GetXyModelRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<XyModel>> response = this.xyApi.getXy(
 				experimentUuid, outputId, body);
 
@@ -57,7 +57,7 @@ public class XyApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-xy-tree.json", FIXTURE_PATH))));
 
-		Body<XyTreeRequestDto> body = new Body<>();
+		Body<GetXyTreeRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<EntryModel<Entry>>> response = this.xyApi.getXyTree(
 				experimentUuid, outputId, body);
 
