@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class TooltipRequestDto {
+public class TimeGraphTooltipRequestDto {
 
 	@JsonProperty("requested_element")
 	@NonNull

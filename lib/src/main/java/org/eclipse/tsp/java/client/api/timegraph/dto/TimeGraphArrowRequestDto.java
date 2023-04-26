@@ -1,7 +1,5 @@
 package org.eclipse.tsp.java.client.api.timegraph.dto;
 
-import java.util.List;
-
 import org.eclipse.tsp.java.client.shared.query.QueryInterval;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,13 +12,9 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class StateRequestDto {
-
+public class TimeGraphArrowRequestDto {
 	@JsonProperty("requested_timerange")
 	@NonNull
 	private QueryInterval requestedTimerange;
 
-	@JsonProperty("requested_items")
-	@NonNull
-	private List<Integer> requestedItems;
 }
