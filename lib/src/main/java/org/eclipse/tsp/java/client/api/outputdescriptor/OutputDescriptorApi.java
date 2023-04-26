@@ -18,8 +18,9 @@ public class OutputDescriptorApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<List<OutputDescriptor>> experimentOutputs(UUID experimentUuid,
-			Optional<Map<String, String>> queryParameters) {
+	public TspClientResponse<List<OutputDescriptor>> experimentOutputs(
+			final UUID experimentUuid,
+			final Optional<Map<String, String>> queryParameters) {
 		return this.getRestClientSingleton().get(String.format(this.OUTPUT_DESCRIPTOR_API_URL, experimentUuid),
 				queryParameters,
 				this.getTypeFactory().constructCollectionType(List.class, OutputDescriptor.class));

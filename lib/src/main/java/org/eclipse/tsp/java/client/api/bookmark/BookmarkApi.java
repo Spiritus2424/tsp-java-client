@@ -15,27 +15,27 @@ public class BookmarkApi extends AbstractTspApi {
 	}
 
 	@Async
-	public List<Bookmark> getBookmarks(UUID experimentUuid) {
+	public List<Bookmark> getBookmarks(final UUID experimentUuid) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Bookmark getBookmark(UUID experimentUuid, UUID bookmarkUuid) {
+	public Bookmark getBookmark(final UUID experimentUuid, final UUID bookmarkUuid) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Bookmark createBookmark(UUID experimentUuid, Bookmark bookmark) {
+	public Bookmark createBookmark(final UUID experimentUuid, final Bookmark bookmark) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Bookmark updateBookmark(UUID experimentUuid, UUID bookmarkUuid, Bookmark bookmark) {
+	public Bookmark updateBookmark(final UUID experimentUuid, final UUID bookmarkUuid, final Bookmark bookmark) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Bookmark deleteBookmark(UUID experimentUuid, UUID bookmarkUuid) {
+	public Bookmark deleteBookmark(final UUID experimentUuid, final UUID bookmarkUuid) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 }

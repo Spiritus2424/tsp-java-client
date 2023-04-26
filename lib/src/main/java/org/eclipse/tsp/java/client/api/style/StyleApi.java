@@ -18,8 +18,10 @@ public class StyleApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<OutputStyleModel>> getStyles(UUID experimentUuid, String outputId,
-			Query query) {
+	public TspClientResponse<GenericResponse<OutputStyleModel>> getStyles(
+			final UUID experimentUuid,
+			final String outputId,
+			final Query query) {
 		return this.getRestClientSingleton().post(String.format(this.STYLE_API_URL, experimentUuid, outputId),
 				Optional.of(query),
 				this.getTypeFactory().constructParametricType(GenericResponse.class, OutputStyleModel.class));

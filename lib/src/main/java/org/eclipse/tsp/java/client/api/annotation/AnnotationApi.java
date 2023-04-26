@@ -22,7 +22,9 @@ public class AnnotationApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<AnnotationCategoriesModel>> getAnnotationsCategories(
-			UUID experimentUuid, String outputId, Optional<String> markerSetId) {
+			final UUID experimentUuid,
+			final String outputId,
+			final Optional<String> markerSetId) {
 		Map<String, String> queryParameters = null;
 		if (markerSetId.isPresent()) {
 			queryParameters = new HashMap<String, String>();
@@ -36,9 +38,10 @@ public class AnnotationApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(UUID experimentUuid,
-			String outputId,
-			Body<GetAnnotationsRequestDto> body) {
+	public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(
+			final UUID experimentUuid,
+			final String outputId,
+			final Body<GetAnnotationsRequestDto> body) {
 		return this.getRestClientSingleton().post(String.format(this.ANNOTATION_API_URL, experimentUuid, outputId),
 				Optional.of(body),
 				this.getTypeFactory().constructParametricType(GenericResponse.class, AnnotationModel.class));

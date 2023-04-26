@@ -21,9 +21,10 @@ public class TableApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<List<ColumnHeaderEntry>>> getTableColumns(UUID experimentUuid,
-			String outputId,
-			Query query) {
+	public TspClientResponse<GenericResponse<List<ColumnHeaderEntry>>> getTableColumns(
+			final UUID experimentUuid,
+			final String outputId,
+			final Query query) {
 		return this.getRestClientSingleton().post(
 				String.format(this.TABLE_API_URL.concat("/columns"), experimentUuid, outputId),
 				Optional.of(query),
@@ -33,8 +34,10 @@ public class TableApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<TableModel>> getTableLines(UUID experimentUuid, String outputId,
-			Body<GetTableLinesRequestDto> body) {
+	public TspClientResponse<GenericResponse<TableModel>> getTableLines(
+			final UUID experimentUuid,
+			final String outputId,
+			final Body<GetTableLinesRequestDto> body) {
 		return this.getRestClientSingleton().post(
 				String.format(this.TABLE_API_URL.concat("/lines"), experimentUuid, outputId),
 				Optional.of(body),

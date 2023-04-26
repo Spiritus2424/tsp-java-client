@@ -21,35 +21,37 @@ public class ExperimentApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<List<Experiment>> getExperiments(Optional<Map<String, String>> queryParameters) {
+	public TspClientResponse<List<Experiment>> getExperiments(final Optional<Map<String, String>> queryParameters) {
 		return this.getRestClientSingleton().get(this.EXPERIMENT_API_URL,
 				queryParameters,
 				this.getTypeFactory().constructCollectionType(List.class, Experiment.class));
 	}
 
 	@Async
-	public TspClientResponse<Experiment> getExperiment(UUID experimentUuid) {
+	public TspClientResponse<Experiment> getExperiment(final UUID experimentUuid) {
 		return this.getRestClientSingleton().get(String.format(this.EXPERIMENT_API_URL.concat("/%s"), experimentUuid),
 				Optional.empty(),
 				this.getTypeFactory().constructType(Experiment.class));
 	}
 
 	@Async
-	public TspClientResponse<Experiment> createExperiment(Body<CreateExperimentRequestDto> body) {
+	public TspClientResponse<Experiment> createExperiment(final Body<CreateExperimentRequestDto> body) {
 		return this.getRestClientSingleton().post(this.EXPERIMENT_API_URL,
 				Optional.of(body),
 				this.getTypeFactory().constructType(Experiment.class));
 	}
 
 	@Async
-	public TspClientResponse<Experiment> updateExperiment(UUID experimentUuid, Body<UpdateExperimentRequestDto> body) {
+	public TspClientResponse<Experiment> updateExperiment(
+			final UUID experimentUuid,
+			final Body<UpdateExperimentRequestDto> body) {
 		return this.getRestClientSingleton().put(this.EXPERIMENT_API_URL,
 				Optional.of(body),
 				this.getTypeFactory().constructType(Experiment.class));
 	}
 
 	@Async
-	public TspClientResponse<Experiment> deleteExperiment(UUID experimentUuid) {
+	public TspClientResponse<Experiment> deleteExperiment(final UUID experimentUuid) {
 		return this.getRestClientSingleton().delete(
 				String.format(this.EXPERIMENT_API_URL.concat("/%s"), experimentUuid),
 				Optional.empty(),

@@ -18,7 +18,7 @@ public class MarkerSetApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<Set<MarkerSet>>> getMarkerSets(UUID experimentUuid) {
+	public TspClientResponse<GenericResponse<Set<MarkerSet>>> getMarkerSets(final UUID experimentUuid) {
 		return this.getRestClientSingleton().get(String.format(this.MARKER_SET_API_URL, experimentUuid),
 				Optional.empty(),
 				this.getTypeFactory().constructParametricType(GenericResponse.class,

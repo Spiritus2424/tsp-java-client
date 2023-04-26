@@ -19,22 +19,22 @@ public class FilterApi extends AbstractTspApi {
 	}
 
 	@Async
-	public Filter getFilter(String filterId) {
+	public Filter getFilter(final String filterId) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Filter createFilter(Filter filter) {
+	public Filter createFilter(final Filter filter) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Filter updateFilter(String filterId, Filter filter) {
+	public Filter updateFilter(final String filterId, Filter filter) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 
 	@Async
-	public Filter deleteFilter(String filterId) {
+	public Filter deleteFilter(final String filterId) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 }

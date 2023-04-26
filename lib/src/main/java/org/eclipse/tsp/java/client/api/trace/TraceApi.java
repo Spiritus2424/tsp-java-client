@@ -21,29 +21,31 @@ public class TraceApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<List<Trace>> getTraces(Optional<Map<String, String>> queryParameters) {
+	public TspClientResponse<List<Trace>> getTraces(final Optional<Map<String, String>> queryParameters) {
 		return this.getRestClientSingleton().get(this.TRACE_API_URL,
 				queryParameters,
 				this.getTypeFactory().constructCollectionType(List.class, Trace.class));
 	}
 
 	@Async
-	public TspClientResponse<Trace> getTrace(UUID traceUuid) {
+	public TspClientResponse<Trace> getTrace(final UUID traceUuid) {
 		return this.getRestClientSingleton().get(String.format(this.TRACE_API_URL.concat("/%s"), traceUuid),
 				Optional.empty(),
 				this.getTypeFactory().constructType(Trace.class));
 	}
 
 	@Async
-	public TspClientResponse<Trace> openTrace(Body<OpenTraceRequestDto> body) {
+	public TspClientResponse<Trace> openTrace(final Body<OpenTraceRequestDto> body) {
 		return this.getRestClientSingleton().post(this.TRACE_API_URL,
 				Optional.of(body),
 				this.getTypeFactory().constructType(Trace.class));
 	}
 
 	@Async
-	public TspClientResponse<Trace> deleteTrace(UUID traceUuid, Optional<Boolean> removeFromCache,
-			Optional<Boolean> deleteFromDisk) {
+	public TspClientResponse<Trace> deleteTrace(
+			final UUID traceUuid,
+			final Optional<Boolean> removeFromCache,
+			final Optional<Boolean> deleteFromDisk) {
 		Map<String, String> queryParameters = new HashMap<String, String>();
 		if (removeFromCache.isPresent()) {
 			queryParameters.put("removeCache", removeFromCache.get().toString());
