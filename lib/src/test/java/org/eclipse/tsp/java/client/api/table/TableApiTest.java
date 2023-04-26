@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.eclipse.tsp.java.client.api.table.dto.TableLineRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 import org.eclipse.tsp.java.client.shared.response.ResponseStatus;
@@ -55,10 +57,9 @@ public class TableApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-table-lines.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
+		Body<TableLineRequestDto> body = new Body<>();
 		TspClientResponse<GenericResponse<TableModel>> response = this.tableApi.getTableLines(experimentUuid,
-				outputId, query);
+				outputId, body);
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(TableModel.class, response.getResponseModel().getModel().getClass());
