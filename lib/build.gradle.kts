@@ -66,6 +66,7 @@ dependencies {
 tasks.test {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+	systemProperty("concurrent", "false")
 }
 
 tasks.jar {
