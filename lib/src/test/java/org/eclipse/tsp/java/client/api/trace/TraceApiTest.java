@@ -7,15 +7,13 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.eclipse.tsp.java.client.api.trace.dto.OpenTraceRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.indexing.IndexingStatus;
-import org.eclipse.tsp.java.client.shared.query.Query;
 import org.junit.jupiter.api.Test;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
@@ -66,9 +64,8 @@ public class TraceApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/open-trace.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
-		TspClientResponse<Trace> response = this.traceApi.openTrace(query);
+		OpenTraceRequestDto body = new OpenTraceRequestDto("traceUri");
+		TspClientResponse<Trace> response = this.traceApi.openTrace(body);
 
 		assertEquals(IndexingStatus.CLOSED, response.getResponseModel().getIndexingStatus());
 		assertEquals("kernel", response.getResponseModel().getName());
@@ -83,9 +80,8 @@ public class TraceApiTest {
 				.withBodyFile(String.format("%s/open-trace-not-found.json", FIXTURE_PATH))
 				.withStatus(Status.NOT_FOUND.getStatusCode())));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
-		TspClientResponse<Trace> response = this.traceApi.openTrace(query);
+		OpenTraceRequestDto body = new OpenTraceRequestDto("traceUri");
+		TspClientResponse<Trace> response = this.traceApi.openTrace(body);
 
 		assertEquals(response.getStatusCode(), Status.NOT_FOUND);
 	}

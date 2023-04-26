@@ -5,14 +5,12 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 
+import org.eclipse.tsp.java.client.api.trace.dto.OpenTraceRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.indexing.IndexingStatus;
-import org.eclipse.tsp.java.client.shared.query.Query;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
@@ -30,17 +28,13 @@ public class TraceApiAsyncTest {
 
 	@Test
 	public void openTrace() {
-		// System.getProperties().forEach((key, value) -> System.out.println(key + " - "
-		// + value));
-		// assertTrue(true);
 		final String targetUrl = String.format("%s/traces", TSP_EXTENSION_URL);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/open-trace.json", FIXTURE_PATH))));
 
-		Map<String, Object> parameters = new HashMap<>();
-		Query query = new Query(parameters);
-		TspClientResponse<Trace> response = this.traceApiAsync.openTrace(query).join();
+		OpenTraceRequestDto body = new OpenTraceRequestDto("traceUri");
+		TspClientResponse<Trace> response = this.traceApiAsync.openTrace(body).join();
 
 		assertEquals(IndexingStatus.CLOSED,
 				response.getResponseModel().getIndexingStatus());
