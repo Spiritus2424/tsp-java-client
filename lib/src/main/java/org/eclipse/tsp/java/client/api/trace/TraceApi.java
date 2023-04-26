@@ -1,13 +1,13 @@
 package org.eclipse.tsp.java.client.api.trace;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
-import org.eclipse.tsp.java.client.core.restclient.RestClient;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Query;
 
@@ -19,19 +19,22 @@ public class TraceApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<Trace[]> getTraces(Optional<Map<String, String>> queryParameters) {
-		return RestClient.get(String.format(this.TRACE_API_URL, this.getBaseUrl()), queryParameters, Trace[].class);
+	public TspClientResponse<List<Trace>> getTraces(Optional<Map<String, String>> queryParameters) {
+		return this.getRestClientSingleton().get(String.format(this.TRACE_API_URL, this.getBaseUrl()), queryParameters,
+				this.getTypeFactory().constructCollectionType(List.class, Trace.class));
 	}
 
 	@Async
 	public TspClientResponse<Trace> getTrace(UUID traceUuid) {
-		return RestClient.get(String.format(this.TRACE_API_URL.concat("/%s"), this.getBaseUrl(), traceUuid),
-				Optional.empty(), Trace.class);
+		return this.getRestClientSingleton().get(
+				String.format(this.TRACE_API_URL.concat("/%s"), this.getBaseUrl(), traceUuid),
+				Optional.empty(), this.getTypeFactory().constructType(Trace.class));
 	}
 
 	@Async
 	public TspClientResponse<Trace> openTrace(Query query) {
-		return RestClient.post(String.format(this.TRACE_API_URL, this.getBaseUrl()), Optional.of(query), Trace.class);
+		return this.getRestClientSingleton().post(String.format(this.TRACE_API_URL, this.getBaseUrl()),
+				Optional.of(query), this.getTypeFactory().constructType(Trace.class));
 	}
 
 	@Async
@@ -46,9 +49,9 @@ public class TraceApi extends AbstractTspApi {
 			queryParameters.put("deleteTrace", deleteFromDisk.get().toString());
 		}
 
-		return RestClient.delete(String.format(this.TRACE_API_URL.concat("/%s"), this.getBaseUrl(), traceUuid),
-				Optional.of(queryParameters),
-				Trace.class);
+		return this.getRestClientSingleton().delete(
+				String.format(this.TRACE_API_URL.concat("/%s"), this.getBaseUrl(), traceUuid),
+				Optional.of(queryParameters), this.getTypeFactory().constructType(Trace.class));
 	}
 
 }

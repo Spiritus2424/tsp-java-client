@@ -7,12 +7,9 @@ import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
-import org.eclipse.tsp.java.client.core.restclient.RestClient;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
-
-import com.fasterxml.jackson.core.type.TypeReference;
 
 public class AnnotationApi extends AbstractTspApi {
 	private final String ANNOTATION_API_URL = "%s/experiments/%s/outputs/%s/annotations";
@@ -30,28 +27,20 @@ public class AnnotationApi extends AbstractTspApi {
 			queryParameters.put("markserId", markerSetId.get());
 		}
 
-		final TspClientResponse<String> tspClientResponse = RestClient.get(
-				String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid,
-						outputId),
-				markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(),
-				String.class);
-
-		return TspClientResponse.getGenericResponse(tspClientResponse,
-				new TypeReference<GenericResponse<AnnotationCategoriesModel>>() {
-				});
+		return this.getRestClientSingleton()
+				.get(String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
+						markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(),
+						this.getTypeFactory().constructParametricType(GenericResponse.class,
+								AnnotationCategoriesModel.class));
 	}
 
 	@Async
 	public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(UUID experimentUuid,
 			String outputId,
 			Query query) {
-		final TspClientResponse<String> tspClientResponse = RestClient.post(
-				String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid,
-						outputId),
-				Optional.of(query), String.class);
-
-		return TspClientResponse.getGenericResponse(tspClientResponse,
-				new TypeReference<GenericResponse<AnnotationModel>>() {
-				});
+		return this.getRestClientSingleton()
+				.post(String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
+						Optional.of(query),
+						this.getTypeFactory().constructParametricType(GenericResponse.class, AnnotationModel.class));
 	}
 }

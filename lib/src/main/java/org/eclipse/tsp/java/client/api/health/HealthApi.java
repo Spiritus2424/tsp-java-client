@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
-import org.eclipse.tsp.java.client.core.restclient.RestClient;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 
 public class HealthApi extends AbstractTspApi {
@@ -16,6 +15,9 @@ public class HealthApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<Health> checkHealth() {
-		return RestClient.get(String.format(this.HEALTH_API_URL, this.getBaseUrl()), Optional.empty(), Health.class);
+		return this.getRestClientSingleton()
+				.get(String.format(this.HEALTH_API_URL, this.getBaseUrl()),
+						Optional.empty(),
+						this.getTypeFactory().constructType(Health.class));
 	}
 }

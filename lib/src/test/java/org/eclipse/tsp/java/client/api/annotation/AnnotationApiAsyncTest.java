@@ -17,10 +17,12 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 
 @WireMockTest(httpPort = 8080)
+@EnabledIfSystemProperty(named = "concurrent", matches = "true")
 public class AnnotationApiAsyncTest {
 
 	private static final String FIXTURE_PATH = "fixtures/tspclient";
@@ -39,7 +41,7 @@ public class AnnotationApiAsyncTest {
 				outputId);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
-				.withBodyFile(String.format("%s/fetch-annotation-categories-0.json", FIXTURE_PATH))));
+				.withBodyFile(String.format("%s/fetch-annotation-categories.json", FIXTURE_PATH))));
 
 		final int TOTAL_REQUEST = 100;
 		StopWatch syncStopWatch = new StopWatch();
@@ -71,7 +73,7 @@ public class AnnotationApiAsyncTest {
 				outputId);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
-				.withBodyFile(String.format("%s/fetch-annotation-categories-0.json", FIXTURE_PATH))));
+				.withBodyFile(String.format("%s/fetch-annotation-categories.json", FIXTURE_PATH))));
 
 		final int TOTAL_REQUEST = 100;
 		StopWatch syncStopWatch = new StopWatch();

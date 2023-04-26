@@ -7,6 +7,7 @@ import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.ws.rs.client.Client;
@@ -16,16 +17,25 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import lombok.Getter;
 
-public class RestClient {
+public class RestClientSingleton {
+	private static final RestClientSingleton instance = new RestClientSingleton();
 
-	private static final Client client = ClientBuilder.newClient().register(JacksonFeature.class);
-	private static final ObjectMapper mapper = new ObjectMapper();
-	private static ConnectionStatus connectionStatus = new ConnectionStatus();
+	private RestClientSingleton() {
+		// Private constructor to prevent instantiation from outside
+	}
 
-	public static <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters,
-			Class<? extends T> clazz) {
+	public static RestClientSingleton getInstance() {
+		return instance;
+	}
 
+	@Getter
+	private final ObjectMapper objectMapper = new ObjectMapper();
+	private final Client client = ClientBuilder.newClient().register(JacksonFeature.class);
+	private final ConnectionStatus connectionStatus = new ConnectionStatus();
+
+	public <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters, JavaType javaType) {
 		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
@@ -36,37 +46,32 @@ public class RestClient {
 		Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
-		return createTspClientResponse(response, clazz);
-
+		return createTspClientResponse(response, javaType);
 	}
 
-	public static <T> TspClientResponse<T> post(String url, Optional<Object> body,
-			Class<? extends T> clazz) {
+	public <T> TspClientResponse<T> post(String url, Optional<Object> body, JavaType javaType) {
 		final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
-		Response response = client
-				.target(url)
+		Response response = client.target(url)
 				.request(MediaType.APPLICATION_JSON)
 				.post(entity);
 
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
-		return createTspClientResponse(response, clazz);
-
+		return createTspClientResponse(response, javaType);
 	}
 
-	public static <T> TspClientResponse<T> put(String url, Object body, Class<? extends T> clazz) {
+	public <T> TspClientResponse<T> put(String url, Object body, JavaType javaType) {
 		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
 		Response response = client
 				.target(url)
 				.request(MediaType.APPLICATION_JSON)
 				.put(entity);
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
-		return createTspClientResponse(response, clazz);
 
+		return createTspClientResponse(response, javaType);
 	}
 
-	public static <T> TspClientResponse<T> delete(String url,
-			Optional<Map<String, String>> queryParameters,
-			Class<? extends T> clazz) {
+	public <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
+			JavaType javaType) {
 		WebTarget webTarget = client.target(url);
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
@@ -77,29 +82,31 @@ public class RestClient {
 		Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
-		return createTspClientResponse(response, clazz);
+		return createTspClientResponse(response, javaType);
 	}
 
-	private static synchronized <T> TspClientResponse<T> createTspClientResponse(Response response,
-			Class<? extends T> clazz) {
+	public void addConnectionStatusListener(PclConnectionStatus pclConnectionStatus) {
+		connectionStatus.addPropertyChangeListener(pclConnectionStatus);
+	}
+
+	public void removeConnectionStatusListener(PclConnectionStatus pclConnectionStatus) {
+		connectionStatus.removePropertyChangeListener(pclConnectionStatus);
+	}
+
+	private synchronized <T> TspClientResponse<T> createTspClientResponse(Response response, JavaType javaType) {
 		TspClientResponse<T> tspClientResponse = null;
 
 		if (response.hasEntity() && isResponseSuccess(response.getStatus())) {
-			String value = response.readEntity(String.class);
+			String jsonEntity = response.readEntity(String.class);
 			T entity = null;
 			try {
-				if (!clazz.equals(String.class)) {
-					entity = mapper.readValue(value, clazz);
-				} else {
-					entity = (T) value;
-				}
+				entity = objectMapper.readValue(jsonEntity, javaType);
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
 
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
 					response.getStatusInfo().getReasonPhrase(), entity);
-
 		} else {
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
 					response.getStatusInfo().getReasonPhrase());
@@ -107,23 +114,15 @@ public class RestClient {
 		return tspClientResponse;
 	}
 
-	public static void addConnectionStatusListener(PclConnectionStatus pclConnectionStatus) {
-		connectionStatus.addPropertyChangeListener(pclConnectionStatus);
-	}
-
-	public static void removeConnectionStatusListener(PclConnectionStatus pclConnectionStatus) {
-		connectionStatus.removePropertyChangeListener(pclConnectionStatus);
-	}
-
-	private static void checkResponseStatusCode(Status status) {
+	private void checkResponseStatusCode(Status status) {
 		updateConnectionStatus(status.getStatusCode() <= 500);
 	}
 
-	private static boolean isResponseSuccess(int status) {
+	private boolean isResponseSuccess(int status) {
 		return status >= 200 && status < 300;
 	}
 
-	private static void updateConnectionStatus(boolean status) {
+	private void updateConnectionStatus(boolean status) {
 		if (connectionStatus.isStatus() != status) {
 			connectionStatus.setStatus(status);
 		}
