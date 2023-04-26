@@ -7,10 +7,12 @@ import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
 import org.eclipse.tsp.java.client.api.AbstractTspApi;
+import org.eclipse.tsp.java.client.api.xy.dto.XyModelRequestDto;
+import org.eclipse.tsp.java.client.api.xy.dto.XyTreeRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.Entry;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
-import org.eclipse.tsp.java.client.shared.query.Query;
+import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 
 public class XyApi extends AbstractTspApi {
@@ -22,10 +24,10 @@ public class XyApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<EntryModel<Entry>>> getXyTree(UUID experimentUuid, String outputId,
-			Query query) {
+			Body<XyTreeRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.XY_API_URL.concat("/tree"), this.getBaseUrl(), experimentUuid, outputId),
-						Optional.of(query),
+						Optional.of(body),
 						this.getTypeFactory().constructParametricType(GenericResponse.class,
 								this.getTypeFactory().constructParametricType(EntryModel.class,
 										Entry.class)));
@@ -33,10 +35,10 @@ public class XyApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<GenericResponse<XyModel>> getXy(UUID experimentUuid, String outputId,
-			Query query) {
+			Body<XyModelRequestDto> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.XY_API_URL.concat("/xy"), this.getBaseUrl(), experimentUuid, outputId),
-						Optional.of(query),
+						Optional.of(body),
 						this.getTypeFactory().constructParametricType(GenericResponse.class, XyModel.class));
 	}
 
