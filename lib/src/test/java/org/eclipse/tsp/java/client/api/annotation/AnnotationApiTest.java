@@ -23,7 +23,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 @WireMockTest(httpPort = 8080)
 public class AnnotationApiTest {
 
-	private static final String FIXTURE_PATH = "fixtures/tspclient";
+	private static final String FIXTURE_PATH = "fixtures/tspclient/annotation";
 	private static final String TSP_EXTENSION_URL = "/tsp/api";
 
 	private AnnotationApi annotationApi = new AnnotationApi("http://localhost:8080");
@@ -37,7 +37,7 @@ public class AnnotationApiTest {
 				outputId);
 		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
-				.withBodyFile(String.format("%s/fetch-annotation-categories-0.json", FIXTURE_PATH))));
+				.withBodyFile(String.format("%s/fetch-annotation-categories.json", FIXTURE_PATH))));
 
 		TspClientResponse<GenericResponse<AnnotationCategoriesModel>> response = this.annotationApi
 				.getAnnotationsCategories(experimentUuid, outputId, Optional.empty());
@@ -56,7 +56,7 @@ public class AnnotationApiTest {
 				outputId);
 		stubFor(post(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
-				.withBodyFile(String.format("%s/fetch-annotation-model-0.json", FIXTURE_PATH))));
+				.withBodyFile(String.format("%s/fetch-annotation-model.json", FIXTURE_PATH))));
 
 		Map<String, Object> parameters = new HashMap<>();
 		Query query = new Query(parameters);

@@ -28,8 +28,8 @@ public class AnnotationApi extends AbstractTspApi {
 		}
 
 		return this.getRestClientSingleton()
-				.get(String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid,
-						outputId), markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(),
+				.get(String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
+						markerSetId.isPresent() ? Optional.of(queryParameters) : Optional.empty(),
 						this.getTypeFactory().constructParametricType(GenericResponse.class,
 								AnnotationCategoriesModel.class));
 	}
@@ -38,10 +38,9 @@ public class AnnotationApi extends AbstractTspApi {
 	public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(UUID experimentUuid,
 			String outputId,
 			Query query) {
-		return this.getRestClientSingleton().post(
-				String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid,
-						outputId),
-				Optional.of(query), this.getTypeFactory().constructParametricType(GenericResponse.class,
-						AnnotationModel.class));
+		return this.getRestClientSingleton()
+				.post(String.format(this.ANNOTATION_API_URL, this.getBaseUrl(), experimentUuid, outputId),
+						Optional.of(query),
+						this.getTypeFactory().constructParametricType(GenericResponse.class, AnnotationModel.class));
 	}
 }

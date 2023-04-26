@@ -19,6 +19,7 @@ import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 
 @WireMockTest(httpPort = 8080)
+@EnabledIfSystemProperty(named = "concurrent", matches = "true")
 public class TraceApiAsyncTest {
 
 	private static final String FIXTURE_PATH = "fixtures/tspclient/trace";
@@ -28,7 +29,6 @@ public class TraceApiAsyncTest {
 			Executors.newSingleThreadExecutor());
 
 	@Test
-	@EnabledIfSystemProperty(named = "concurrent", matches = "true")
 	public void openTrace() {
 		// System.getProperties().forEach((key, value) -> System.out.println(key + " - "
 		// + value));
