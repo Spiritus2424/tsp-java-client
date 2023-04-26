@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UpdateExperimentRequestDto {
 	@JsonProperty("expTypeId")
 	private String experimentTypeId;
@@ -21,6 +23,7 @@ public class UpdateExperimentRequestDto {
 	@Data
 	@NoArgsConstructor
 	@RequiredArgsConstructor
+	@AllArgsConstructor
 	public class UpdateTrace {
 		@JsonProperty("traceUUID")
 		@NonNull
