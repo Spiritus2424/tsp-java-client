@@ -5,7 +5,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 import java.util.UUID;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
@@ -31,10 +32,11 @@ public class MarkerSetApiTest {
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-marker-sets.json", FIXTURE_PATH))));
 
-		TspClientResponse<GenericResponse<List<MarkerSet>>> response = this.markerSetApi.getMarkerSets(experimentUuid);
+		TspClientResponse<GenericResponse<Set<MarkerSet>>> response = this.markerSetApi.getMarkerSets(experimentUuid);
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(1, response.getResponseModel().getModel().size());
-		assertEquals("marker.set.id", response.getResponseModel().getModel().get(0).getId());
+
+		assertEquals("marker.set.id", new ArrayList<MarkerSet>(response.getResponseModel().getModel()).get(0).getId());
 	}
 }
