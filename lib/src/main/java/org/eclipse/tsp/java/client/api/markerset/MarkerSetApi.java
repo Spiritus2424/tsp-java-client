@@ -1,7 +1,7 @@
 package org.eclipse.tsp.java.client.api.markerset;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import org.eclipse.annotationprocessor.async.Async;
@@ -17,12 +17,12 @@ public class MarkerSetApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<List<MarkerSet>>> getMarkerSets(UUID experimentUuid) {
+	public TspClientResponse<GenericResponse<Set<MarkerSet>>> getMarkerSets(UUID experimentUuid) {
 		return this.getRestClientSingleton()
 				.get(String.format(this.MARKER_SET_API_URL, this.getBaseUrl(), experimentUuid),
 						Optional.empty(),
 						this.getTypeFactory().constructParametricType(GenericResponse.class,
-								this.getTypeFactory().constructCollectionType(List.class, MarkerSet.class)));
+								this.getTypeFactory().constructCollectionType(Set.class, MarkerSet.class)));
 	}
 
 }
