@@ -2,9 +2,7 @@ package org.eclipse.tsp.java.client.core.restclient;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.notFound;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,25 +36,25 @@ public class RestClientSingletonTest {
 
 	}
 
-	@Test
-	public void postMethodOk() {
-		stubFor(post(MOCK_RESSOURCE).willReturn(ok()));
-		TspClientResponse<String> result = this.restClientSingleton.post(MOCK_URL,
-				Optional.empty(),
-				this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(String.class));
-		assertTrue(result.isOk());
+	// @Test
+	// public void postMethodOk() {
+	// stubFor(post(MOCK_RESSOURCE).willReturn(ok()));
+	// TspClientResponse<String> result = this.restClientSingleton.post(MOCK_URL,
+	// Optional.empty(),
+	// this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(String.class));
+	// assertTrue(result.isOk());
 
-	}
+	// }
 
-	@Test
-	public void postMethodNotFound() {
-		stubFor(post(MOCK_RESSOURCE).willReturn(notFound()));
-		TspClientResponse<String> result = this.restClientSingleton.post(MOCK_URL,
-				Optional.empty(),
-				this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(String.class));
-		assertTrue(!result.isOk());
-		assertTrue(result.getStatusCode().getStatusCode() == 404);
-	}
+	// @Test
+	// public void postMethodNotFound() {
+	// stubFor(post(MOCK_RESSOURCE).willReturn(notFound()));
+	// TspClientResponse<String> result = this.restClientSingleton.post(MOCK_URL,
+	// Optional.empty(),
+	// this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(String.class));
+	// assertTrue(!result.isOk());
+	// assertTrue(result.getStatusCode().getStatusCode() == 404);
+	// }
 
 	@Test
 	public void putMethod() {

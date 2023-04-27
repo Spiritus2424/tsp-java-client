@@ -64,18 +64,20 @@ public class RestClientSingleton {
 	public <T> TspClientResponse<T> post(String url, Optional<Object> body, JavaType javaType) {
 		String jsonBody = null;
 		try {
-			jsonBody = objectMapper.writeValueAsString(body);
+			jsonBody = objectMapper.writeValueAsString(body.get());
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// final Entity<Object> entity = Entity.entity(body,
 		// MediaType.APPLICATION_JSON);
+		System.out.println("---------------------TEST");
 		System.out.println(jsonBody);
 		logger.info(jsonBody);
 
 		// final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(),
 		// MediaType.APPLICATION_JSON) : null;
+
 		final Entity<Object> entity = body.isPresent() ? Entity.json(jsonBody) : null;
 		Response response = client.target(url)
 				.request(MediaType.APPLICATION_JSON)
