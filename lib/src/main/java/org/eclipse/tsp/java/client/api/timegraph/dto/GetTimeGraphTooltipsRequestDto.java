@@ -48,6 +48,6 @@ public class GetTimeGraphTooltipsRequestDto {
 	}
 
 	public enum ElementType {
-		STATE, ANNOTATION, ARROW
+		state, annotation, arrow
 	}
 }
