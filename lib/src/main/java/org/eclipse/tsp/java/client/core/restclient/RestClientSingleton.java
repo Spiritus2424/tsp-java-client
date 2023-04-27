@@ -70,7 +70,14 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> put(String url, Object body, JavaType javaType) {
-		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
+		String jsonBody = null;
+		try {
+			jsonBody = objectMapper.writeValueAsString(body);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		final Entity<Object> entity = Entity.entity(jsonBody, MediaType.APPLICATION_JSON);
 		Response response = client
 				.target(url)
 				.request(MediaType.APPLICATION_JSON)
