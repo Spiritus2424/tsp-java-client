@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
-import org.glassfish.jersey.jackson.JacksonFeature;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
@@ -36,7 +35,7 @@ public class RestClientSingleton {
 	private RestClientSingleton() {
 		// Private constructor to prevent instantiation from outside
 		this.objectMapper = JsonMapper.builder().enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS).build();
-		this.client = ClientBuilder.newClient().register(JacksonFeature.class);
+		this.client = ClientBuilder.newClient().register(this.objectMapper);
 		this.connectionStatus = new ConnectionStatus();
 	}
 

@@ -14,6 +14,7 @@ import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphTreeRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
 import org.eclipse.tsp.java.client.shared.query.Body;
+import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 
 public class TimeGraphApi extends AbstractTspApi {
@@ -38,6 +39,19 @@ public class TimeGraphApi extends AbstractTspApi {
 	}
 
 	@Async
+	public TspClientResponse<GenericResponse<List<TimeGraphArrow>>> getTimeGraphArrows(
+			final UUID experimentUuid,
+			final String outputId,
+			final Query body) {
+		return this.getRestClientSingleton()
+				.post(String.format(this.TIME_GRAPH_API_URL.concat("/arrows"), experimentUuid, outputId),
+						Optional.of(body),
+						this.getTypeFactory().constructParametricType(GenericResponse.class,
+								this.getTypeFactory().constructCollectionType(List.class,
+										TimeGraphArrow.class)));
+	}
+
+	@Async
 	public TspClientResponse<GenericResponse<TimeGraphModel>> getTimeGraphStates(
 			final UUID experimentUuid,
 			final String outputId,
@@ -49,10 +63,33 @@ public class TimeGraphApi extends AbstractTspApi {
 	}
 
 	@Async
+	public TspClientResponse<GenericResponse<TimeGraphModel>> getTimeGraphStates(
+			final UUID experimentUuid,
+			final String outputId,
+			final Query body) {
+		return this.getRestClientSingleton()
+				.post(String.format(this.TIME_GRAPH_API_URL.concat("/states"), experimentUuid, outputId),
+						Optional.of(body),
+						this.getTypeFactory().constructParametricType(GenericResponse.class, TimeGraphModel.class));
+	}
+
+	@Async
 	public TspClientResponse<GenericResponse<Map<String, String>>> getTimeGraphTooltips(
 			final UUID experimentUuid,
 			final String outputId,
 			final Body<GetTimeGraphTooltipsRequestDto> body) {
+		return this.getRestClientSingleton()
+				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip"), experimentUuid, outputId),
+						Optional.of(body),
+						this.getTypeFactory().constructParametricType(GenericResponse.class,
+								this.getTypeFactory().constructMapType(Map.class, String.class, String.class)));
+	}
+
+	@Async
+	public TspClientResponse<GenericResponse<Map<String, String>>> getTimeGraphTooltips(
+			final UUID experimentUuid,
+			final String outputId,
+			final Query body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip"), experimentUuid, outputId),
 						Optional.of(body),

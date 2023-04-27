@@ -10,6 +10,7 @@ import org.eclipse.tsp.java.client.api.AbstractTspApi;
 import org.eclipse.tsp.java.client.api.annotation.dto.GetAnnotationsRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Body;
+import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 
 public class AnnotationApi extends AbstractTspApi {
@@ -42,6 +43,16 @@ public class AnnotationApi extends AbstractTspApi {
 			final UUID experimentUuid,
 			final String outputId,
 			final Body<GetAnnotationsRequestDto> body) {
+		return this.getRestClientSingleton().post(String.format(this.ANNOTATION_API_URL, experimentUuid, outputId),
+				Optional.of(body),
+				this.getTypeFactory().constructParametricType(GenericResponse.class, AnnotationModel.class));
+	}
+
+	@Async
+	public TspClientResponse<GenericResponse<AnnotationModel>> getAnnotations(
+			final UUID experimentUuid,
+			final String outputId,
+			final Query body) {
 		return this.getRestClientSingleton().post(String.format(this.ANNOTATION_API_URL, experimentUuid, outputId),
 				Optional.of(body),
 				this.getTypeFactory().constructParametricType(GenericResponse.class, AnnotationModel.class));
