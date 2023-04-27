@@ -6,12 +6,8 @@ import java.util.Optional;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -36,13 +32,10 @@ public class RestClientSingleton {
 
 	private RestClientSingleton() {
 		// Private constructor to prevent instantiation from outside
-		this.objectMapper = JsonMapper.builder().enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS).build();
-
-		this.objectMapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
-				.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
-
-		this.client = ClientBuilder.newClient().register(this.objectMapper);
+		this.objectMapper = new ObjectMapper();
+		this.client = ClientBuilder.newClient();
 		this.connectionStatus = new ConnectionStatus();
+
 	}
 
 	public <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters, JavaType javaType) {
@@ -60,7 +53,6 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> post(String url, Optional<Object> body, JavaType javaType) {
-
 		Entity<Object> entity = null;
 		if (body.isPresent()) {
 			String jsonBody = null;
