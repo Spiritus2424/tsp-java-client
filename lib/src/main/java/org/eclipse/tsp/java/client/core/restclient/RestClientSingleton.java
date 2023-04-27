@@ -119,7 +119,7 @@ public class RestClientSingleton {
 					response.getStatusInfo().getReasonPhrase(), entity);
 		} else {
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-					response.getStatusInfo().getReasonPhrase());
+					response.getStatusInfo().getReasonPhrase().concat(": ").concat(response.readEntity(String.class)));
 		}
 		return tspClientResponse;
 	}
