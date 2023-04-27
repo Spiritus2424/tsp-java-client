@@ -16,11 +16,8 @@ import lombok.RequiredArgsConstructor;
 public class CreateExperimentRequestDto {
 	@JsonProperty("name")
 	@NonNull
-	private String name;
+	private String experimentName;
 	@NonNull
 	private List<UUID> traces;
 
-	public String getExperimentName() {
-		return this.name;
-	}
 }
