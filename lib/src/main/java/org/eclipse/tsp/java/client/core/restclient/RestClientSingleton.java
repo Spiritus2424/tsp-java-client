@@ -77,7 +77,10 @@ public class RestClientSingleton {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		final Entity<Object> entity = Entity.entity(jsonBody, MediaType.APPLICATION_JSON);
+		// final Entity<Object> entity = Entity.entity(body,
+		// MediaType.APPLICATION_JSON);
+		final Entity<Object> entity = Entity.json(jsonBody);
+		System.out.println(jsonBody);
 		Response response = client
 				.target(url)
 				.request(MediaType.APPLICATION_JSON)
