@@ -2,6 +2,8 @@ package org.eclipse.tsp.java.client.core.restclient;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 
@@ -80,6 +82,7 @@ public class RestClientSingleton {
 		// final Entity<Object> entity = Entity.entity(body,
 		// MediaType.APPLICATION_JSON);
 		final Entity<Object> entity = Entity.json(jsonBody);
+		Logger.getLogger(Level.INFO.getName(), jsonBody);
 		System.out.println(jsonBody);
 		Response response = client
 				.target(url)
