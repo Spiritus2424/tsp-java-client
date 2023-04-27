@@ -2,7 +2,6 @@ package org.eclipse.tsp.java.client.core.restclient;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
@@ -35,6 +34,7 @@ public class RestClientSingleton {
 	private final ObjectMapper objectMapper;
 	private final Client client;
 	private final ConnectionStatus connectionStatus;
+	private final Logger logger = Logger.getGlobal();
 
 	private RestClientSingleton() {
 		// Private constructor to prevent instantiation from outside
@@ -62,16 +62,6 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> post(String url, Optional<Object> body, JavaType javaType) {
-		final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
-		Response response = client.target(url)
-				.request(MediaType.APPLICATION_JSON)
-				.post(entity);
-
-		checkResponseStatusCode(response.getStatusInfo().toEnum());
-		return createTspClientResponse(response, javaType);
-	}
-
-	public <T> TspClientResponse<T> put(String url, Object body, JavaType javaType) {
 		String jsonBody = null;
 		try {
 			jsonBody = objectMapper.writeValueAsString(body);
@@ -81,9 +71,22 @@ public class RestClientSingleton {
 		}
 		// final Entity<Object> entity = Entity.entity(body,
 		// MediaType.APPLICATION_JSON);
-		final Entity<Object> entity = Entity.json(jsonBody);
-		Logger.getLogger(Level.INFO.getName(), jsonBody);
 		System.out.println(jsonBody);
+		logger.info(jsonBody);
+
+		// final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(),
+		// MediaType.APPLICATION_JSON) : null;
+		final Entity<Object> entity = body.isPresent() ? Entity.json(jsonBody) : null;
+		Response response = client.target(url)
+				.request(MediaType.APPLICATION_JSON)
+				.post(entity);
+
+		checkResponseStatusCode(response.getStatusInfo().toEnum());
+		return createTspClientResponse(response, javaType);
+	}
+
+	public <T> TspClientResponse<T> put(String url, Object body, JavaType javaType) {
+		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
 		Response response = client
 				.target(url)
 				.request(MediaType.APPLICATION_JSON)
