@@ -46,4 +46,5 @@ public class AnnotationApi extends AbstractTspApi {
 				Optional.of(body),
 				this.getTypeFactory().constructParametricType(GenericResponse.class, AnnotationModel.class));
 	}
+
 }

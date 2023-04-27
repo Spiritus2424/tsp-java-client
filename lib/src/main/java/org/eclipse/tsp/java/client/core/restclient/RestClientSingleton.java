@@ -4,12 +4,13 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
-import org.glassfish.jersey.jackson.JacksonFeature;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import jakarta.ws.rs.client.Client;
@@ -36,7 +37,11 @@ public class RestClientSingleton {
 	private RestClientSingleton() {
 		// Private constructor to prevent instantiation from outside
 		this.objectMapper = JsonMapper.builder().enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS).build();
-		this.client = ClientBuilder.newClient().register(JacksonFeature.class);
+
+		this.objectMapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
+				.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
+
+		this.client = ClientBuilder.newClient().register(this.objectMapper);
 		this.connectionStatus = new ConnectionStatus();
 	}
 
@@ -55,7 +60,18 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> post(String url, Optional<Object> body, JavaType javaType) {
-		final Entity<Object> entity = body.isPresent() ? Entity.entity(body.get(), MediaType.APPLICATION_JSON) : null;
+
+		Entity<Object> entity = null;
+		if (body.isPresent()) {
+			String jsonBody = null;
+			try {
+				jsonBody = objectMapper.writeValueAsString(body.get());
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+			entity = Entity.json(jsonBody);
+		}
+
 		Response response = client.target(url)
 				.request(MediaType.APPLICATION_JSON)
 				.post(entity);
@@ -65,7 +81,13 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> put(String url, Object body, JavaType javaType) {
-		final Entity<Object> entity = Entity.entity(body, MediaType.APPLICATION_JSON);
+		String jsonBody = null;
+		try {
+			jsonBody = objectMapper.writeValueAsString(body);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		final Entity<Object> entity = Entity.json(jsonBody);
 		Response response = client
 				.target(url)
 				.request(MediaType.APPLICATION_JSON)
@@ -112,9 +134,13 @@ public class RestClientSingleton {
 
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
 					response.getStatusInfo().getReasonPhrase(), entity);
+		} else if (response.hasEntity()) {
+			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+					response.getStatusInfo().getReasonPhrase().concat(": ").concat(response.readEntity(String.class)));
 		} else {
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
 					response.getStatusInfo().getReasonPhrase());
+
 		}
 		return tspClientResponse;
 	}
