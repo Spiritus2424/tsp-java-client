@@ -37,7 +37,7 @@ public class ExperimentApiTest {
 		Body<CreateExperimentRequestDto> body = new Body<>(
 				new CreateExperimentRequestDto(
 						"Experiment Name",
-						new ArrayList<UUID>()));
+						new ArrayList<String>()));
 		TspClientResponse<Experiment> response = this.experimentApi.createExperiment(body);
 
 		assertEquals("kernel", response.getResponseModel().getName());

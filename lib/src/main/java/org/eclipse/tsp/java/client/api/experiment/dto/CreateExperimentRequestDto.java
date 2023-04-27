@@ -1,7 +1,6 @@
 package org.eclipse.tsp.java.client.api.experiment.dto;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,5 +17,5 @@ public class CreateExperimentRequestDto {
 	@NonNull
 	private String experimentName;
 	@NonNull
-	private List<UUID> traces;
+	private List<String> traces;
 }
