@@ -15,11 +15,9 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 	private final ObjectMapper objectMapper;
 
 	public ObjectMapperContextResolver() {
-		this.objectMapper = JsonMapper.builder().enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS).build();
-
-		this.objectMapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
+		this.objectMapper = JsonMapper.builder().enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS).build()
+				.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
 				.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
-
 	}
 
 	@Override
