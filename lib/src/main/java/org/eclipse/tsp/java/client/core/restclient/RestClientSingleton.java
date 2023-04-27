@@ -2,7 +2,6 @@ package org.eclipse.tsp.java.client.core.restclient;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 
@@ -34,7 +33,6 @@ public class RestClientSingleton {
 	private final ObjectMapper objectMapper;
 	private final Client client;
 	private final ConnectionStatus connectionStatus;
-	private final Logger logger = Logger.getGlobal();
 
 	private RestClientSingleton() {
 		// Private constructor to prevent instantiation from outside
