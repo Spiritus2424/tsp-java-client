@@ -11,7 +11,6 @@ import org.eclipse.tsp.java.client.api.experiment.dto.CreateExperimentRequestDto
 import org.eclipse.tsp.java.client.api.experiment.dto.UpdateExperimentRequestDto;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Body;
-import org.eclipse.tsp.java.client.shared.query.Query;
 
 public class ExperimentApi extends AbstractTspApi {
 	private final String EXPERIMENT_API_URL;
@@ -37,13 +36,6 @@ public class ExperimentApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<Experiment> createExperiment(final Body<CreateExperimentRequestDto> body) {
-		return this.getRestClientSingleton().post(this.EXPERIMENT_API_URL,
-				Optional.of(body),
-				this.getTypeFactory().constructType(Experiment.class));
-	}
-
-	@Async
-	public TspClientResponse<Experiment> createExperiment(final Query body) {
 		return this.getRestClientSingleton().post(this.EXPERIMENT_API_URL,
 				Optional.of(body),
 				this.getTypeFactory().constructType(Experiment.class));

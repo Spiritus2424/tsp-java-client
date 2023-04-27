@@ -13,7 +13,6 @@ import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.Entry;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
 import org.eclipse.tsp.java.client.shared.query.Body;
-import org.eclipse.tsp.java.client.shared.query.Query;
 import org.eclipse.tsp.java.client.shared.response.GenericResponse;
 
 public class XyApi extends AbstractTspApi {
@@ -42,17 +41,6 @@ public class XyApi extends AbstractTspApi {
 			final UUID experimentUuid,
 			final String outputId,
 			final Body<GetXyModelRequestDto> body) {
-		return this.getRestClientSingleton().post(
-				String.format(this.XY_API_URL.concat("/xy"), experimentUuid, outputId),
-				Optional.of(body),
-				this.getTypeFactory().constructParametricType(GenericResponse.class, XyModel.class));
-	}
-
-	@Async
-	public TspClientResponse<GenericResponse<XyModel>> getXy(
-			final UUID experimentUuid,
-			final String outputId,
-			final Query body) {
 		return this.getRestClientSingleton().post(
 				String.format(this.XY_API_URL.concat("/xy"), experimentUuid, outputId),
 				Optional.of(body),
