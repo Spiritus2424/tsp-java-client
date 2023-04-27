@@ -25,11 +25,10 @@ public class RestClientSingleton {
 		return instance;
 	}
 
-	private final Client client;
-	private final ConnectionStatus connectionStatus;
-
 	@Getter
 	private final ObjectMapper objectMapper;
+	private final Client client;
+	private final ConnectionStatus connectionStatus;
 
 	private RestClientSingleton() {
 		// Private constructor to prevent instantiation from outside
@@ -54,16 +53,16 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> post(String url, Optional<Object> body, JavaType javaType) {
-		Entity<Object> entity = body.isPresent() ? Entity.json(body.get()) : null;
-		// if (body.isPresent()) {
-		// String jsonBody = null;
-		// try {
-		// jsonBody = objectMapper.writeValueAsString(body.get());
-		// } catch (JsonProcessingException e) {
-		// e.printStackTrace();
-		// }
-		// entity = Entity.json(jsonBody);
-		// }
+		Entity<Object> entity = null;
+		if (body.isPresent()) {
+			String jsonBody = null;
+			try {
+				jsonBody = objectMapper.writeValueAsString(body.get());
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+			entity = Entity.json(jsonBody);
+		}
 
 		Response response = client.target(url)
 				.request(MediaType.APPLICATION_JSON)
