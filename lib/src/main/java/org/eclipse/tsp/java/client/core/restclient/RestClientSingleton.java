@@ -117,9 +117,13 @@ public class RestClientSingleton {
 
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
 					response.getStatusInfo().getReasonPhrase(), entity);
-		} else {
+		} else if (response.hasEntity()) {
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
 					response.getStatusInfo().getReasonPhrase().concat(": ").concat(response.readEntity(String.class)));
+		} else {
+			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+					response.getStatusInfo().getReasonPhrase());
+
 		}
 		return tspClientResponse;
 	}
