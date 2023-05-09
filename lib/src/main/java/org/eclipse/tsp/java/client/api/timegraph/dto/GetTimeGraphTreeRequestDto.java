@@ -3,6 +3,8 @@ package org.eclipse.tsp.java.client.api.timegraph.dto;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.eclipse.tsp.java.client.shared.query.QueryInterval;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -15,5 +17,8 @@ import lombok.NoArgsConstructor;
 public class GetTimeGraphTreeRequestDto {
 	@JsonProperty("requested_times")
 	private List<BigInteger> requestedTimes;
+
+	@JsonProperty("requested_timerange")
+	private QueryInterval requestedTimerange;
 
 }
