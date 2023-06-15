@@ -1,5 +1,6 @@
 package org.eclipse.tsp.java.client.api.trace.dto;
 
+import jakarta.ws.rs.DefaultValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class OpenTraceRequestDto {
-
 	@NonNull
 	private String uri;
 
@@ -19,4 +19,6 @@ public class OpenTraceRequestDto {
 
 	private String typeId;
 
+	@DefaultValue("false")
+	public boolean isRecursively;
 }
