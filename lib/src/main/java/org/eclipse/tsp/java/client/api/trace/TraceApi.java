@@ -42,6 +42,13 @@ public class TraceApi extends AbstractTspApi {
 	}
 
 	@Async
+	public TspClientResponse<List<Trace>> openTraces(final Body<OpenTraceRequestDto> body) {
+		return this.getRestClientSingleton().post(this.TRACE_API_URL,
+				Optional.of(body),
+				this.getTypeFactory().constructCollectionType(List.class, Trace.class));
+	}
+
+	@Async
 	public TspClientResponse<Trace> deleteTrace(
 			final UUID traceUuid,
 			final Optional<Boolean> removeFromCache,

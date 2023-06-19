@@ -20,5 +20,5 @@ public class OpenTraceRequestDto {
 	private String typeId;
 
 	@DefaultValue("false")
-	public boolean isRecursively;
+	private boolean isRecursively;
 }
