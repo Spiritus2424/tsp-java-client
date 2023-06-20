@@ -1,5 +1,7 @@
 package org.eclipse.tsp.java.client.api.trace.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.ws.rs.DefaultValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +22,6 @@ public class OpenTraceRequestDto {
 	private String typeId;
 
 	@DefaultValue("false")
+	@JsonProperty("isRecursively")
 	private boolean isRecursively;
 }
