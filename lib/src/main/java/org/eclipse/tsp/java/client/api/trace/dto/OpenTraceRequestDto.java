@@ -1,8 +1,7 @@
 package org.eclipse.tsp.java.client.api.trace.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import jakarta.ws.rs.DefaultValue;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,8 @@ public class OpenTraceRequestDto {
 
 	private String typeId;
 
-	@DefaultValue("false")
-	@JsonProperty("isRecursively")
-	private boolean isRecursively;
+	@Min(0)
+	@Max(3)
+	private int maxDepth;
+
 }
