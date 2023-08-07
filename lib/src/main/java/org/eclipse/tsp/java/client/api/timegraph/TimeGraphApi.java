@@ -11,6 +11,7 @@ import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphArrowsRequestDt
 import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphStatesRequestDto;
 import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphTooltipsRequestDto;
 import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphTreeRequestDto;
+import org.eclipse.tsp.java.client.core.action.ActionDescriptor;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
 import org.eclipse.tsp.java.client.shared.query.Body;
@@ -71,5 +72,30 @@ public class TimeGraphApi extends AbstractTspApi {
 						this.getTypeFactory().constructParametricType(GenericResponse.class,
 								this.getTypeFactory().constructParametricType(EntryModel.class,
 										TimeGraphEntry.class)));
+	}
+
+	@Async
+	public TspClientResponse<GenericResponse<Map<String, ActionDescriptor>>> getTimeGraphActionTooltips(
+			final UUID experimentUuid,
+			final String outputId,
+			final Body<GetTimeGraphTooltipsRequestDto> body) {
+		return this.getRestClientSingleton()
+				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip/actions"), experimentUuid, outputId),
+						Optional.of(body),
+						this.getTypeFactory().constructParametricType(GenericResponse.class, this.getTypeFactory()
+								.constructMapType(Map.class, String.class, ActionDescriptor.class)));
+	}
+
+	@Async
+	public TspClientResponse<Void> applyTimeGraphActionTooltips(
+			final UUID experimentUuid,
+			final String outputId,
+			final String actionId,
+			final Body<GetTimeGraphTooltipsRequestDto> body) {
+		return this.getRestClientSingleton()
+				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip/actions/%s"), experimentUuid, outputId,
+						actionId),
+						Optional.of(body),
+						this.getTypeFactory().constructType(Void.class));
 	}
 }
