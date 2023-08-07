@@ -4,12 +4,16 @@ import java.util.Map;
 
 import org.eclipse.tsp.java.client.core.dataprovider.ProviderType;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ActionDescriptor {
 	@NonNull
 	private String id;

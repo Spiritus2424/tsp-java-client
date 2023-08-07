@@ -16,6 +16,7 @@ import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphArrowsRequestDt
 import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphStatesRequestDto;
 import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphTooltipsRequestDto;
 import org.eclipse.tsp.java.client.api.timegraph.dto.GetTimeGraphTreeRequestDto;
+import org.eclipse.tsp.java.client.core.action.ActionDescriptor;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.entry.EntryHeader;
 import org.eclipse.tsp.java.client.shared.entry.EntryModel;
@@ -25,6 +26,8 @@ import org.eclipse.tsp.java.client.shared.response.ResponseStatus;
 import org.junit.jupiter.api.Test;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+
+import jakarta.ws.rs.core.Response.Status;
 
 @WireMockTest(httpPort = 8080)
 public class TimeGraphApiTest {
@@ -109,6 +112,45 @@ public class TimeGraphApiTest {
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(EntryHeader.class, response.getResponseModel().getModel().getHeaders().get(0).getClass());
 		assertEquals(TimeGraphEntry.class, response.getResponseModel().getModel().getEntries().get(0).getClass());
+	}
+
+	@Test
+	public void fetchTimegraphActionTooltips() {
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
+		final String outputId = "11111111-1111-1111-1111-111111111111";
+		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/tooltip/actions",
+				TSP_EXTENSION_URL,
+				experimentUuid, outputId);
+		stubFor(post(targetUrl).willReturn(aResponse()
+				.withHeader("Content-Type", "application/json")
+				.withBodyFile(String.format("%s/fetch-timegraph-action-tooltips.json", FIXTURE_PATH))));
+
+		Body<GetTimeGraphTooltipsRequestDto> body = new Body<>();
+		TspClientResponse<GenericResponse<List<ActionDescriptor>>> response = this.timeGraphApi
+				.getTimeGraphActionTooltips(experimentUuid, outputId, body);
+
+		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
+		assertEquals(ActionDescriptor.class, response.getResponseModel().getModel().get(0).getClass());
+	}
+
+	@Test
+	public void applyTimeGraphActionTooltip() {
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
+		final String outputId = "11111111-1111-1111-1111-111111111111";
+		final String actionId = "actionId";
+		final String targetUrl = String.format("%s/experiments/%s/outputs/timeGraph/%s/tooltip/actions/%s",
+				TSP_EXTENSION_URL,
+				experimentUuid, outputId, actionId);
+		stubFor(post(targetUrl).willReturn(aResponse()
+				.withHeader("Content-Type", "application/json")
+				.withBodyFile(String.format("%s/apply-timegraph-action-tooltip.json", FIXTURE_PATH))));
+
+		Body<Map<String, Object>> body = new Body<>();
+		TspClientResponse<Void> response = this.timeGraphApi.applyTimeGraphActionTooltip(
+				experimentUuid, outputId, actionId, body);
+
+		assertEquals(Status.OK, response.getStatusCode());
+		assertEquals(null, response.getResponseModel());
 	}
 
 }

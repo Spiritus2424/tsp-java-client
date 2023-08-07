@@ -75,7 +75,7 @@ public class TimeGraphApi extends AbstractTspApi {
 	}
 
 	@Async
-	public TspClientResponse<GenericResponse<Map<String, ActionDescriptor>>> getTimeGraphActionTooltips(
+	public TspClientResponse<GenericResponse<List<ActionDescriptor>>> getTimeGraphActionTooltips(
 			final UUID experimentUuid,
 			final String outputId,
 			final Body<GetTimeGraphTooltipsRequestDto> body) {
@@ -83,15 +83,15 @@ public class TimeGraphApi extends AbstractTspApi {
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip/actions"), experimentUuid, outputId),
 						Optional.of(body),
 						this.getTypeFactory().constructParametricType(GenericResponse.class, this.getTypeFactory()
-								.constructMapType(Map.class, String.class, ActionDescriptor.class)));
+								.constructCollectionType(List.class, ActionDescriptor.class)));
 	}
 
 	@Async
-	public TspClientResponse<Void> applyTimeGraphActionTooltips(
+	public TspClientResponse<Void> applyTimeGraphActionTooltip(
 			final UUID experimentUuid,
 			final String outputId,
 			final String actionId,
-			final Body<GetTimeGraphTooltipsRequestDto> body) {
+			final Body<Map<String, Object>> body) {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip/actions/%s"), experimentUuid, outputId,
 						actionId),
