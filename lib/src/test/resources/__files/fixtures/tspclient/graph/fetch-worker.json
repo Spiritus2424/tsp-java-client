@@ -1,0 +1,10 @@
+{
+	"hostThread": {
+		"tid": 634,
+		"host": "\"aa573eff-7a82-4d29-9a41-9df81fca7502\""
+	},
+	"start": 1539975458475794576,
+	"threadName": "irq/130-iwlwifi",
+	"status": "WAIT_BLOCKED",
+	"oldStatus": "RUN"
+}
