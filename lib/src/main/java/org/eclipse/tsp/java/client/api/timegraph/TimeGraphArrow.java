@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class TimeGraphArrow {
 	@NonNull
-	private Integer sourceId;
+	private Long sourceId;
 	@NonNull
-	private Integer targetId;
+	private Long targetId;
 	@NonNull
 	private Long start;
 	@NonNull

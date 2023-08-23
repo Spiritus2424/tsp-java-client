@@ -32,7 +32,7 @@ public class UpdateExperimentRequestDto {
 		@NonNull
 		private UpdateTraceAction action = UpdateTraceAction.ADD;
 
-		private Integer timeOffset;
+		private Long timeOffset;
 	}
 
 	public enum UpdateTraceAction {

@@ -17,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Entry {
 	@NonNull
-	private Integer id;
+	private Long id;
 	@NonNull
 	private List<String> labels;
 
-	private Integer parentId;
+	private Long parentId;
 	private Boolean hasData;
 	private OutputElementStyle style;
 	private Map<String, Object> metadata;
