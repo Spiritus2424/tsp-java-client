@@ -6,7 +6,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -52,7 +51,7 @@ public class TimeGraphApiTest {
 
 		assertEquals(ResponseStatus.COMPLETED, response.getResponseModel().getStatus());
 		assertEquals(1, response.getResponseModel().getModel().size());
-		assertEquals(new BigInteger("1111111111111111111"), response.getResponseModel().getModel().get(0).getStart());
+		assertEquals(Long.valueOf("1111111111111111111"), response.getResponseModel().getModel().get(0).getStart());
 		assertEquals(OutputElementStyle.class, response.getResponseModel().getModel().get(0).getStyle().getClass());
 	}
 

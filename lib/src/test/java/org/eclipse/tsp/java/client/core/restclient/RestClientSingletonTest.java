@@ -9,7 +9,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.api.annotation.Annotation;
@@ -61,7 +60,7 @@ public class RestClientSingletonTest {
 	@Test
 	public void putMethod() {
 		stubFor(put(MOCK_RESSOURCE).willReturn(ok()));
-		Annotation annotation = new Annotation("label", BigInteger.ZERO, BigInteger.ZERO, 0, AnnotationType.CHART,
+		Annotation annotation = new Annotation("label", 0L, 0L, 0L, AnnotationType.CHART,
 				null);
 		TspClientResponse<Annotation> result = this.restClientSingleton.put(MOCK_URL,
 				annotation,
