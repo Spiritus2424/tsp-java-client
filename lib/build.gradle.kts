@@ -41,6 +41,10 @@ dependencies {
 	annotationProcessor(project(":annotationprocessor"))
 	compileOnly(project(":annotationprocessor"))
 
+	// TODO: Get intellisense for custom annotation without broking production 
+	// Uncomment to have Intellisense on Vscode, but keep it in comment when you push your code
+    // api(project(":annotationprocessor"))
+
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
 

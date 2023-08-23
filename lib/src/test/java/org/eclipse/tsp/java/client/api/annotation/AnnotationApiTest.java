@@ -6,7 +6,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.math.BigInteger;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -65,7 +64,7 @@ public class AnnotationApiTest {
 				response.getResponseModel().getModel().getAnnotations().get("Annotation category").get(0)
 						.getClass());
 		assertEquals(1, response.getResponseModel().getModel().getAnnotations().get("Annotation category").size());
-		assertEquals(new BigInteger("1111111111111111111"),
+		assertEquals(1111111111111111111L,
 				response.getResponseModel().getModel().getAnnotations().get("Annotation category").get(0)
 						.getTime());
 		assertEquals(AnnotationType.CHART,

@@ -7,7 +7,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -42,7 +41,7 @@ public class ExperimentApiTest {
 
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals(UUID.fromString("22222222-2222-2222-2222-222222222222"), response.getResponseModel().getUuid());
-		assertEquals(new BigInteger("1234567890123456789"), response.getResponseModel().getStart());
+		assertEquals(1234567890123456789L, response.getResponseModel().getStart());
 		assertEquals(IndexingStatus.COMPLETED, response.getResponseModel().getIndexingStatus());
 	}
 
@@ -58,7 +57,7 @@ public class ExperimentApiTest {
 
 		assertEquals("kernel", response.getResponseModel().getName());
 		assertEquals(experimentUuid, response.getResponseModel().getUuid());
-		assertEquals(new BigInteger("1234567890123456789"), response.getResponseModel().getStart());
+		assertEquals(1234567890123456789L, response.getResponseModel().getStart());
 		assertEquals(IndexingStatus.COMPLETED, response.getResponseModel().getIndexingStatus());
 		assertEquals(1, response.getResponseModel().getTraces().size());
 		assertEquals("kernel", response.getResponseModel().getTraces().get(0).getName());
