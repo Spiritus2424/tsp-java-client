@@ -11,6 +11,8 @@ import org.eclipse.tsp.java.client.api.experiment.ExperimentApi;
 import org.eclipse.tsp.java.client.api.experiment.ExperimentApiAsync;
 import org.eclipse.tsp.java.client.api.filter.FilterApi;
 import org.eclipse.tsp.java.client.api.filter.FilterApiAsync;
+import org.eclipse.tsp.java.client.api.graph.GraphApi;
+import org.eclipse.tsp.java.client.api.graph.GraphApiAsync;
 import org.eclipse.tsp.java.client.api.health.HealthApi;
 import org.eclipse.tsp.java.client.api.health.HealthApiAsync;
 import org.eclipse.tsp.java.client.api.markerset.MarkerSetApi;
@@ -60,6 +62,14 @@ public class TspClient {
 	private FilterApi filterApi;
 	@Getter
 	private FilterApiAsync filterApiAsync;
+
+	/*
+	 * Graph Api
+	 */
+	@Getter
+	private GraphApi graphApi;
+	@Getter
+	private GraphApiAsync graphApiAsync;
 
 	/*
 	 * Health Api
@@ -142,6 +152,9 @@ public class TspClient {
 		// Filter Api
 		this.filterApi = new FilterApi(baseUrl);
 		this.filterApiAsync = new FilterApiAsync(baseUrl, executorService);
+		// Graph Api
+		this.graphApi = new GraphApi(baseUrl);
+		this.graphApiAsync = new GraphApiAsync(baseUrl, executorService);
 		// Health Api
 		this.healthApi = new HealthApi(baseUrl);
 		this.healthApiAsync = new HealthApiAsync(baseUrl, executorService);
