@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.api.table.dto;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,13 +20,13 @@ public class GetTableLinesRequestDto {
 	private Integer requestedTableCount;
 
 	@JsonProperty("requested_times")
-	private List<BigInteger> requestedTimes;
+	private List<Long> requestedTimes;
 
 	@JsonProperty("requested_table_index")
-	private BigInteger requestedTableIndex;
+	private Long requestedTableIndex;
 
 	@JsonProperty("requested_table_column_ids")
-	private List<BigInteger> requestedTableColumnIds;
+	private List<Long> requestedTableColumnIds;
 
 	@JsonProperty("table_search_expressions")
 	private Object tableSearchExpressions;

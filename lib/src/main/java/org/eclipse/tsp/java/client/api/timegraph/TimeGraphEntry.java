@@ -1,7 +1,5 @@
 package org.eclipse.tsp.java.client.api.timegraph;
 
-import java.math.BigInteger;
-
 import org.eclipse.tsp.java.client.shared.entry.Entry;
 
 import lombok.Data;
@@ -15,9 +13,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class TimeGraphEntry extends Entry {
-    @NonNull
-    private BigInteger start;
-    @NonNull
-    private BigInteger end;
+	@NonNull
+	private Long start;
+	@NonNull
+	private Long end;
 
 }

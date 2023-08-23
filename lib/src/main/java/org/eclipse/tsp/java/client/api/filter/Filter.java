@@ -1,7 +1,5 @@
 package org.eclipse.tsp.java.client.api.filter;
 
-import java.math.BigInteger;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -16,9 +14,9 @@ public class Filter {
 	@NonNull
 	private String name;
 	@NonNull
-	private BigInteger startTime;
+	private Long startTime;
 	@NonNull
-	private BigInteger endTime;
+	private Long endTime;
 	@NonNull
 	private String expression;
 	@NonNull

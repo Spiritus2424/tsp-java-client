@@ -1,7 +1,5 @@
 package org.eclipse.tsp.java.client.api.timegraph;
 
-import java.math.BigInteger;
-
 import org.eclipse.tsp.java.client.api.style.OutputElementStyle;
 
 import lombok.AllArgsConstructor;
@@ -20,9 +18,9 @@ public class TimeGraphArrow {
 	@NonNull
 	private Integer targetId;
 	@NonNull
-	private BigInteger start;
+	private Long start;
 	@NonNull
-	private BigInteger end;
+	private Long end;
 	private OutputElementStyle style;
 
 }

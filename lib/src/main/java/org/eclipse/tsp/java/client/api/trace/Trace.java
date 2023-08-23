@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.api.trace;
 
-import java.math.BigInteger;
 import java.util.UUID;
 
 import org.eclipse.tsp.java.client.shared.indexing.IndexingStatus;
@@ -25,9 +24,9 @@ public class Trace {
 	@NonNull
 	private String name;
 	@NonNull
-	private BigInteger start;
+	private Long start;
 	@NonNull
-	private BigInteger end;
+	private Long end;
 	@NonNull
 	private String path;
 	@NonNull

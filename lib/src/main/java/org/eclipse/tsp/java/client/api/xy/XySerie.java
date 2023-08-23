@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.api.xy;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.eclipse.tsp.java.client.api.style.OutputElementStyle;
@@ -32,7 +31,7 @@ public class XySerie {
 	private XyAxis yAxis;
 	@JsonProperty("xValues")
 	@NonNull
-	private List<BigInteger> xValues;
+	private List<Long> xValues;
 	@JsonProperty("yValues")
 	@NonNull
 	private List<Double> yValues;

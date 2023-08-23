@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.shared.query;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,14 +26,14 @@ public class QueryHelper {
 		return new Query(additionalProperties);
 	}
 
-	public static Query timeQuery(List<BigInteger> requestedTimes, Map<String, Object> additionalProperties) {
+	public static Query timeQuery(List<Long> requestedTimes, Map<String, Object> additionalProperties) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(REQUESTED_TIMES_KEY, requestedTimes);
 		parameters.putAll(additionalProperties);
 		return new Query(parameters);
 	}
 
-	public static Query selectionTimeQuery(List<BigInteger> requestedTimes, List<Integer> number,
+	public static Query selectionTimeQuery(List<Long> requestedTimes, List<Integer> number,
 			Map<String, Object> additionalProperties) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(REQUESTED_TIMES_KEY, requestedTimes);
@@ -96,27 +95,27 @@ public class QueryHelper {
 		return new Query(parameters);
 	}
 
-	public static List<BigInteger> splitRangeIntoEqualParts(BigInteger start, BigInteger end, int size) {
+	public static List<Long> splitRangeIntoEqualParts(Long start, Long end, int size) {
 
 		if (start.compareTo(end) == 1) {
-			final BigInteger temp = end;
+			final Long temp = end;
 			end = start;
 			start = temp;
 		}
 
 		if (size == 0) {
-			return new ArrayList<BigInteger>();
+			return new ArrayList<Long>();
 		} else if (size == 1) {
-			return new ArrayList<BigInteger>(List.of(start));
+			return new ArrayList<Long>(List.of(start));
 		}
 
-		size = Math.min(size, end.subtract(start).add(BigInteger.ONE).intValue());
+		size = Math.min(size, Long.valueOf(end - start + 1).intValue());
 
-		final List<BigInteger> result = new ArrayList<>(size);
-		final int stepSize = Math.max(1, end.subtract(start).divide(BigInteger.valueOf(size - 1)).intValue());
+		final List<Long> result = new ArrayList<>(size);
+		final int stepSize = Math.max(1, Long.valueOf(end - start).intValue() / (size - 1));
 
 		for (int i = 0; i < size; i++) {
-			result.set(i, start.add(BigInteger.valueOf(i * stepSize)));
+			result.set(i, start + Long.valueOf(i * stepSize));
 		}
 
 		result.set(result.size() - 1, end);

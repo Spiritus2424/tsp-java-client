@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.api.timegraph.dto;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,7 +21,7 @@ public class GetTimeGraphTooltipsRequestDto {
 
 	@JsonProperty("requested_times")
 	@NonNull
-	private List<BigInteger> requestedTimes;
+	private List<Long> requestedTimes;
 
 	@JsonProperty("requested_items")
 	@NonNull
@@ -34,17 +33,17 @@ public class GetTimeGraphTooltipsRequestDto {
 	@AllArgsConstructor
 	public class Element {
 		@NonNull
-		private BigInteger time;
+		private Long time;
 
 		@NonNull
 		private ElementType elementType;
 
 		@NonNull
-		private BigInteger duration;
+		private Long duration;
 
-		private BigInteger entryId;
+		private Long entryId;
 
-		private BigInteger destinationId;
+		private Long destinationId;
 	}
 
 	public enum ElementType {

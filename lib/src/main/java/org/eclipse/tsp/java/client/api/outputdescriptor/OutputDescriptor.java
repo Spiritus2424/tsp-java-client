@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.api.outputdescriptor;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -15,18 +14,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class OutputDescriptor {
-    @NonNull
-    private String id;
-    @NonNull
-    private String name;
-    @NonNull
-    private String description;
-    @NonNull
-    private OutputDescriptorType type;
+	@NonNull
+	private String id;
+	@NonNull
+	private String name;
+	@NonNull
+	private String description;
+	@NonNull
+	private OutputDescriptorType type;
 
-    private Map<String, Object> queryParameters;
-    private BigInteger start;
-    private BigInteger end;
-    private boolean isFinal;
-    private ArrayList<String> compatibleProviders;
+	private Map<String, Object> queryParameters;
+	private Long start;
+	private Long end;
+	private boolean isFinal;
+	private ArrayList<String> compatibleProviders;
 }

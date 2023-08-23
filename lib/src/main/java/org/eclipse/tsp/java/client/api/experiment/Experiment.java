@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.api.experiment;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,11 +26,11 @@ public class Experiment {
 	@NonNull
 	private String name;
 	@NonNull
-	private BigInteger start;
+	private Long start;
 	@NonNull
-	private BigInteger end;
+	private Long end;
 	@NonNull
-	private Integer nbEvents;
+	private Long nbEvents;
 	@NonNull
 	private IndexingStatus indexingStatus;
 	@NonNull

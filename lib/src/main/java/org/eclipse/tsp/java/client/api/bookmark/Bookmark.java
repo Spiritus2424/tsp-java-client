@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.api.bookmark;
 
-import java.math.BigInteger;
 import java.util.UUID;
 
 import lombok.Data;
@@ -15,16 +14,16 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Bookmark {
 
-    @EqualsAndHashCode.Include
-    @NonNull
-    private UUID uuid;
-    @NonNull
-    private String name;
-    @NonNull
-    private BigInteger startTime;
-    @NonNull
-    private BigInteger endTime;
-    @NonNull
-    private String type;
+	@EqualsAndHashCode.Include
+	@NonNull
+	private UUID uuid;
+	@NonNull
+	private String name;
+	@NonNull
+	private Long startTime;
+	@NonNull
+	private Long endTime;
+	@NonNull
+	private String type;
 
 }

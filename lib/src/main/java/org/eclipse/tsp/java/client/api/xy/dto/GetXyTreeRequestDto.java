@@ -1,6 +1,5 @@
 package org.eclipse.tsp.java.client.api.xy.dto;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.eclipse.tsp.java.client.shared.query.QueryInterval;
@@ -17,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class GetXyTreeRequestDto {
 
 	@JsonProperty("requested_times")
-	private List<BigInteger> requestedTimes;
+	private List<Long> requestedTimes;
 
 	@JsonProperty("requested_timerange")
 	private QueryInterval requestedTimerange;
