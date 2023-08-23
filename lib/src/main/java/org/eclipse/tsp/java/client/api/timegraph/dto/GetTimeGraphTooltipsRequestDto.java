@@ -25,7 +25,7 @@ public class GetTimeGraphTooltipsRequestDto {
 
 	@JsonProperty("requested_items")
 	@NonNull
-	private List<Integer> requestedItems;
+	private List<Long> requestedItems;
 
 	@Data
 	@NoArgsConstructor

@@ -22,5 +22,5 @@ public class GetXyModelRequestDto {
 
 	@JsonProperty("requested_items")
 	@NonNull
-	private List<Integer> requestedItems;
+	private List<Long> requestedItems;
 }

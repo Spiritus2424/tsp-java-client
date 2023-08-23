@@ -23,7 +23,7 @@ public class GetAnnotationsRequestDto {
 	private QueryInterval requestedTimerange;
 
 	@JsonProperty("requested_items")
-	private List<Integer> requestedItems;
+	private List<Long> requestedItems;
 
 	@JsonProperty("requested_marker_set")
 	private String requestedMarkerSet;
