@@ -22,7 +22,7 @@ public class XySerie {
 	private String serieName;
 	@JsonProperty("seriesId")
 	@NonNull
-	private Integer serieId;
+	private Long serieId;
 	@JsonProperty("xAxis")
 	@NonNull
 	private XyAxis xAxis;
