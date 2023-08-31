@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class GetTableLinesRequestDto {
 	@JsonProperty("requested_table_count")
 	@NonNull
+	@NotNull
 	private Integer requestedTableCount;
 
 	@JsonProperty("requested_times")
