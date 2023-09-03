@@ -7,7 +7,7 @@
  */
 
 group = "org.eclipse"
-version = "v2.6.14-alpha"
+version = "v2.6.15-alpha"
 
 
 plugins {
