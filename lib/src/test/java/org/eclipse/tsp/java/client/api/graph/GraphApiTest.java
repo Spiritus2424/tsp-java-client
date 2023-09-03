@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
@@ -54,7 +55,8 @@ public class GraphApiTest {
 				.withBodyFile(String.format("%s/fetch-vertexes.json", FIXTURE_PATH))));
 
 		Body<TimeRange> body = new Body<>(new TimeRange(0L, 1L));
-		TspClientResponse<List<Vertex>> response = this.graphApi.fetchUnmatchedVertex(experimentUuid, body);
+		TspClientResponse<List<Vertex>> response = this.graphApi.fetchUnmatchedVertex(experimentUuid, body,
+				Optional.empty());
 		List<Vertex> vertexes = response.getResponseModel();
 
 		assertEquals(2, vertexes.size());
@@ -67,11 +69,12 @@ public class GraphApiTest {
 		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
 		final String targetUrl = String.format("%s/experiments/%s/graph/indexes", TSP_EXTENSION_URL, experimentUuid);
 
-		stubFor(post(targetUrl).willReturn(aResponse()
+		stubFor(get(targetUrl).willReturn(aResponse()
 				.withHeader("Content-Type", "application/json")
 				.withBodyFile(String.format("%s/fetch-indexes.json", FIXTURE_PATH))));
 
-		TspClientResponse<Map<Vertex, TcpEventKey>> response = this.graphApi.fetchVertexIndexes(experimentUuid);
+		TspClientResponse<Map<Vertex, TcpEventKey>> response = this.graphApi.fetchVertexIndexes(experimentUuid,
+				Optional.empty());
 		Map<Vertex, TcpEventKey> indexes = response.getResponseModel();
 
 		Vertex vertex = new Vertex(1539975461630457575L, 16);

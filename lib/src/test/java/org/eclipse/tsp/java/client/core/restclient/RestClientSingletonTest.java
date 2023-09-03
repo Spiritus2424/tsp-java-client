@@ -42,6 +42,7 @@ public class RestClientSingletonTest {
 		stubFor(post(MOCK_RESSOURCE).willReturn(ok()));
 		TspClientResponse<String> result = this.restClientSingleton.post(MOCK_URL,
 				Optional.empty(),
+				Optional.empty(),
 				this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(String.class));
 		assertTrue(result.isOk());
 
@@ -51,6 +52,7 @@ public class RestClientSingletonTest {
 	public void postMethodNotFound() {
 		stubFor(post(MOCK_RESSOURCE).willReturn(notFound()));
 		TspClientResponse<String> result = this.restClientSingleton.post(MOCK_URL,
+				Optional.empty(),
 				Optional.empty(),
 				this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(String.class));
 		assertTrue(!result.isOk());
@@ -64,6 +66,7 @@ public class RestClientSingletonTest {
 				null);
 		TspClientResponse<Annotation> result = this.restClientSingleton.put(MOCK_URL,
 				annotation,
+				Optional.empty(),
 				this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(Annotation.class));
 		assertTrue(result.isOk());
 	}

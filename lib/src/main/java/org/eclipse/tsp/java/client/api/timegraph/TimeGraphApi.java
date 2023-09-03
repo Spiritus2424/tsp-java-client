@@ -33,6 +33,7 @@ public class TimeGraphApi extends AbstractTspApi {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/arrows"), experimentUuid, outputId),
 						Optional.of(body),
+						Optional.empty(),
 						this.getTypeFactory().constructParametricType(GenericResponse.class,
 								this.getTypeFactory().constructCollectionType(List.class,
 										TimeGraphArrow.class)));
@@ -46,6 +47,7 @@ public class TimeGraphApi extends AbstractTspApi {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/states"), experimentUuid, outputId),
 						Optional.of(body),
+						Optional.empty(),
 						this.getTypeFactory().constructParametricType(GenericResponse.class, TimeGraphModel.class));
 	}
 
@@ -57,6 +59,7 @@ public class TimeGraphApi extends AbstractTspApi {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip"), experimentUuid, outputId),
 						Optional.of(body),
+						Optional.empty(),
 						this.getTypeFactory().constructParametricType(GenericResponse.class,
 								this.getTypeFactory().constructMapType(Map.class, String.class, String.class)));
 	}
@@ -69,6 +72,7 @@ public class TimeGraphApi extends AbstractTspApi {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tree"), experimentUuid, outputId),
 						Optional.of(body),
+						Optional.empty(),
 						this.getTypeFactory().constructParametricType(GenericResponse.class,
 								this.getTypeFactory().constructParametricType(EntryModel.class,
 										TimeGraphEntry.class)));
@@ -82,6 +86,7 @@ public class TimeGraphApi extends AbstractTspApi {
 		return this.getRestClientSingleton()
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip/actions"), experimentUuid, outputId),
 						Optional.of(body),
+						Optional.empty(),
 						this.getTypeFactory().constructParametricType(GenericResponse.class, this.getTypeFactory()
 								.constructCollectionType(List.class, ActionDescriptor.class)));
 	}
@@ -96,6 +101,7 @@ public class TimeGraphApi extends AbstractTspApi {
 				.post(String.format(this.TIME_GRAPH_API_URL.concat("/tooltip/actions/%s"), experimentUuid, outputId,
 						actionId),
 						Optional.of(body),
+						Optional.empty(),
 						this.getTypeFactory().constructType(Void.class));
 	}
 }

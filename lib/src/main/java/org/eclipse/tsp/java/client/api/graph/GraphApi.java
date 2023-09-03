@@ -1,5 +1,6 @@
 package org.eclipse.tsp.java.client.api.graph;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,20 +32,30 @@ public class GraphApi extends AbstractTspApi {
 
 	@Async
 	public TspClientResponse<List<Vertex>> fetchUnmatchedVertex(@PathParam("expUUID") UUID experimentUuid,
-			Body<TimeRange> body) {
+			Body<TimeRange> body, Optional<Direction> optionalDirection) {
+
+		Map<String, String> queryParams = new HashMap<>();
+		if (optionalDirection.isPresent()) {
+			queryParams.put("direction", optionalDirection.get().name());
+		}
 		return this.getRestClientSingleton().post(
 				String.format(this.graphApiUrl.concat("/vertexes"), experimentUuid),
 				Optional.of(body),
+				Optional.of(queryParams),
 				this.getTypeFactory().constructCollectionType(List.class, Vertex.class));
 	}
 
 	@Async
 	public TspClientResponse<Map<Vertex, TcpEventKey>> fetchVertexIndexes(
-			@PathParam("expUUID") UUID experimentUuid) {
+			UUID experimentUuid, Optional<Direction> optionalDirection) {
 
-		return this.getRestClientSingleton().post(
+		Map<String, String> queryParams = new HashMap<>();
+		if (optionalDirection.isPresent()) {
+			queryParams.put("direction", optionalDirection.get().name());
+		}
+		return this.getRestClientSingleton().get(
 				String.format(this.graphApiUrl.concat("/indexes"), experimentUuid),
-				Optional.empty(),
+				Optional.of(queryParams),
 				this.getTypeFactory().constructMapType(Map.class, Vertex.class, TcpEventKey.class));
 	}
 

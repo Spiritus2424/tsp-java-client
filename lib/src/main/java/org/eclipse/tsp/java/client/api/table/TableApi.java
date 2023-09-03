@@ -28,6 +28,7 @@ public class TableApi extends AbstractTspApi {
 		return this.getRestClientSingleton().post(
 				String.format(this.TABLE_API_URL.concat("/columns"), experimentUuid, outputId),
 				Optional.of(query),
+				Optional.empty(),
 				this.getTypeFactory().constructParametricType(GenericResponse.class,
 						this.getTypeFactory().constructCollectionType(List.class,
 								ColumnHeaderEntry.class)));
@@ -41,6 +42,7 @@ public class TableApi extends AbstractTspApi {
 		return this.getRestClientSingleton().post(
 				String.format(this.TABLE_API_URL.concat("/lines"), experimentUuid, outputId),
 				Optional.of(body),
+				Optional.empty(),
 				this.getTypeFactory().constructParametricType(GenericResponse.class, TableModel.class));
 	}
 }

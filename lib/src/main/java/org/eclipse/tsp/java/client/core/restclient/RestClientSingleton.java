@@ -39,51 +39,30 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters, JavaType javaType) {
-		WebTarget webTarget = client.target(url);
-		if (queryParameters.isPresent()) {
-			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
-				webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
-			}
-		}
-
-		Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
+		final WebTarget webTarget = client.target(url);
+		this.configureQueryParam(webTarget, queryParameters);
+		final Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
 		return createTspClientResponse(response, javaType);
 	}
 
-	public <T> TspClientResponse<T> post(String url, Optional<Object> body, JavaType javaType) {
-		Entity<Object> entity = null;
-		if (body.isPresent()) {
-			String jsonBody = null;
-			try {
-				jsonBody = objectMapper.writeValueAsString(body.get());
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-			}
-			entity = Entity.json(jsonBody);
-		}
-
-		Response response = client.target(url)
-				.request(MediaType.APPLICATION_JSON)
-				.post(entity);
-
+	public <T> TspClientResponse<T> post(String url, Optional<Object> optionalBody,
+			Optional<Map<String, String>> queryParameters, JavaType javaType) {
+		final WebTarget webTarget = client.target(url);
+		this.configureQueryParam(webTarget, queryParameters);
+		final Entity<Object> entity = this.createBodyEntity(optionalBody);
+		final Response response = webTarget.request(MediaType.APPLICATION_JSON).post(entity);
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 		return createTspClientResponse(response, javaType);
 	}
 
-	public <T> TspClientResponse<T> put(String url, Object body, JavaType javaType) {
-		String jsonBody = null;
-		try {
-			jsonBody = objectMapper.writeValueAsString(body);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		final Entity<Object> entity = Entity.json(jsonBody);
-		Response response = client
-				.target(url)
-				.request(MediaType.APPLICATION_JSON)
-				.put(entity);
+	public <T> TspClientResponse<T> put(String url, Object body, Optional<Map<String, String>> queryParameters,
+			JavaType javaType) {
+		final WebTarget webTarget = client.target(url);
+		this.configureQueryParam(webTarget, queryParameters);
+		final Entity<Object> entity = this.createBodyEntity(body == null ? Optional.empty() : Optional.of(body));
+		final Response response = webTarget.request(MediaType.APPLICATION_JSON).put(entity);
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
 		return createTspClientResponse(response, javaType);
@@ -91,14 +70,9 @@ public class RestClientSingleton {
 
 	public <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
 			JavaType javaType) {
-		WebTarget webTarget = client.target(url);
-		if (queryParameters.isPresent()) {
-			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
-				webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
-			}
-		}
-
-		Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
+		final WebTarget webTarget = client.target(url);
+		this.configureQueryParam(webTarget, queryParameters);
+		final Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
 		return createTspClientResponse(response, javaType);
@@ -110,6 +84,26 @@ public class RestClientSingleton {
 
 	public void removeConnectionStatusListener(PclConnectionStatus pclConnectionStatus) {
 		connectionStatus.removePropertyChangeListener(pclConnectionStatus);
+	}
+
+	private void configureQueryParam(WebTarget webTarget, Optional<Map<String, String>> queryParameters) {
+		if (queryParameters.isPresent()) {
+			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
+				webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
+			}
+		}
+	}
+
+	private Entity<Object> createBodyEntity(Optional<Object> body) {
+		String jsonBody = null;
+		if (body.isPresent()) {
+			try {
+				jsonBody = objectMapper.writeValueAsString(body.get());
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+		}
+		return Entity.json(jsonBody);
 	}
 
 	private synchronized <T> TspClientResponse<T> createTspClientResponse(Response response, JavaType javaType) {
@@ -132,7 +126,6 @@ public class RestClientSingleton {
 		} else {
 			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
 					response.getStatusInfo().getReasonPhrase());
-
 		}
 		return tspClientResponse;
 	}

@@ -31,6 +31,7 @@ public class XyApi extends AbstractTspApi {
 		return this.getRestClientSingleton().post(
 				String.format(this.XY_API_URL.concat("/tree"), experimentUuid, outputId),
 				Optional.of(body),
+				Optional.empty(),
 				this.getTypeFactory().constructParametricType(GenericResponse.class,
 						this.getTypeFactory().constructParametricType(EntryModel.class,
 								Entry.class)));
@@ -44,6 +45,7 @@ public class XyApi extends AbstractTspApi {
 		return this.getRestClientSingleton().post(
 				String.format(this.XY_API_URL.concat("/xy"), experimentUuid, outputId),
 				Optional.of(body),
+				Optional.empty(),
 				this.getTypeFactory().constructParametricType(GenericResponse.class, XyModel.class));
 	}
 
