@@ -39,8 +39,8 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters, JavaType javaType) {
-		final WebTarget webTarget = client.target(url);
-		this.configureQueryParam(webTarget, queryParameters);
+		WebTarget webTarget = client.target(url);
+		webTarget = this.configureQueryParam(webTarget, queryParameters);
 		final Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
@@ -49,8 +49,8 @@ public class RestClientSingleton {
 
 	public <T> TspClientResponse<T> post(String url, Optional<Object> optionalBody,
 			Optional<Map<String, String>> queryParameters, JavaType javaType) {
-		final WebTarget webTarget = client.target(url);
-		this.configureQueryParam(webTarget, queryParameters);
+		WebTarget webTarget = client.target(url);
+		webTarget = this.configureQueryParam(webTarget, queryParameters);
 		final Entity<Object> entity = this.createBodyEntity(optionalBody);
 		final Response response = webTarget.request(MediaType.APPLICATION_JSON).post(entity);
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
@@ -59,8 +59,8 @@ public class RestClientSingleton {
 
 	public <T> TspClientResponse<T> put(String url, Object body, Optional<Map<String, String>> queryParameters,
 			JavaType javaType) {
-		final WebTarget webTarget = client.target(url);
-		this.configureQueryParam(webTarget, queryParameters);
+		WebTarget webTarget = client.target(url);
+		webTarget = this.configureQueryParam(webTarget, queryParameters);
 		final Entity<Object> entity = this.createBodyEntity(body == null ? Optional.empty() : Optional.of(body));
 		final Response response = webTarget.request(MediaType.APPLICATION_JSON).put(entity);
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
@@ -70,8 +70,8 @@ public class RestClientSingleton {
 
 	public <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
 			JavaType javaType) {
-		final WebTarget webTarget = client.target(url);
-		this.configureQueryParam(webTarget, queryParameters);
+		WebTarget webTarget = client.target(url);
+		webTarget = this.configureQueryParam(webTarget, queryParameters);
 		final Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
 		checkResponseStatusCode(response.getStatusInfo().toEnum());
 
@@ -86,12 +86,14 @@ public class RestClientSingleton {
 		connectionStatus.removePropertyChangeListener(pclConnectionStatus);
 	}
 
-	private void configureQueryParam(WebTarget webTarget, Optional<Map<String, String>> queryParameters) {
+	private WebTarget configureQueryParam(WebTarget webTarget, Optional<Map<String, String>> queryParameters) {
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
 				webTarget = webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
 			}
 		}
+
+		return webTarget;
 	}
 
 	private Entity<Object> createBodyEntity(Optional<Object> body) {
