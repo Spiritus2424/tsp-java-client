@@ -89,7 +89,7 @@ public class RestClientSingleton {
 	private void configureQueryParam(WebTarget webTarget, Optional<Map<String, String>> queryParameters) {
 		if (queryParameters.isPresent()) {
 			for (Map.Entry<String, String> queryParameter : queryParameters.get().entrySet()) {
-				webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
+				webTarget = webTarget.queryParam(queryParameter.getKey(), queryParameter.getValue());
 			}
 		}
 	}
