@@ -82,4 +82,21 @@ public class GraphApiTest {
 		assertEquals(TcpEventKey.class, indexes.get(vertex).getClass());
 
 	}
+
+	@Test
+	public void fetchCriticalPath() {
+		final UUID experimentUuid = UUID.fromString("22222222-2222-2222-2222-222222222222");
+		final String targetUrl = String.format("%s/experiments/%s/graph/critical-path", TSP_EXTENSION_URL,
+				experimentUuid);
+
+		stubFor(post(targetUrl).willReturn(aResponse()
+				.withHeader("Content-Type", "application/json")
+				.withBodyFile(String.format("%s/create-critical-path.json", FIXTURE_PATH))));
+
+		TspClientResponse<GraphDto> response = this.graphApi.createCriticalPath(experimentUuid,
+				new Body<CreateCriticalPathDto>(new CreateCriticalPathDto(new Vertex(0L, 0), new Vertex(1L, 1))));
+		GraphDto graph = response.getResponseModel();
+
+		assertEquals(GraphDto.class, graph.getClass());
+	}
 }

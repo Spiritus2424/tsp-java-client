@@ -12,6 +12,8 @@ import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
 import org.eclipse.tsp.java.client.shared.query.Body;
 import org.eclipse.tsp.java.client.shared.query.TimeRange;
 
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
 public class GraphApi extends AbstractTspApi {
@@ -59,4 +61,15 @@ public class GraphApi extends AbstractTspApi {
 				this.getTypeFactory().constructMapType(Map.class, Vertex.class, TcpEventKey.class));
 	}
 
+	@Path("critical-path")
+	@POST
+	@Async
+	public TspClientResponse<GraphDto> createCriticalPath(@PathParam("expUUID") UUID experimentUuid,
+			Body<CreateCriticalPathDto> body) {
+		return this.getRestClientSingleton().post(
+				String.format(this.graphApiUrl.concat("/critical-path"), experimentUuid),
+				Optional.of(body),
+				Optional.empty(),
+				this.getTypeFactory().constructType(GraphDto.class));
+	}
 }
