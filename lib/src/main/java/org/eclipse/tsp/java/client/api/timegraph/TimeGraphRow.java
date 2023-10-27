@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class TimeGraphRow {
 	@NonNull
-	private Integer entryId;
+	private Long entryId;
 	@NonNull
 	private List<TimeGraphState> states;
 }

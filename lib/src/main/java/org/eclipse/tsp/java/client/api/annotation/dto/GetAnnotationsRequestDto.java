@@ -6,6 +6,7 @@ import org.eclipse.tsp.java.client.shared.query.QueryInterval;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,11 @@ public class GetAnnotationsRequestDto {
 
 	@JsonProperty("requested_timerange")
 	@NonNull
+	@NotNull
 	private QueryInterval requestedTimerange;
 
 	@JsonProperty("requested_items")
-	private List<Integer> requestedItems;
+	private List<Long> requestedItems;
 
 	@JsonProperty("requested_marker_set")
 	private String requestedMarkerSet;

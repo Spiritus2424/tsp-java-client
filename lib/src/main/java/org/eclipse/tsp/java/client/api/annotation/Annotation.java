@@ -1,7 +1,5 @@
 package org.eclipse.tsp.java.client.api.annotation;
 
-import java.math.BigInteger;
-
 import org.eclipse.tsp.java.client.api.style.OutputElementStyle;
 
 import lombok.AllArgsConstructor;
@@ -21,11 +19,11 @@ public class Annotation {
 	@NonNull
 	private String label;
 	@NonNull
-	private BigInteger time;
+	private Long time;
 	@NonNull
-	private BigInteger duration;
+	private Long duration;
 	@NonNull
-	private Integer entryId;
+	private Long entryId;
 	@NonNull
 	private AnnotationType type;
 

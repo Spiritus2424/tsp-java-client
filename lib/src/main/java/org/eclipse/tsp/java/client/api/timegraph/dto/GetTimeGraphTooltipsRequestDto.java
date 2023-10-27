@@ -1,10 +1,10 @@
 package org.eclipse.tsp.java.client.api.timegraph.dto;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,15 +18,18 @@ public class GetTimeGraphTooltipsRequestDto {
 
 	@JsonProperty("requested_element")
 	@NonNull
+	@NotNull
 	private Element requestedElement;
 
 	@JsonProperty("requested_times")
 	@NonNull
-	private List<BigInteger> requestedTimes;
+	@NotNull
+	private List<Long> requestedTimes;
 
 	@JsonProperty("requested_items")
 	@NonNull
-	private List<Integer> requestedItems;
+	@NotNull
+	private List<Long> requestedItems;
 
 	@Data
 	@NoArgsConstructor
@@ -34,17 +37,20 @@ public class GetTimeGraphTooltipsRequestDto {
 	@AllArgsConstructor
 	public class Element {
 		@NonNull
-		private BigInteger time;
+		@NotNull
+		private Long time;
 
 		@NonNull
+		@NotNull
 		private ElementType elementType;
 
 		@NonNull
-		private BigInteger duration;
+		@NotNull
+		private Long duration;
 
-		private BigInteger entryId;
+		private Long entryId;
 
-		private BigInteger destinationId;
+		private Long destinationId;
 	}
 
 	public enum ElementType {

@@ -1,7 +1,8 @@
 package org.eclipse.tsp.java.client.shared.query;
 
-import java.math.BigInteger;
-
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,15 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class QueryInterval {
 	@NonNull
-	private BigInteger start;
+	@NotNull
+	private Long start;
+
 	@NonNull
-	private BigInteger end;
+	@NotNull
+	private Long end;
+
+	@Min(0)
+	@Max(Integer.MAX_VALUE)
 	private Integer nbTimes;
 
 }

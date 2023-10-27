@@ -7,7 +7,7 @@
  */
 
 group = "org.eclipse"
-version = "v2.6.4-alpha"
+version = "v2.6.18-alpha"
 
 
 plugins {
@@ -41,6 +41,10 @@ dependencies {
 	annotationProcessor(project(":annotationprocessor"))
 	compileOnly(project(":annotationprocessor"))
 
+	// TODO: Get intellisense for custom annotation without broking production 
+	// Uncomment to have Intellisense on Vscode, but keep it in comment when you push your code
+    // api(project(":annotationprocessor"))
+
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
 
@@ -49,6 +53,7 @@ dependencies {
     
     // Jarkarta - HTTP implementation
     api("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
+	api("jakarta.validation:jakarta.validation-api:3.0.2")
     api("org.glassfish.jersey.core:jersey-client:3.1.1")
     api("org.glassfish.jersey.media:jersey-media-json-jackson:3.1.1")  
     implementation("org.glassfish.jersey.inject:jersey-hk2:3.1.1")
@@ -61,6 +66,10 @@ dependencies {
 
 	// Stopwatch
 	testImplementation("org.apache.commons:commons-lang3:3.12.0")
+
+	// Eclipse Annotation
+	implementation("org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.700")
+
 }
 
 tasks.test {

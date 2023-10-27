@@ -1,10 +1,10 @@
 package org.eclipse.tsp.java.client.api.table.dto;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,16 +18,17 @@ import lombok.RequiredArgsConstructor;
 public class GetTableLinesRequestDto {
 	@JsonProperty("requested_table_count")
 	@NonNull
+	@NotNull
 	private Integer requestedTableCount;
 
 	@JsonProperty("requested_times")
-	private List<BigInteger> requestedTimes;
+	private List<Long> requestedTimes;
 
 	@JsonProperty("requested_table_index")
-	private BigInteger requestedTableIndex;
+	private Long requestedTableIndex;
 
 	@JsonProperty("requested_table_column_ids")
-	private List<BigInteger> requestedTableColumnIds;
+	private List<Long> requestedTableColumnIds;
 
 	@JsonProperty("table_search_expressions")
 	private Object tableSearchExpressions;

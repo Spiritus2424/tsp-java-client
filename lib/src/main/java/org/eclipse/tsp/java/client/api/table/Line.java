@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Line {
 	@NonNull
-	private Integer index;
+	private Long index;
 	@NonNull
 	private List<Cell> cells;
 	private Integer tags;

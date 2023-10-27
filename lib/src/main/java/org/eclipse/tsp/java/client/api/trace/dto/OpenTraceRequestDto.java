@@ -1,5 +1,8 @@
 package org.eclipse.tsp.java.client.api.trace.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,12 +14,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class OpenTraceRequestDto {
-
 	@NonNull
+	@NotBlank
 	private String uri;
 
 	private String name;
 
 	private String typeId;
 
+	@Min(0)
+	@Max(3)
+	private int maxDepth;
 }

@@ -38,6 +38,7 @@ public class ExperimentApi extends AbstractTspApi {
 	public TspClientResponse<Experiment> createExperiment(final Body<CreateExperimentRequestDto> body) {
 		return this.getRestClientSingleton().post(this.EXPERIMENT_API_URL,
 				Optional.of(body),
+				Optional.empty(),
 				this.getTypeFactory().constructType(Experiment.class));
 	}
 
@@ -47,6 +48,7 @@ public class ExperimentApi extends AbstractTspApi {
 			final Body<UpdateExperimentRequestDto> body) {
 		return this.getRestClientSingleton().put(this.EXPERIMENT_API_URL,
 				Optional.of(body),
+				Optional.empty(),
 				this.getTypeFactory().constructType(Experiment.class));
 	}
 

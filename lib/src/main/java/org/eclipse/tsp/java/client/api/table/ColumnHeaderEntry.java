@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class ColumnHeaderEntry {
 	@NonNull
-	private Integer id;
+	private Long id;
 	@NonNull
 	private String name;
 

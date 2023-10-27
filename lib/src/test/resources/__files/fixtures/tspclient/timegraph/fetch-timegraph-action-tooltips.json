@@ -1,0 +1,19 @@
+{
+	"model": [
+		{
+			"id": "ActionTestId",
+			"name": "Action Name",
+			"description": "Description of the Action",
+			"targetProviderId": "target.provider.Id",
+			"providerType": "TIME_GRAPH",
+			"actionTooltipMessage": "Do Action",
+			"actionType": "INPUT_PROVIDER",
+			"inputParameters": {
+				"firstParam": 0,
+				"secondParm": 1
+			}
+		}
+	],
+	"statusMessage": "Completed",
+	"status": "COMPLETED"
+}

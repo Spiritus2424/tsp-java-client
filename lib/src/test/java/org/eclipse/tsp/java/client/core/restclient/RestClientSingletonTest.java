@@ -9,7 +9,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 import org.eclipse.tsp.java.client.api.annotation.Annotation;
@@ -43,6 +42,7 @@ public class RestClientSingletonTest {
 		stubFor(post(MOCK_RESSOURCE).willReturn(ok()));
 		TspClientResponse<String> result = this.restClientSingleton.post(MOCK_URL,
 				Optional.empty(),
+				Optional.empty(),
 				this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(String.class));
 		assertTrue(result.isOk());
 
@@ -53,6 +53,7 @@ public class RestClientSingletonTest {
 		stubFor(post(MOCK_RESSOURCE).willReturn(notFound()));
 		TspClientResponse<String> result = this.restClientSingleton.post(MOCK_URL,
 				Optional.empty(),
+				Optional.empty(),
 				this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(String.class));
 		assertTrue(!result.isOk());
 		assertTrue(result.getStatusCode().getStatusCode() == 404);
@@ -61,10 +62,11 @@ public class RestClientSingletonTest {
 	@Test
 	public void putMethod() {
 		stubFor(put(MOCK_RESSOURCE).willReturn(ok()));
-		Annotation annotation = new Annotation("label", BigInteger.ZERO, BigInteger.ZERO, 0, AnnotationType.CHART,
+		Annotation annotation = new Annotation("label", 0L, 0L, 0L, AnnotationType.CHART,
 				null);
 		TspClientResponse<Annotation> result = this.restClientSingleton.put(MOCK_URL,
 				annotation,
+				Optional.empty(),
 				this.restClientSingleton.getObjectMapper().getTypeFactory().constructType(Annotation.class));
 		assertTrue(result.isOk());
 	}

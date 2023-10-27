@@ -24,6 +24,7 @@ public class StyleApi extends AbstractTspApi {
 			final Query query) {
 		return this.getRestClientSingleton().post(String.format(this.STYLE_API_URL, experimentUuid, outputId),
 				Optional.of(query),
+				Optional.empty(),
 				this.getTypeFactory().constructParametricType(GenericResponse.class, OutputStyleModel.class));
 	}
 }
