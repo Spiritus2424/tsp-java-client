@@ -76,6 +76,8 @@ tasks.test {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 	systemProperty("concurrent", "false")
+	systemProperty("java.util.logging.config.file", System.getProperty("user.dir") + "/logging.properties")
+	systemProperty("org.eclipse.tracecompass.logging", "true")
 }
 
 tasks.jar {
