@@ -66,6 +66,10 @@ dependencies {
 
 	// Stopwatch
 	testImplementation("org.apache.commons:commons-lang3:3.12.0")
+
+	// Eclipse Annotation
+	implementation("org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.700")
+
 }
 
 tasks.test {
