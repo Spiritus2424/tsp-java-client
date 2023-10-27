@@ -2,8 +2,14 @@ package org.eclipse.tsp.java.client.core.restclient;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.tsp.java.client.core.tspclient.TspClientResponse;
+import org.eclipse.tsp.java.client.shared.tracecompass.TraceCompassLog;
+import org.eclipse.tsp.java.client.shared.tracecompass.TraceCompassLogUtils.FlowScopeLog;
+import org.eclipse.tsp.java.client.shared.tracecompass.TraceCompassLogUtils.FlowScopeLogBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
@@ -25,12 +31,14 @@ public class RestClientSingleton {
 		return instance;
 	}
 
+	private final @NonNull Logger logger;
 	@Getter
 	private final ObjectMapper objectMapper;
 	private final Client client;
 	private final ConnectionStatus connectionStatus;
 
 	private RestClientSingleton() {
+		this.logger = TraceCompassLog.getLogger(RestClientSingleton.class);
 		// Private constructor to prevent instantiation from outside
 		this.objectMapper = new ObjectMapper();
 		this.client = ClientBuilder.newClient();
@@ -39,43 +47,58 @@ public class RestClientSingleton {
 	}
 
 	public <T> TspClientResponse<T> get(String url, Optional<Map<String, String>> queryParameters, JavaType javaType) {
-		WebTarget webTarget = client.target(url);
-		webTarget = this.configureQueryParam(webTarget, queryParameters);
-		final Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
-		checkResponseStatusCode(response.getStatusInfo().toEnum());
+		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
+				"RestClientSingleton#get").setCategory(url).build()) {
+			WebTarget webTarget = client.target(url);
+			webTarget = this.configureQueryParam(webTarget, queryParameters);
+			final Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
+			checkResponseStatusCode(response.getStatusInfo().toEnum());
 
-		return createTspClientResponse(response, javaType);
+			return createTspClientResponse(response, javaType);
+		}
+
 	}
 
 	public <T> TspClientResponse<T> post(String url, Optional<Object> optionalBody,
 			Optional<Map<String, String>> queryParameters, JavaType javaType) {
-		WebTarget webTarget = client.target(url);
-		webTarget = this.configureQueryParam(webTarget, queryParameters);
-		final Entity<Object> entity = this.createBodyEntity(optionalBody);
-		final Response response = webTarget.request(MediaType.APPLICATION_JSON).post(entity);
-		checkResponseStatusCode(response.getStatusInfo().toEnum());
-		return createTspClientResponse(response, javaType);
+		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
+				"RestClientSingleton#post").setCategory(url).build()) {
+			WebTarget webTarget = client.target(url);
+			webTarget = this.configureQueryParam(webTarget, queryParameters);
+			final Entity<Object> entity = this.createBodyEntity(optionalBody);
+			final Response response = webTarget.request(MediaType.APPLICATION_JSON).post(entity);
+			checkResponseStatusCode(response.getStatusInfo().toEnum());
+			return createTspClientResponse(response, javaType);
+		}
 	}
 
 	public <T> TspClientResponse<T> put(String url, Object body, Optional<Map<String, String>> queryParameters,
 			JavaType javaType) {
-		WebTarget webTarget = client.target(url);
-		webTarget = this.configureQueryParam(webTarget, queryParameters);
-		final Entity<Object> entity = this.createBodyEntity(body == null ? Optional.empty() : Optional.of(body));
-		final Response response = webTarget.request(MediaType.APPLICATION_JSON).put(entity);
-		checkResponseStatusCode(response.getStatusInfo().toEnum());
+		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
+				"RestClientSingleton#put").setCategory(url).build()) {
+			WebTarget webTarget = client.target(url);
+			webTarget = this.configureQueryParam(webTarget, queryParameters);
+			final Entity<Object> entity = this.createBodyEntity(body == null ? Optional.empty() : Optional.of(body));
+			final Response response = webTarget.request(MediaType.APPLICATION_JSON).put(entity);
+			checkResponseStatusCode(response.getStatusInfo().toEnum());
 
-		return createTspClientResponse(response, javaType);
+			return createTspClientResponse(response, javaType);
+
+		}
+
 	}
 
 	public <T> TspClientResponse<T> delete(String url, Optional<Map<String, String>> queryParameters,
 			JavaType javaType) {
-		WebTarget webTarget = client.target(url);
-		webTarget = this.configureQueryParam(webTarget, queryParameters);
-		final Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
-		checkResponseStatusCode(response.getStatusInfo().toEnum());
+		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
+				"RestClientSingleton#delete").setCategory(url).build()) {
+			WebTarget webTarget = client.target(url);
+			webTarget = this.configureQueryParam(webTarget, queryParameters);
+			final Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
+			checkResponseStatusCode(response.getStatusInfo().toEnum());
 
-		return createTspClientResponse(response, javaType);
+			return createTspClientResponse(response, javaType);
+		}
 	}
 
 	public void addConnectionStatusListener(PclConnectionStatus pclConnectionStatus) {
@@ -97,39 +120,45 @@ public class RestClientSingleton {
 	}
 
 	private Entity<Object> createBodyEntity(Optional<Object> body) {
-		String jsonBody = null;
-		if (body.isPresent()) {
-			try {
-				jsonBody = objectMapper.writeValueAsString(body.get());
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
+		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
+				"RestClientSingleton#createBodyEntity").build()) {
+			String jsonBody = null;
+			if (body.isPresent()) {
+				try {
+					jsonBody = objectMapper.writeValueAsString(body.get());
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
 			}
+			return Entity.json(jsonBody);
 		}
-		return Entity.json(jsonBody);
 	}
 
 	private synchronized <T> TspClientResponse<T> createTspClientResponse(Response response, JavaType javaType) {
-		TspClientResponse<T> tspClientResponse = null;
+		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
+				"RestClientSingleton#get").setCategory(javaType.getTypeName()).build()) {
+			TspClientResponse<T> tspClientResponse = null;
+			if (response.hasEntity() && isResponseSuccess(response.getStatus())) {
+				String jsonEntity = response.readEntity(String.class);
+				T entity = null;
+				try {
+					entity = objectMapper.readValue(jsonEntity, javaType);
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
 
-		if (response.hasEntity() && isResponseSuccess(response.getStatus())) {
-			String jsonEntity = response.readEntity(String.class);
-			T entity = null;
-			try {
-				entity = objectMapper.readValue(jsonEntity, javaType);
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
+				tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+						response.getStatusInfo().getReasonPhrase(), entity);
+			} else if (response.hasEntity()) {
+				tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+						response.getStatusInfo().getReasonPhrase().concat(": ")
+								.concat(response.readEntity(String.class)));
+			} else {
+				tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
+						response.getStatusInfo().getReasonPhrase());
 			}
-
-			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-					response.getStatusInfo().getReasonPhrase(), entity);
-		} else if (response.hasEntity()) {
-			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-					response.getStatusInfo().getReasonPhrase().concat(": ").concat(response.readEntity(String.class)));
-		} else {
-			tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
-					response.getStatusInfo().getReasonPhrase());
+			return tspClientResponse;
 		}
-		return tspClientResponse;
 	}
 
 	private void checkResponseStatusCode(Status status) {
