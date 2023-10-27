@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 
-package org.eclipse.tsp.java.client.shared.log;
+package org.eclipse.tsp.java.client.shared.tracecompass;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
