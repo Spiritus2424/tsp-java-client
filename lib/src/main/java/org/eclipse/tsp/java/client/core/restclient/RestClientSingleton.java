@@ -136,7 +136,7 @@ public class RestClientSingleton {
 
 	private synchronized <T> TspClientResponse<T> createTspClientResponse(Response response, JavaType javaType) {
 		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
-				"RestClientSingleton#get").setCategory(javaType.getTypeName()).build()) {
+				"RestClientSingleton#createTspClientResponse").setCategory(javaType.getTypeName()).build()) {
 			TspClientResponse<T> tspClientResponse = null;
 			if (response.hasEntity() && isResponseSuccess(response.getStatus())) {
 				String jsonEntity = response.readEntity(String.class);
