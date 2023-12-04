@@ -139,8 +139,11 @@ public class RestClientSingleton {
 				"RestClientSingleton#createTspClientResponse").setCategory(javaType.getTypeName()).build()) {
 			TspClientResponse<T> tspClientResponse = null;
 			if (response.hasEntity() && isResponseSuccess(response.getStatus())) {
+				flowScopeLog.step("ReadEntityString");
 				String jsonEntity = response.readEntity(String.class);
+
 				T entity = null;
+				flowScopeLog.step("ObjectMapperJavatype");
 				try {
 					entity = objectMapper.readValue(jsonEntity, javaType);
 				} catch (JsonProcessingException e) {
