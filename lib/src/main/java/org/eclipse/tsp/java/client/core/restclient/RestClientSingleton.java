@@ -139,15 +139,22 @@ public class RestClientSingleton {
 				"RestClientSingleton#createTspClientResponse").setCategory(javaType.getTypeName()).build()) {
 			TspClientResponse<T> tspClientResponse = null;
 			if (response.hasEntity() && isResponseSuccess(response.getStatus())) {
-				flowScopeLog.step("ReadEntityString");
-				String jsonEntity = response.readEntity(String.class);
+				String jsonEntity = null;
+				try (FlowScopeLog flowScopeLogReadEntityString = new FlowScopeLogBuilder(this.logger, Level.FINE,
+						"RestClientSingleton#createTspClientResponse:ReadEntityString")
+						.setCategory(javaType.getTypeName()).build()) {
+					jsonEntity = response.readEntity(String.class);
+				}
 
 				T entity = null;
-				flowScopeLog.step("ObjectMapperJavatype");
-				try {
-					entity = objectMapper.readValue(jsonEntity, javaType);
-				} catch (JsonProcessingException e) {
-					e.printStackTrace();
+				try (FlowScopeLog flowScopeLogReadEntityString = new FlowScopeLogBuilder(this.logger, Level.FINE,
+						"RestClientSingleton#createTspClientResponse:objectMapper")
+						.setCategory(javaType.getTypeName()).build()) {
+					try {
+						entity = objectMapper.readValue(jsonEntity, javaType);
+					} catch (JsonProcessingException e) {
+						e.printStackTrace();
+					}
 				}
 
 				tspClientResponse = new TspClientResponse<T>(response.getStatusInfo().toEnum(),
