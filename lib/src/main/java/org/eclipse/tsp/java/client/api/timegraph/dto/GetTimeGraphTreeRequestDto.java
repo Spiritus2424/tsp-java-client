@@ -1,6 +1,6 @@
 package org.eclipse.tsp.java.client.api.timegraph.dto;
 
-import java.util.List;
+import org.eclipse.tsp.java.client.shared.query.TimeRange;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,8 +14,9 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetTimeGraphTreeRequestDto {
-	@JsonProperty("requested_times")
+
+	@JsonProperty("requested_timerange")
 	@NonNull
 	@NotNull
-	private List<Long> requestedTimes;
+	public TimeRange requestedTimerange;
 }
