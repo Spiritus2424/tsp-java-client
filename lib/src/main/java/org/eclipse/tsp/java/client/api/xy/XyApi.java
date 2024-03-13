@@ -54,7 +54,7 @@ public class XyApi extends AbstractTspApi {
 			final String outputId,
 			final Body<GetXyModelRequestDto> body) {
 		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
-				"XyApi#getXyTree").setCategory(outputId).build()) {
+				"XyApi#getXy").setCategory(outputId).build()) {
 			return this.getRestClientSingleton().post(
 					String.format(this.XY_API_URL.concat("/xy"), experimentUuid, outputId),
 					Optional.of(body),
@@ -71,7 +71,7 @@ public class XyApi extends AbstractTspApi {
 			final Optional<Integer> yValue,
 			final Optional<String> seriesId) {
 		try (FlowScopeLog flowScopeLog = new FlowScopeLogBuilder(this.logger, Level.FINE,
-				"XyApi#getXyTree").setCategory(outputId).build()) {
+				"XyApi#getXyTooltips").setCategory(outputId).build()) {
 			Map<String, String> queryParameters = new HashMap<String, String>();
 			if (yValue.isPresent()) {
 				queryParameters.put("yValue", yValue.get().toString());
