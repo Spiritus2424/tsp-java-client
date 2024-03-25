@@ -51,7 +51,11 @@ public class RestClientSingleton {
 				"RestClientSingleton#get").setCategory(url).build()) {
 			WebTarget webTarget = client.target(url);
 			webTarget = this.configureQueryParam(webTarget, queryParameters);
-			final Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
+			Response response = null;
+			try (FlowScopeLog network = new FlowScopeLogBuilder(this.logger, Level.FINE, "Network").setCategory(url)
+					.build()) {
+				response = webTarget.request(MediaType.APPLICATION_JSON).get();
+			}
 			checkResponseStatusCode(response.getStatusInfo().toEnum());
 
 			return createTspClientResponse(response, javaType);
@@ -66,7 +70,12 @@ public class RestClientSingleton {
 			WebTarget webTarget = client.target(url);
 			webTarget = this.configureQueryParam(webTarget, queryParameters);
 			final Entity<Object> entity = this.createBodyEntity(optionalBody);
-			final Response response = webTarget.request(MediaType.APPLICATION_JSON).post(entity);
+
+			Response response = null;
+			try (FlowScopeLog network = new FlowScopeLogBuilder(this.logger, Level.FINE, "Network").setCategory(url)
+					.build()) {
+				response = webTarget.request(MediaType.APPLICATION_JSON).post(entity);
+			}
 			checkResponseStatusCode(response.getStatusInfo().toEnum());
 			return createTspClientResponse(response, javaType);
 		}
@@ -79,7 +88,11 @@ public class RestClientSingleton {
 			WebTarget webTarget = client.target(url);
 			webTarget = this.configureQueryParam(webTarget, queryParameters);
 			final Entity<Object> entity = this.createBodyEntity(body == null ? Optional.empty() : Optional.of(body));
-			final Response response = webTarget.request(MediaType.APPLICATION_JSON).put(entity);
+			Response response = null;
+			try (FlowScopeLog network = new FlowScopeLogBuilder(this.logger, Level.FINE, "Network").setCategory(url)
+					.build()) {
+				response = webTarget.request(MediaType.APPLICATION_JSON).put(entity);
+			}
 			checkResponseStatusCode(response.getStatusInfo().toEnum());
 
 			return createTspClientResponse(response, javaType);
@@ -94,7 +107,12 @@ public class RestClientSingleton {
 				"RestClientSingleton#delete").setCategory(url).build()) {
 			WebTarget webTarget = client.target(url);
 			webTarget = this.configureQueryParam(webTarget, queryParameters);
-			final Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
+
+			Response response = null;
+			try (FlowScopeLog network = new FlowScopeLogBuilder(this.logger, Level.FINE, "Network").setCategory(url)
+					.build()) {
+				response = webTarget.request(MediaType.APPLICATION_JSON).delete();
+			}
 			checkResponseStatusCode(response.getStatusInfo().toEnum());
 
 			return createTspClientResponse(response, javaType);
@@ -148,7 +166,7 @@ public class RestClientSingleton {
 
 				T entity = null;
 				try (FlowScopeLog flowScopeLogReadEntityString = new FlowScopeLogBuilder(this.logger, Level.FINE,
-						"RestClientSingleton#createTspClientResponse:objectMapper")
+						"RestClientSingleton#createTspClientResponse:deserialize")
 						.setCategory(javaType.getTypeName()).build()) {
 					try {
 						entity = objectMapper.readValue(jsonEntity, javaType);
